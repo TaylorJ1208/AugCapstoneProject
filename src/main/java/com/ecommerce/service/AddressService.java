@@ -1,31 +1,39 @@
 package com.ecommerce.service;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.model.Address;
 import com.ecommerce.repo.AddressRepo;
 
+@Service
 public class AddressService {
 
+	@Autowired
 	private AddressRepo addressRepo;
 	
 	public List<Address> getAllAddresses() {
 		return addressRepo.findAll();
 	}
 	
-	public Optional<Address> getAddressById(Long id) {
-		return addressRepo.findById(id);
+	public Address getAddressById(Long id) {
+		return addressRepo.findById(id)
+				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Address not found with id : "+id) );
 	}
 	
 	public void addAddress(Address address) {
 		addressRepo.save(address);
 	}
 	
-	public void updateAddress(Address address, Long id) {
-		if(addressRepo.findById(id).isPresent()) {
-			addressRepo.save(address);
-		}
+	public Address updateAddress(Address address) {
+		addressRepo
+		.findById(address.getAddressId())
+		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Address not found with id : "+address.getAddressId()) );
+	return addressRepo.save(address);
 	}
 	
 	public void deleteAddressById(Long id) {

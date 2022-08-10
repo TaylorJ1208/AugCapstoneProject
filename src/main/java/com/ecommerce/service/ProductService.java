@@ -1,32 +1,39 @@
 package com.ecommerce.service;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.model.Product;
 import com.ecommerce.repo.ProductRepo;
 
+@Service
 public class ProductService {
 	
+	@Autowired
 	private ProductRepo productRepo;
 	
 	public List<Product> getAllProducts() {
 		return productRepo.findAll();
 	}
 	
-	public Optional<Product> getProductById(Long id) {
-		return productRepo.findById(id);
+	public Product getProductById(Long id) {
+		return productRepo.findById(id)
+				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found with id : "+id) );
 	}
 	
 	public void addProduct(Product product) {
 		productRepo.save(product);
 	}
 
-	public void updateProduct(Product product, Long id) {
-		if(productRepo.findById(id).isPresent()) {
-			productRepo.save(product);
-		}
-		return;
+	public Product updateProduct(Product product) {
+		productRepo
+			.findById(product.getProductId())
+			.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found with id : "+product.getProductId()) );
+		return productRepo.save(product);
 	}
 	
 	public void deleteProduct(Long id) {

@@ -3,6 +3,7 @@ package com.ecommerce.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +30,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,5 +53,5 @@ public class Orders {
 	@JoinTable(name="orders_product",
 			joinColumns= {@JoinColumn(name="orderId")},
 			inverseJoinColumns= {@JoinColumn(name="productId")})
-	private Set<Product> products = new HashSet<>();
+	private List<Product> products;
 }
