@@ -2,6 +2,7 @@ package com.ecommerce.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,11 @@ public class OrdersController {
 	@PostMapping("/add")
 	public void addorder(@RequestBody Orders order) {
 		orderService.addOrder(order);
+	}
+	
+	@PostMapping("/{orderId}/product/{productId}")
+	public void addProductToOrder(@PathVariable Long orderId, @PathVariable Long productId) throws Exception {
+		orderService.addProductToOrder(orderId, productId);
 	}
 	
 	@PutMapping("/update")

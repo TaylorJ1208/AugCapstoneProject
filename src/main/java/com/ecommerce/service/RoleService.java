@@ -40,4 +40,9 @@ public class RoleService {
 		roleRepo.deleteById(id);
 	}
 	
+	public Role getRoleByName(String name) {
+		return roleRepo.getRoleByName(name);
+	}
+	
+	
 }

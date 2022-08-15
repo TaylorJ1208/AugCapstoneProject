@@ -30,7 +30,7 @@ public class ProductCategory {
 	private long categoryId;
 	@Column(nullable=false, length=45, updatable=true)
 	private String category;
-	@OneToMany(mappedBy="category", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="category", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Product> products;// HAS A
 

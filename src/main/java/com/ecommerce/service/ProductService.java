@@ -39,4 +39,8 @@ public class ProductService {
 	public void deleteProduct(Long id) {
 		productRepo.deleteById(id);
 	}
+	
+	public void deleteProductFromOrder(Long id) {
+		
+	}
 }

@@ -3,6 +3,7 @@ package com.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.email.EmailService;
 import com.ecommerce.model.User;
+import com.ecommerce.service.RoleService;
 import com.ecommerce.service.UserService;
+import com.taylor.common.UserDefault;
 
 @RestController
 @RequestMapping("/user")
@@ -22,27 +26,45 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/{id}")
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@GetMapping("/admin/{id}")
 	public User getUser(@PathVariable Long id) {
 		return userService.getUserById(id);
 	}
 	
-	@GetMapping()
+	@GetMapping("/admin")
 	public List<User> getUsers() {
 		return userService.getAllUsers();
 	}
 	
-	@PostMapping("/add")
-	public void addUser(@RequestBody User user) {
+	@PostMapping("/customer/register")
+	public void addUser(@RequestBody User user) throws Exception {
+		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encryptPassword);
 		userService.addUser(user);
+		emailService.sendEmail(user);
+		userService.addRoleToUser(user.getUserId(), roleService.getRoleByName(UserDefault.DEFAULT_ROLE).getRoleId());
 	}
 	
-	@PutMapping("/update")
+	@PostMapping("/admin/{userId}/role/{roleId}")
+	public void addRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) throws Exception {
+		userService.addRoleToUser(userId, roleId);
+	}
+	
+	@PutMapping("/customer/update")
 	public void updateUser(@RequestBody User user) {
 		userService.updateUser(user);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/customer/delete/{id}")
 	public void deleteUser(@PathVariable Long id) {
 		userService.deleteUserById(id);
 	}

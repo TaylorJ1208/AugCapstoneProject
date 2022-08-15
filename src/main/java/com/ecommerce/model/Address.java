@@ -1,6 +1,5 @@
 package com.ecommerce.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -41,6 +39,6 @@ public class Address {
 	private String apartmentNumber;
 	// M2O relationship between User entity and Address entity
 	@ManyToOne()
-	@JoinColumn(nullable=false, name="userId", referencedColumnName="userId")
+	@JoinColumn(nullable=false, name="userId")
 	private User user;
 }

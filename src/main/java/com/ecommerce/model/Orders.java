@@ -2,11 +2,8 @@ package com.ecommerce.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -49,9 +45,9 @@ public class Orders {
 	private String billingAddress;
 	@Column(nullable=false, length=100)
 	private String shippingAddress;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany()
 	@JoinTable(name="orders_product",
-			joinColumns= {@JoinColumn(name="orderId")},
-			inverseJoinColumns= {@JoinColumn(name="productId")})
-	private List<Product> products;
+	joinColumns= @JoinColumn(name="productId"),
+	inverseJoinColumns= @JoinColumn(name="ordersId"))
+	List<Product> products;
 }

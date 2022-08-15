@@ -3,6 +3,7 @@ package com.ecommerce.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,11 +47,11 @@ public class Product {
 	@Lob
 	@Column(nullable=false)
 	private String image;
-	@ManyToMany(mappedBy="products")
-	private List<Orders> orders;
-	@ManyToOne()
-	@JoinColumn(nullable=false, name="categoryId", referencedColumnName="categoryId")
+	@ManyToMany(mappedBy="products", cascade = {CascadeType.ALL})
 	@JsonIgnore
+	List<Orders> orders;
+	@ManyToOne()
+	@JoinColumn(nullable=false, name="categoryId")
 	private ProductCategory category;
 	
 }

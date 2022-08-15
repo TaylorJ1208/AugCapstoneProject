@@ -8,13 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.model.Orders;
+import com.ecommerce.model.Product;
 import com.ecommerce.repo.OrdersRepo;
+import com.ecommerce.repo.ProductRepo;
 
 @Service
 public class OrderService {
 
 	@Autowired
 	private OrdersRepo ordersRepo;
+	
+	@Autowired
+	private ProductRepo productRepo;
 	
 	public List<Orders> getAllOrders() {
 		return ordersRepo.findAll();
@@ -38,6 +43,17 @@ public class OrderService {
 	
 	public void deleteOrder(Long id) {
 		ordersRepo.deleteById(id);
+	}
+	
+	public void addProductToOrder(Long orderId, Long productId) throws Exception {
+		Orders order = ordersRepo.findById(orderId)
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Order not found with id : "+orderId));
+		Product product = productRepo.findById(productId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found with id : "+productId));
+		order.getProducts().add(product);
+		product.getOrders().add(order);
+		ordersRepo.save(order);
+		productRepo.save(product);
 	}
 	
 }
