@@ -16,33 +16,33 @@ import com.ecommerce.model.Product;
 import com.ecommerce.service.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/catalog")
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("/{id}")
+	@GetMapping("/customer/{id}")
 	public Product getproduct(@PathVariable Long id) {
 		return productService.getProductById(id);
 	}
 	
-	@GetMapping()
+	@GetMapping("/customer")
 	public List<Product> getproducts() {
 		return productService.getAllProducts();
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/admin/add")
 	public void addproduct(@RequestBody Product product) {
 		productService.addProduct(product);
 	}
 	
-	@PutMapping("/update")
+	@PutMapping("/admin/update")
 	public void updateproduct(@RequestBody Product product) {
 		productService.updateProduct(product);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("admin/delete/{id}")
 	public void deleteproduct(@PathVariable Long id) {
 		productService.deleteProduct(id);
 	}
