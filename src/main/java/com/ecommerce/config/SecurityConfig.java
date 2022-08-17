@@ -8,8 +8,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.context.annotation.Configuration;
+
 import com.ecommerce.service.UserService;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,8 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable();//csrf->cross site request forgery
-	    http.authorizeRequests().antMatchers("/user/customer/**").permitAll().and().authorizeRequests()
-	            .antMatchers("/user/**", "/product/admin/**").hasAuthority("ROLE_ADMIN").and().httpBasic().and().formLogin();
+	    http.authorizeRequests().antMatchers("/user/customer/**", "catalog/customer/**","orders/customer").permitAll().and().authorizeRequests()
+	            .antMatchers("/user/admin/**", "/catalog/admin/**", "/orders/admin/**").hasAuthority("ROLE_ADMIN").and().httpBasic().and().formLogin();
 	}
 	
 	

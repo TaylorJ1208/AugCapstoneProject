@@ -23,12 +23,12 @@ public class OrdersController {
 	@Autowired
 	private OrderService orderService;
 	
-	@GetMapping("/{id}")
+	@GetMapping("/admin/{id}")
 	public Orders getorder(@PathVariable Long id) {
 		return orderService.getOrderById(id);
 	}
 	
-	@GetMapping()
+	@GetMapping("/admin")
 	public List<Orders> getorders() {
 		return orderService.getAllOrders();
 	}
