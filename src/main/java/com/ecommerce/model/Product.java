@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,6 +32,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="productId")
 	private long productId;
 	// Unique to reduce possibility of same product input
 	@Column(nullable=false, unique=true)
@@ -53,5 +55,8 @@ public class Product {
 	@ManyToOne()
 	@JoinColumn(nullable=false, name="categoryId")
 	private ProductCategory category;
+	@OneToMany(mappedBy="product")
+	@JsonIgnore
+	private List<UserCart> userCart;
 	
 }
