@@ -37,11 +37,11 @@ public class ProductService {
 		return productRepo.save(product);
 	}
 	
-	public void deleteProduct(Long id) {
+	public void deleteProductById(Long id) {
 		productRepo.deleteById(id);
 	}
 	
-	public void deleteProductFromOrder(Long id) {
-		
+	public List<Product> getProductByName(String name) {
+		return productRepo.getProductsByName(name);
 	}
 }

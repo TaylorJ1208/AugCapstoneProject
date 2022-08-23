@@ -35,7 +35,7 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 	
-	@GetMapping("/admin/{id}")
+	@GetMapping("/customer/{id}")
 	public User getUser(@PathVariable Long id) {
 		return userService.getUserById(id);
 	}
