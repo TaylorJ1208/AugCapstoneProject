@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+    .nav {
+        font-weight: bold;
+    }
+
+    .nav-link:hover {
+        background-color: cornsilk;
+        transition: 0.3s;
+    }
+
+    .b {
+        background-color: cornsilk;
+    }
+}
