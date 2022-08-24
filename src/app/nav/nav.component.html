@@ -2,7 +2,7 @@
     <div class="container-fluid p-0 b">
         <ul class="nav d-flex flex-nowrap">
             <li class="nav-item">
-                <a routerLinkActive="active" routerLink="home" class="navbar-brand h-100 bg-light" style="padding-right: 1em; padding-left: 1em;"><span
+                <a routerLinkActive="active" routerLink="home" class="navbar-brand h-100 bg-white" style="padding-right: 1em; padding-left: 1em;"><span
                         class="text-info">Ecom</span>merce</a>
             </li>
             <li class="nav-item p-1">
@@ -25,7 +25,7 @@
                 </select>
 
                 <input class="form-control" type="text" [(ngModel)]="searchString"
-                    (keyup.enter)="searchProducts()" name="categories"
+                    (keyup.enter)="searchProducts()" (keyup.enter)="routeToResult()" name="categories"
                     placeholder="See what you'll find">
             </button>
 

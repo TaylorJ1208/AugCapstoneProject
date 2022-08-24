@@ -21,9 +21,12 @@ export class NavComponent implements OnInit {
   searchProducts(): void {
     if (this.searchString) {
       localStorage.setItem("1", this.searchString)
-      this.route.navigate(['result']);
     }
     this.navService.getProductSearch(localStorage.getItem("1"));
   }
 
+  routeToResult():void {
+    this.route.navigate(['result']);
+  }
+  
 }

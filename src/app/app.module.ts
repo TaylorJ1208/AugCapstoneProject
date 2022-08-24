@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NavComponent } from './nav/nav.component';
 import { ResultPageComponent } from './result-page/result-page.component';
+import { CategoryNavComponent } from './category-nav/category-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     NavComponent,
-    ResultPageComponent
+    ResultPageComponent,
+    CategoryNavComponent
   ],
   imports: [
     BrowserModule,
