@@ -9,22 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  searchString: string = "";
-  constructor(private navService: NavService, private productService: ProductService, private route: Router) { 
-
-     }
-
-  ngOnInit(): void {
+  searchString: any = "";
+  constructor(private navService: NavService, private productService: ProductService, private route: Router) {
 
   }
 
-  getProductsByName(name: string) {
-    this.productService.getProductByName(name)
-        .subscribe((data: any) => {
-            this.navService.productSearch = data;
-            console.log(this.navService.productSearch);
-        })
-        this.route.navigate(['result']);
-}
+  ngOnInit(): void {
+    this.searchProducts();
+  }
+
+  searchProducts(): void {
+    if (this.searchString) {
+      localStorage.setItem("1", this.searchString)
+      this.route.navigate(['result']);
+    }
+    this.navService.getProductSearch(localStorage.getItem("1"));
+  }
 
 }

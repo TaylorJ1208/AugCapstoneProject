@@ -5,8 +5,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
   { path: "result", component: ResultPageComponent },
-  { path: "", component: HomePageComponent },
-  { path: "**", redirectTo: "" }];
+  { path: "home", component: HomePageComponent },
+  { path: "**", redirectTo: "home" }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

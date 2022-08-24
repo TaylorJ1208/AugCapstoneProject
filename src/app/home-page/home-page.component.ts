@@ -14,15 +14,16 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    console.log(this.products);
   }
 
   getProducts() {
     this.productService.getAllProducts()
-      .subscribe((data: any) => {
+      .subscribe({ next: (data: Product[]) => {
         console.log(data);
         this.products = data;
-      })
-  }
+      },
+      error: (e) => console.error(e)});
+    }
+  
 
 }
