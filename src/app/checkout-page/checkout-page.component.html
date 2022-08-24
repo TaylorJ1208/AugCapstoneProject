@@ -1,0 +1,119 @@
+<div class="container-fluid text-center m-3">
+    <h1>Checkout</h1>
+</div>
+<div class="px-4">
+    <div class="d-flex flex-row">
+        <div class="accordion accordion-flush mt-3 col-md-8" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed shadow-sm" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <div>
+                            <b>Shipping & Billing Address</b>
+                        </div>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse shadow-sm"
+                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="d-flex flex-row">
+                                <div class="form-group col-md-9 pe-3">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control" id="inputAddress"
+                                        placeholder="123 Main St" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputAddress2">Apt No.</label>
+                                    <input type="text" class="form-control" id="inputAddress2" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="form-group col-md-4 pe-3">
+                                    <label for="inputEmail4">City</label>
+                                    <input type="email" class="form-control" id="inputEmail4" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">State</label>
+                                    <input type="password" class="form-control" id="inputPassword4" />
+                                </div>
+                                <div class="form-group col-md-2 ps-3">
+                                    <label for="inputZip">Zip</label>
+                                    <input type="text" class="form-control" id="inputZip" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">Country</label>
+                                    <input type="text" class="form-control" style="margin-bottom: 20px;"
+                                        id="inputCity" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header shadow-sm" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <b>Payment Information</b>
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse shadow-sm"
+                    aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="form-group col-md-8 pe-3">
+                                <label for="inputAddress">Card Owner</label>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="" />
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="form-group col-md-5 pe-3">
+                                    <label for="inputAddress">Expiration Date</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="cardNumber">CVV</label>
+                                    <input type="text" class="form-control mb-3" id="cardNumber" placeholder="" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header shadow-sm" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <b>Checkout</b>
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse shadow-sm"
+                    aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form>
+                            <p>Here the user will be able to review information, and once they confirmed the checkout button will be pressed.</p>
+                            <div class="d-flex flex-row container-fluid justify-content-center">
+                                <div class="form-group col-md-3">
+                                    <button>Checkout</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card text-white bg-white mb-3 ms-3 mt-3" style="height: 400px">
+            <div class="card-header text-dark text-center">Cart</div>
+            <div class="card-body">
+                <h5 class="card-title text-dark">This will show the current items in cart before checkout.</h5>
+                <p class="card-text text-dark"></p>
+            </div>
+        </div>
+    </div>
+</div>
