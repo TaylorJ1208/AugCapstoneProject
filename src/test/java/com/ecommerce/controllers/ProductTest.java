@@ -47,7 +47,7 @@ public class ProductTest {
 		ProductCategory category = new ProductCategory();
 		
 		Product product = new Product(1L, "Shoes", "A pair of shoes", new BigDecimal(15.99), 
-				new BigDecimal(15), 12L, "http", order, category);
+				new BigDecimal(15), 12L, "http", order, category, null);
 		
 		// List to compare
 		List<Product> products = new ArrayList<>();

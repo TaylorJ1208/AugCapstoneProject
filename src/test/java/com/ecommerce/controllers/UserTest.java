@@ -58,7 +58,7 @@ public class UserTest {
 		List<Address> addresses = new ArrayList<>();
 		
 		User user = new User(1L, "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
-				orders, roles, addresses);
+				orders, roles, addresses, null);
 		
 		// List to compare
 		List<User> users = new ArrayList<>();
