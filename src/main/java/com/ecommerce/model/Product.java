@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -49,6 +50,9 @@ public class Product {
 	@Lob
 	@Column(nullable=false)
 	private String image;
+	@Column(nullable=false)
+	@Max(5L)
+	private long rating;
 	@ManyToMany(mappedBy="products", cascade = {CascadeType.ALL})
 	@JsonIgnore
 	List<Orders> orders;

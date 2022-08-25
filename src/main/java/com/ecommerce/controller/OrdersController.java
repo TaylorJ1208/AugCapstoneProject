@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Orders;
-import com.ecommerce.model.UserCart;
-import com.ecommerce.repo.UserCartRepo;
 import com.ecommerce.service.OrderService;
 
 @RestController

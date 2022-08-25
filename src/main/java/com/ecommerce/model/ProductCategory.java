@@ -28,7 +28,7 @@ public class ProductCategory {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long categoryId;
-	@Column(nullable=false, length=45, updatable=true)
+	@Column(nullable=false, length=45, updatable=true, unique=true)
 	private String category;
 	@OneToMany(mappedBy="category", cascade = CascadeType.ALL)
 	@JsonIgnore
