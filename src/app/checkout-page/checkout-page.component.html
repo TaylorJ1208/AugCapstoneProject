@@ -17,36 +17,45 @@
                     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
                     <div class="accordion-body">
                         <form>
+                            <div class="form-group col-md-9 pe-3">
+                                <label for="inputName">Full Name</label>
+                                <input type="text" class="form-control" id="inputName"
+                                    placeholder="" [(ngModel)]="inputName" (input)="changedName($event)"/>
+                            </div>
                             <div class="d-flex flex-row">
                                 <div class="form-group col-md-9 pe-3">
                                     <label for="inputAddress">Address</label>
                                     <input type="text" class="form-control" id="inputAddress"
-                                        placeholder="123 Main St" />
+                                        placeholder="123 Main St" [(ngModel)]="inputAddress" (input)="changedAddress($event)"/>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputAddress2">Apt No.</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="" />
+                                    <label for="inputAptNo">Apt No.</label>
+                                    <input type="text" class="form-control" id="inputAptNo" placeholder="" 
+                                    [(ngModel)]="inputAptNo" (input)="changedAptNo($event)"/>
                                 </div>
                             </div>
                             <div class="d-flex flex-row">
                                 <div class="form-group col-md-4 pe-3">
-                                    <label for="inputEmail4">City</label>
-                                    <input type="email" class="form-control" id="inputEmail4" />
+                                    <label for="inputCity">City</label>
+                                    <input type="email" class="form-control" id="inputCity" 
+                                    [(ngModel)]="inputCity" (input)="changedCity($event)"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputState">State</label>
-                                    <input type="text" class="form-control" id="inputState" />
+                                    <input type="text" class="form-control" id="inputState"
+                                    [(ngModel)]="inputState" (input)="changedState($event)"/>
                                 </div>
                                 <div class="form-group col-md-2 ps-3">
-                                    <label for="inputZip">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip" />
+                                    <label for="inputZipcode">Zip</label>
+                                    <input type="text" class="form-control" id="inputZipcode" 
+                                    [(ngModel)]="inputZipcode" (input)="changedZipcode($event)"/>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputCity">Country</label>
+                                    <label for="inputCountry">Country</label>
                                     <input type="text" class="form-control" style="margin-bottom: 20px;"
-                                        id="inputCity" />
+                                        id="inputCountry" [(ngModel)]="inputCountry" (input)="changedCountry($event)"/>
                                 </div>
                             </div>
                         </form>
@@ -65,21 +74,25 @@
                     <div class="accordion-body">
                         <form>
                             <div class="form-group col-md-8 pe-3">
-                                <label for="inputAddress">Card Owner</label>
-                                <input type="text" class="form-control" id="inputAddress" placeholder="" />
+                                <label for="inputOwner">Card Owner</label>
+                                <input type="text" class="form-control" id="inputOwner" placeholder="" 
+                                [(ngModel)]="inputOwner" (input)="changedOwner($event)"/>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="cardNumber">Card Number</label>
-                                <input type="text" class="form-control" id="cardNumber" placeholder="" />
+                                <label for="inputCardNum">Card Number</label>
+                                <input type="text" class="form-control" id="inputCardNum" placeholder="" 
+                                [(ngModel)]="inputCardNum" (input)="changedCardNum($event)"/>
                             </div>
                             <div class="d-flex flex-row">
                                 <div class="form-group col-md-5 pe-3">
-                                    <label for="inputAddress">Expiration Date</label>
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="" />
+                                    <label for="inputExpDate">Expiration Date</label>
+                                    <input type="text" class="form-control" id="inputExpDate" placeholder="" 
+                                    [(ngModel)]="inputExpDate" (input)="changedExpDate($event)"/>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="cardNumber">CVV</label>
-                                    <input type="text" class="form-control mb-3" id="cardNumber" placeholder="" />
+                                    <label for="inputCVV">CVV</label>
+                                    <input type="text" class="form-control mb-3" id="inputCVV" placeholder="" 
+                                    [(ngModel)]="inputCVV" (input)="changedCVV($event)"/>
                                 </div>
                             </div>
                         </form>
@@ -101,17 +114,33 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <p class="px-5 mx-5 mb-0">Shipping Address</p>
                                     <hr class="m-2">
-                                    <p>Full name</p>
+                                    <p>{{inputName}}</p>
+                                    <ng-container *ngIf="inputAptNo === ''; else notNull">
+                                        <p>{{inputAddress}}</p>
+                                    </ng-container>
+                                    <ng-template #notNull>
+                                        <p>{{inputAddress}}, {{inputAptNo}}</p>
+                                    </ng-template>
+                                    <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
+                                    <p>{{inputCountry}}</p>
                                 </div>
                                 <div class="d-flex flex-column align-items-center">
                                     <p class="px-5 mx-5 mb-0">Billing Address</p>
                                     <hr class="m-2">
-                                    <p>Full name</p>
+                                    <p>{{inputName}}</p>
+                                    <ng-container *ngIf="inputAptNo === ''; else notNull1">
+                                        <p>{{inputAddress}}</p>
+                                    </ng-container>
+                                    <ng-template #notNull1>
+                                        <p>{{inputAddress}}, {{inputAptNo}}</p>
+                                    </ng-template>
+                                    <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
+                                    <p>{{inputCountry}}</p>
                                 </div>
                                 <div class="d-flex flex-column align-items-center ">
                                     <p class="px-5 mx-5 mb-0">Payment Information</p>
                                     <hr class="m-2">
-                                    <p>Full name</p>
+                                    <p>{{inputName}}</p>
                                 </div>
                             </div>
                             
