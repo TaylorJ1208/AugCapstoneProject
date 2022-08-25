@@ -23,27 +23,32 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/customer/{id}")
-	public Product getproduct(@PathVariable Long id) {
+	public Product getProductById(@PathVariable Long id) {
 		return productService.getProductById(id);
 	}
 	
 	@GetMapping("/customer")
-	public List<Product> getproducts() {
+	public List<Product> getAllProducts() {
 		return productService.getAllProducts();
 	}
 	
+	@GetMapping("/customer/{name}")
+	public List<Product> getProductsByName(@PathVariable String name) {
+		return productService.getProductByName(name);
+	}
+	
 	@PostMapping("/admin/add")
-	public void addproduct(@RequestBody Product product) {
+	public void addProduct(@RequestBody Product product) {
 		productService.addProduct(product);
 	}
 	
 	@PutMapping("/admin/update")
-	public void updateproduct(@RequestBody Product product) {
+	public void updateProduct(@RequestBody Product product) {
 		productService.updateProduct(product);
 	}
 	
 	@DeleteMapping("admin/delete/{id}")
-	public void deleteproduct(@PathVariable Long id) {
-		productService.deleteProduct(id);
+	public void deleteProduct(@PathVariable Long id) {
+		productService.deleteProductById(id);
 	}
 }

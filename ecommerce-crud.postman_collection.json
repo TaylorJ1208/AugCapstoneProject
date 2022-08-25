@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "5c49f700-afda-4969-b927-cdb5575739f0",
+		"name": "ecommerce-crud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21957089"
+	},
+	"item": [
+		{
+			"name": "View catalog",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/catalog/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"catalog",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get personal details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "TaylorJ1208",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/user/customer/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user",
+						"customer",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit personal details",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": 13,\r\n        \"firstName\": \"John\",\r\n        \"lastName\": \"Oliver\",\r\n        \"email\": \"JohnDoe@example.com\",\r\n        \"userName\": \"JohnD\",\r\n        \"password\": \"$2a$10$pLfAUmDKVJrXZI0NTA1W/.zzaKP1LV6ZowkC/BVcElOmR5J2pvnp2\",\r\n        \"contact\": \"123-456-7890\",\r\n        \"ssn\": \"1234\",\r\n        \"roles\": [\r\n            {\r\n                \"roleId\": 7,\r\n                \"role\": \"ROLE_USER\"\r\n            }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/user/customer/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user",
+						"customer",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item to cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userCartId\": {\r\n        \"userId\": 3,\r\n        \"productId\": 5\r\n    },\r\n    \"user\": {\r\n        \"userId\": 3,\r\n        \"firstName\": \"Taylor\",\r\n        \"lastName\": \"Joostema\",\r\n        \"email\": \"TaylorJ1208@gmail.com\",\r\n        \"userName\": \"Taylor\",\r\n        \"password\": \"$2a$10$5bh02yN4/b02FviCrB6/dONtJMwD7X6pv.mnc3JClfOG7TRlUfJgO\",\r\n        \"contact\": \"919-339-3801\",\r\n        \"ssn\": \"8604\",\r\n        \"roles\": [\r\n            {\r\n                \"roleId\": 4,\r\n                \"role\": \"ROLE_ADMIN\"\r\n            }\r\n        ]\r\n    },\r\n    \"product\": {\r\n        \"productId\": 5,\r\n        \"name\": \"MSI Gaming Laptop\",\r\n        \"description\": \"Personal gaming laptop. 16GM ram. 512 GB storage. Intel core i7.\",\r\n        \"price\": 1299.00,\r\n        \"weight\": 15.2,\r\n        \"quantity\": 24,\r\n        \"image\": \"https://res.cloudinary.com/drukcz14j/image/upload/v1661190584/ecommerce/gf75-20181123-1_kuotrm.png\",\r\n        \"category\": {\r\n            \"categoryId\": 3,\r\n            \"category\": \"Laptops\"\r\n        }\r\n    },\r\n    \"quantity\": 2\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/cart/customer/3/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"cart",
+						"customer",
+						"3",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show added item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/cart/customer/3/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"cart",
+						"customer",
+						"3",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 15.99,\r\n    \"orderDate\": \"2001-12-08\",\r\n    \"status\": false,\r\n    \"user\": {\r\n        \"userId\": 13,\r\n        \"firstName\": \"John\",\r\n        \"lastName\": \"Doe\",\r\n        \"email\": \"JohnDoe@example.com\",\r\n        \"userName\": \"JohnD\",\r\n        \"password\": \"$2a$10$pLfAUmDKVJrXZI0NTA1W/.zzaKP1LV6ZowkC/BVcElOmR5J2pvnp2\",\r\n        \"contact\": \"123-456-7890\",\r\n        \"ssn\": \"1234\",\r\n        \"roles\": [\r\n            {\r\n                \"roleId\": 7,\r\n                \"role\": \"ROLE_USER\"\r\n            }\r\n        ]\r\n    },\r\n    \"billingAddress\": \"913 Bridlemine Dr.\",\r\n    \"shippingAddress\": \"913 Bridlemine Dr.\",\r\n    \"products\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/orders/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"orders",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show order",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Show catalog",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "Taylor",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -2,6 +2,7 @@ package com.ecommerce.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Orders;
+import com.ecommerce.model.UserCart;
+import com.ecommerce.repo.UserCartRepo;
 import com.ecommerce.service.OrderService;
 
 @RestController
@@ -22,6 +26,9 @@ public class OrdersController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping("/admin/{id}")
 	public Orders getorder(@PathVariable Long id) {
@@ -34,8 +41,9 @@ public class OrdersController {
 	}
 	
 	@PostMapping("/add")
-	public void addorder(@RequestBody Orders order) {
+	public void addorder(@RequestBody Orders order) throws MessagingException {
 		orderService.addOrder(order);
+		emailService.sendReceipt(order);
 	}
 	
 	@PostMapping("/{orderId}/product/{productId}")

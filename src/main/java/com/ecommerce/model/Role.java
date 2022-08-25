@@ -31,7 +31,7 @@ public class Role {
 	private long roleId;
 	@Column(nullable=false, length=45, unique=true)
 	private String role;
-	@ManyToMany(mappedBy="roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="roles", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<User> users;
 	
