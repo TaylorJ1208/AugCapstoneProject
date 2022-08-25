@@ -8,8 +8,8 @@ import { NavService } from '../services/nav-service/nav-service/nav.service';
   styleUrls: ['./result-page.component.scss']
 })
 export class ResultPageComponent implements OnInit {
-  productsObs = this.navService.products;
-  cast = this.productsObs.asObservable();
+  products$ = this.navService.products$;
+  cast = this.products$.asObservable();
   products: Product[] = [];
   constructor(private navService: NavService) {
 
@@ -18,7 +18,6 @@ export class ResultPageComponent implements OnInit {
   ngOnInit(): void {
     this.cast.subscribe((products) => {
       this.products = products;
-      console.log(this.products);
     });
   }
 

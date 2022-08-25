@@ -1,5 +1,13 @@
 <app-nav></app-nav>
-<app-category-nav></app-category-nav>
-  <div class="container-lg">
-    <router-outlet></router-outlet>
+<div *ngIf="isValidRoute()">
+  <app-category-nav></app-category-nav>
+</div>
+
+<div class="container-lg d-flex">
+  <router-outlet></router-outlet>
+  <div *ngIf="url == '/user/admin/store-purchases'">
+    <app-store-purchases></app-store-purchases>
   </div>
+
+  
+</div>

@@ -9,6 +9,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { NavComponent } from './nav/nav.component';
 import { ResultPageComponent } from './result-page/result-page.component';
 import { CategoryNavComponent } from './category-nav/category-nav.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { StorePurchasesComponent } from './store-purchases/store-purchases.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { CategoryNavComponent } from './category-nav/category-nav.component';
     HomePageComponent,
     NavComponent,
     ResultPageComponent,
-    CategoryNavComponent
+    CategoryNavComponent,
+    UserPageComponent,
+    StorePurchasesComponent
   ],
   imports: [
     BrowserModule,

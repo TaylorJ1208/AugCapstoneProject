@@ -7,18 +7,17 @@ import { ProductService } from '../../product-service/product.service';
   providedIn: 'root'
 })
 export class NavService {
-  products = new BehaviorSubject<Product[]>([]);
-  cast = this.products.asObservable();
+  products$ = new BehaviorSubject<Product[]>([]);
+  cast = this.products$.asObservable();
   searchString: string = "";
   constructor(private productService: ProductService) { }
 
   retrieveSearch(products: Product[]) {
-    this.products.next(products);
+    this.products$.next(products);
   }
 
   retrieveCategorySearch(products: Product[], category: string) {
-    this.products.next(products.filter((c: any) => c.category.category == category));
-    console.log(this.products);
+    this.products$.next(products.filter((c: any) => c.category.category == category));
   }
 
   getProductSearch(name: any) {
@@ -26,7 +25,7 @@ export class NavService {
       .subscribe ((data: any) => {
         this.cast = data;
         this.retrieveSearch(data);
-        console.log(this.cast);
+        console.log("PRODUCT SEARCH ->", this.cast);
       })
   }
 

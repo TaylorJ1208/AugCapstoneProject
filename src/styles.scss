@@ -30,4 +30,13 @@ html {
         background-repeat:no-repeat;
         border: none;      
     }
+
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: cornsilk;
+        transition: 0.3s;
+      }
+
+    .table {
+        overflow-y: scroll;
+    }
 }

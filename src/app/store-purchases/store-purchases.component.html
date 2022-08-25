@@ -1,0 +1,28 @@
+<div class="navbar m-1 bg-light justify-content-center align=items-center container-fluid border h-100">
+    <table class="table bg-white table-hover">
+    <thead class="table-info">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Billing Address</th>
+        <th scope="col">Shipping Address</th>
+        <th scope="col">Products</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders; let i = index" style="font-weight: bold;">
+        <th scope="row">{{  i+1  }}</th>
+        <td>User</td>
+        <td>${{  order.amount  }}</td>
+        <td>{{  order.orderDate  }}</td>
+        <td [ngStyle]="{'color': order.status ? 'green' : 'red' }">{{  order.status ? "Shipped" : "In Transit"  }}</td>
+        <td>{{  order.billingAddress  }}</td>
+        <td>{{  order.shippingAddress  }}</td>
+        <td>product</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

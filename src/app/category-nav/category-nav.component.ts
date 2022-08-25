@@ -23,7 +23,7 @@ export class CategoryNavComponent implements OnInit {
   getProducts() {
     this.productService.getAllProducts()
       .subscribe({ next: (data: Product[]) => {
-        console.log(data);
+        console.log("ALL PRODUCTS ->", data);
         this.products = data;
       },
       error: (e) => console.error(e)});
