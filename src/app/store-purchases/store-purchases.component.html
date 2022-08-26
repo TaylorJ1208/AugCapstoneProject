@@ -1,27 +1,82 @@
 <div class="navbar m-1 bg-light justify-content-center align=items-center container-fluid border h-100">
-    <table class="table bg-white table-hover">
+  <table class="table bg-white table-hover">
     <thead class="table-info">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">User</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Order Date</th>
-        <th scope="col">Status</th>
-        <th scope="col">Billing Address</th>
-        <th scope="col">Shipping Address</th>
-        <th scope="col">Products</th>
+        <th scope="col" >#</th>
+        <th scope="col" style="width: 15em;">User</th>
+        <th scope="col" style="width: 10em;">Amount</th>
+        <th scope="col" style="width: 15em;">Order Date</th>
+        <th scope="col" style="width: 10em;">Status</th>
+        <th scope="col" style="width: 15em;">Billing Address</th>
+        <th scope="col" style="width: 15em;">Shipping Address</th>
+        <th scope="col" style="width: 15em;">Products</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let order of orders; let i = index" style="font-weight: bold;">
-        <th scope="row">{{  i+1  }}</th>
-        <td>User</td>
-        <td>${{  order.amount  }}</td>
-        <td>{{  order.orderDate  }}</td>
-        <td [ngStyle]="{'color': order.status ? 'green' : 'red' }">{{  order.status ? "Shipped" : "In Transit"  }}</td>
-        <td>{{  order.billingAddress  }}</td>
-        <td>{{  order.shippingAddress  }}</td>
-        <td>product</td>
+        <th scope="row">{{ i+1 }}</th>
+
+        <td (dblclick)="onEdit(order, 'name')" (keyup.enter)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'name'">
+            <div class="col-9">
+              <input style="width: 10em;" min="0" type="text" [(ngModel)]="order.user.userName" class="form-control"/>
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'name'">
+            {{ order.user.userName }}
+          </div>
+        </td>
+        <td (dblclick)="onEdit(order, 'amount')" (keyup.enter)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'amount'">
+            <div class="col-9">
+              <input style="width: 10em;"  type="text" [(ngModel)]="order.amount" class="form-control" />
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'amount'">
+            ${{  order.amount  }}
+          </div>
+        </td>
+        <td>{{ order.orderDate }}</td>
+        <td (dblclick)="onEdit(order, 'status')" (keyup)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'status'">
+            <div class="col-9">
+              <select style="width: 10em;" [(ngModel)]="order.status" class="form-control"
+              [ngStyle]="{'color': order.status == true ? 'red' : 'green'}">
+                <option [value]="true" style="color: red;">In Transit</option>
+                <option [value]="false"style="color: green;">Shipped</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'status'" [ngStyle]="{'color': order.status ? 'green' : 'red' }">
+            {{ order.status ? "Shipped" : "In Transit" }}
+          </div>
+        </td>
+        <td (dblclick)="onEdit(order, 'billingAddress')" (keyup.enter)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'billingAddress'">
+            <div class="col-9">
+              <input style="width: 10em;"  type="text" [(ngModel)]="order.billingAddress" class="form-control" />
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'billingAddress'">
+            {{  order.billingAddress  }}
+          </div>
+        </td>
+        <td (dblclick)="onEdit(order, 'shippingAddress')" (keyup.enter)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'shippingAddress'">
+            <div class="col-9">
+              <input style="width: 10em;"  type="text" [(ngModel)]="order.shippingAddress" class="form-control" />
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'shippingAddress'">
+            {{  order.shippingAddress  }}
+          </div>
+        </td>
+        <td>
+          <select style="width: 10em;" class="form-select bg-light">
+            <option value="DEFAULT" selected hidden>Products ({{ orders[i].products.length }})</option>
+            <option *ngFor="let product of orders[i].products">{{ product.name }}</option>
+          </select>
+        </td>
       </tr>
     </tbody>
   </table>

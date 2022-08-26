@@ -19,9 +19,7 @@
                 style="background-color: cornsilk;">
                 <select class="form-select h-100 w-25 bg-light" style="font-size:13.5px;">
                     <option value="DEFAULT" selected hidden>Search by category</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option *ngFor="let category of categories;">{{  category.category  }}</option>
                 </select>
 
                 <input class="form-control" type="text" [(ngModel)]="searchString"

@@ -3,7 +3,7 @@
   <app-category-nav></app-category-nav>
 </div>
 
-<div class="container-lg d-flex">
+<div class="container-lg" [ngStyle]="{'display': url === '/user/admin/store-purchases' ? 'flex' : ' '}">
   <router-outlet></router-outlet>
   <div *ngIf="url == '/user/admin/store-purchases'">
     <app-store-purchases></app-store-purchases>
