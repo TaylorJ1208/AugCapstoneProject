@@ -1,0 +1,158 @@
+
+<div class="navbar-light">
+    <ul class="nav d-flex justify-content-center">
+        <li class="nav-item">
+            <a routerLink="home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="hotsales" class="nav-link">Hot Sales</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Laptops</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Desktops</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Keyboards</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Mouses</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Headphones</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Smartphones</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Tablets</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Phone chargers</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Phone cases</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Other</a>
+        </li>
+  
+    </ul>
+  </div>
+  
+  <div *ngIf="!editMode" class="main bg-light">
+  
+    <div class="container m-2">
+        <a href=#>
+            <h2 style="font-weight:lighter">Browse By Popular Products</h2>
+        </a>
+    </div>
+  
+    <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+  
+        <div class="card m-2" style="width: 18em;" *ngFor="let product of products">
+            <h5 *ngIf="product.quantity <= 10 && product.quantity > 0" class="bg-info text-dark">Only
+                <span class="text-white">{{ product.quantity }}</span> left!
+            </h5>
+            <img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;" [src]="product.image"
+                alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <h5 class="card-subtitle">${{ product.price }}</h5><br>
+                <p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
+                <p class="card-text btn-warning text-center" style="text-overflow: ellipses;">{{ product.quantity }} available</p>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center"
+                style="margin-bottom: 5em; margin-top: 0; padding-top: 0;">
+                <button class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity <= 0)"
+                    disabled>Out of
+                    Stock</button>
+         
+                    <button class="btn btn-primary m-2" (click)="getProduct(product.productId)" style="float: right;" [hidden]="false">Edit Product</button>
+  
+                
+            </div>
+  
+        </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <div>
+      <div *ngIf="editMode" class="container-fluid col-sm-4 text-center">
+        <h2 style="font-weight:lighter">Edit Product</h2>
+          <div class="mb-3">
+           
+            <label for="productid" class="form-label">Product Id</label>
+              <input
+              type="number" class="form-control" id="productid" required name="productid" placeholder="Product Id" readonly
+              [(ngModel)]="currentProduct.productId"
+            />
+          </div>
+          <div class="mb-3">
+          <label for="productname">Product Name</label>
+            <input
+              type="text" class="form-control" id="productname" required name="productname" placeholder="Product Name"
+              [(ngModel)]="currentProduct.name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description">Description</label>
+            <textarea
+              type="text" class="form-control" id="description" required name="description" placeholder="Description"
+              [(ngModel)]="currentProduct.description"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="price">Price</label>
+            <input
+              type="number" class="form-control" id="price" required name="price" placeholder="Price"
+              [(ngModel)]="currentProduct.price"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="weight">Weight</label>
+            <input
+              type="number" class="form-control" id="weight" required name="weight" placeholder="Weight"
+              [(ngModel)]="currentProduct.weight"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="stockavailable">Stock Available</label>
+            <input
+              type="number" class="form-control" id="stockavailable" required name="stockavailable" placeholder="Stock Available"
+              [(ngModel)]="currentProduct.quantity"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="imageuri">Image URL</label>
+            <textarea
+              type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
+              [(ngModel)]="currentProduct.image"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="categoryid">Category Id</label>
+            <input
+              type="number" class="form-control" id="categoryid" required name="categoryid" placeholder="Category Id"
+              [(ngModel)]="currentProduct.category.categoryId" maxlength="1"
+            />
+          </div>
+          <div>
+            <button (click)="updateProduct(); closeAlert()" class="btn btn-primary">Submit</button>
+  
+            <button class="btn btn-primary" (click)="hideEditMode()">Go back</button>
+          </div>
+  
+            <div *ngIf="submitted" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+              Product updated successfully!
+              <button #btnCloseAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          
+      </div>
+    </div>

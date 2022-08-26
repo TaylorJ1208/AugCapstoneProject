@@ -11,6 +11,7 @@ import { ResultPageComponent } from './result-page/result-page.component';
 import { CategoryNavComponent } from './category-nav/category-nav.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { StorePurchasesComponent } from './store-purchases/store-purchases.component';
+import { UpdateCatalogComponent } from './update-catalog/update-catalog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { StorePurchasesComponent } from './store-purchases/store-purchases.compo
     ResultPageComponent,
     CategoryNavComponent,
     UserPageComponent,
-    StorePurchasesComponent
+    StorePurchasesComponent,
+    UpdateCatalogComponent
   ],
   imports: [
     BrowserModule,
