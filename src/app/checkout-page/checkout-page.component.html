@@ -124,8 +124,14 @@
                                     <ng-template #notNull>
                                         <p>{{inputAddress}}, {{inputAptNo}}</p>
                                     </ng-template>
-                                    <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
-                                    <p>{{inputCountry}}</p>
+                                    <ng-container *ngIf="inputCity === ''; else cityNotNull">
+                                        <p>{{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-container>
+                                    <ng-template #cityNotNull>
+                                        <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-template>
                                 </div>
                                 <div class="d-flex flex-column justify-content-center text-start" style="margin-left: 115px; margin-right: 85px;">
                                     <p class="mb-0">Billing Address</p>
@@ -137,8 +143,14 @@
                                     <ng-template #notNull1>
                                         <p>{{inputAddress}}, {{inputAptNo}}</p>
                                     </ng-template>
-                                    <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
-                                    <p>{{inputCountry}}</p>
+                                    <ng-container *ngIf="inputCity === ''; else cityNotNull1">
+                                        <p>{{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-container>
+                                    <ng-template #cityNotNull1>
+                                        <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-template>
                                 </div>
                                 <div class="d-flex flex-column text-start">
                                     <p class="mb-0">Payment Information</p>
