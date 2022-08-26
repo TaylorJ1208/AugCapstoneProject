@@ -1,0 +1,96 @@
+<div class="navbar-light">
+	<ul class="nav d-flex justify-content-center">
+		<li class="nav-item">
+			<a routerLink="home" class="nav-link">Home</a>
+		</li>
+		<li class="nav-item">
+			<a routerLink="hotsales" class="nav-link">Hot Sales</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Laptops</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Desktops</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Keyboards</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Mouses</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Headphones</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Smartphones</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Tablets</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Phone chargers</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Phone cases</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">Other</a>
+		</li>
+
+	</ul>
+</div>
+<div class="sale-picture d-flex bg-dark p-3">
+	<div class="description w-25">
+		<h1 class="text-white m-1">Newest iPhone on the Market</h1>
+		<h5 class="text-info p-1">Get ready for school with sales up to <span class="text-white">50% off</span> select
+			iPhones.</h5>
+	</div>
+	<div class="container-fluid w-100 p-0 h-25 justify-content-end">
+		<img class="img-fluid" [src]="imageUrl" alt="Product image">
+	</div>
+</div>
+
+<div class="main bg-light">
+
+	<div class="container m-2">
+		<a href=#>
+			<h2 style="font-weight:lighter">Browse By Popular Products</h2>
+		</a>
+	</div>
+
+	<div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+
+		<div class="card m-2" style="width: 18em;" *ngFor="let product of products">
+			<h5 *ngIf="product.quantity <= 10 && product.quantity > 0" class="bg-info text-dark">Only
+				<span class="text-white">{{ product.quantity }}</span> left!
+			</h5>
+			<img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;" [src]="product.image"
+				alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">{{ product.name }}</h5>
+
+				<p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
+
+
+
+
+			</div>
+			<div class="d-flex flex-column justify-content-center align-items-center"
+				style="margin-bottom: 5em; margin-top: 0; padding-top: 0;">
+				<input type="number" min="0" [max]="product.quantity" style="float: left;"
+					class="form-control border w-50 text-center m-1" placeholder="quantity">
+				<button class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity <= 0)"
+					disabled>Out of
+					Stock</button>
+					
+				<button (click)="addToCart(product)" class="btn btn-primary m-2" style="float: right;"
+					[hidden]="!(product.quantity > 0)">Add
+
+					To
+					Cart</button>
+				<h5 class="card-subtitle">${{ product.price }}</h5><br>
+			</div>
+
+		</div>
+	</div>
+</div>
