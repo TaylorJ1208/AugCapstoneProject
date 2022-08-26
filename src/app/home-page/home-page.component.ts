@@ -24,5 +24,8 @@ export class HomePageComponent implements OnInit {
       error: (e) => console.error(e)});
     }
   
-
+    removeProduct(productId : number) {
+      this.productService.removeProduct(productId).subscribe((response) => {console.log(response)});
+      this.products = this.products.filter((p: Product) => {return p.productId != productId});
+    }
 }

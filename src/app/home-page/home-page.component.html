@@ -45,6 +45,7 @@
                 <button class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity > 0)">Add
                     To
                     Cart</button>
+                    <button class="btn btn-danger m-2" style="float: right;" (click)="removeProduct(product.productId)">Remove from catalog</button>
             </div>
 
         </div>

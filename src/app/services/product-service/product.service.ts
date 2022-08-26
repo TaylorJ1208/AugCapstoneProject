@@ -18,4 +18,7 @@ export class ProductService {
     return this.http.get<Product[]>(`http://localhost:8081/catalog/customer/product/${name}`);
   }
 
+  removeProduct(productId: number){
+    return this.http.delete(`http://localhost:8081/catalog/admin/delete/${productId}`);
+  }
 }
