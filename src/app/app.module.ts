@@ -11,6 +11,8 @@ import { ResultPageComponent } from './result-page/result-page.component';
 import { CategoryNavComponent } from './category-nav/category-nav.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { StorePurchasesComponent } from './store-purchases/store-purchases.component';
+import { UserAccountDetailsComponent } from './user-account-details/user-account-details.component';
+import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { StorePurchasesComponent } from './store-purchases/store-purchases.compo
     ResultPageComponent,
     CategoryNavComponent,
     UserPageComponent,
-    StorePurchasesComponent
+    StorePurchasesComponent,
+    UserAccountDetailsComponent,
+    UserEditDetailsComponent,
   ],
   imports: [
     BrowserModule,
