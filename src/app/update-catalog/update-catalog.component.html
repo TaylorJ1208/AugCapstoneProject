@@ -1,52 +1,19 @@
 
 <div class="navbar-light">
     <ul class="nav d-flex justify-content-center">
-        <li class="nav-item">
-            <a routerLink="home" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-            <a routerLink="hotsales" class="nav-link">Hot Sales</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Laptops</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Desktops</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Keyboards</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Mouses</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Headphones</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Smartphones</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Tablets</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Phone chargers</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Phone cases</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Other</a>
-        </li>
-  
+        
     </ul>
   </div>
   
-  <div *ngIf="!editMode" class="main bg-light">
+  <div *ngIf="!editMode && !addMode" class="main bg-light">
   
     <div class="container m-2">
         <a href=#>
             <h2 style="font-weight:lighter">Browse By Popular Products</h2>
         </a>
+
+        <button class="btn btn-primary btn-lg btn-block" (click)="showAddMode(); newAdd()">Add New Product</button>
+                        
     </div>
   
     <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
@@ -70,6 +37,7 @@
                     Stock</button>
          
                     <button class="btn btn-primary m-2" (click)="getProduct(product.productId)" style="float: right;" [hidden]="false">Edit Product</button>
+                    <button class="btn btn-danger m-2" (click)="deleteProduct(product.productId);" style="float: right;" [hidden]="false">Delete Product</button>
   
                 
             </div>
@@ -81,7 +49,7 @@
   
   
   
-  <div>
+  <!--<div>
       <div *ngIf="editMode" class="container-fluid col-sm-4 text-center">
         <h2 style="font-weight:lighter">Edit Product</h2>
           <div class="mb-3">
@@ -144,10 +112,10 @@
           <div>
             <button (click)="updateProduct(); closeAlert()" class="btn btn-primary">Submit</button>
   
-            <button class="btn btn-primary" (click)="hideEditMode()">Go back</button>
+            <button class="btn btn-primary" (click)="hideEditMode()">Cancel</button>
           </div>
   
-            <div *ngIf="submitted" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+            <div *ngIf="updated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
               Product updated successfully!
               <button #btnCloseAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
                   <span aria-hidden="true">&times;</span>
@@ -155,4 +123,199 @@
           </div>
           
       </div>
-    </div>
+    </div>-->
+
+    
+
+
+    <div *ngIf="editMode" class="col-md-6 offset-md-3 text-center">
+
+    
+        <div class="card card-outline-secondary">
+            <div class="card-body">
+                <h3 class="text-center">Edit Product</h3>
+                <hr>
+                <form class="form" role="form" autocomplete="off">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                        <label for="productid" class="form-label">Product Id</label>
+                        <input
+                        type="number" class="form-control" id="productid" required name="productid" placeholder="Product Id" readonly
+                        [(ngModel)]="currentProduct.productId"
+                      />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="categoryid" class="form-label">Category Id</label>
+            <input
+              type="number" class="form-control" id="categoryid" required name="categoryid" placeholder="Category Id"
+              [(ngModel)]="currentProduct.category.categoryId" maxlength="1"
+            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productname" class="form-label">Product Name</label>
+                        <input
+                          type="text" class="form-control" id="productname" required name="productname" placeholder="Product Name"
+                          [(ngModel)]="currentProduct.name"
+                        /></div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea
+                              type="text" class="form-control" id="description" required name="description" placeholder="Description"
+                              [(ngModel)]="currentProduct.description"
+                            ></textarea>
+                        </div>
+                    <div class="form-group row">
+                    
+                        <div class="col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                                    
+                            <input
+                              type="number" class="form-control text-right" id="price" required name="price" placeholder="Price"
+                              [(ngModel)]="currentProduct.price"
+                            />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="weight" class="form-label">Weight</label>
+                            <div class="input-group">
+            <input
+              type="number" class="form-control" id="weight" required name="weight" placeholder="Weight"
+              [(ngModel)]="currentProduct.weight"
+            />
+            <div class="input-group-prepend"><span class="input-group-text">lbs</span></div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="stockavailable" class="form-label">Stock Available</label>
+                            <input
+                              type="number" class="form-control" id="stockavailable" required name="stockavailable" placeholder="Stock Available"
+                              [(ngModel)]="currentProduct.quantity"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageuri" class="form-label">Image URL</label>
+            <textarea
+              type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
+              [(ngModel)]="currentProduct.image"
+            ></textarea>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+          
+                          <button class="btn btn-default btn-lg btn-block" (click)="hideEditMode()">Cancel</button>
+                          
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="updateProduct(); closeAlert('updated')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                <div *ngIf="updated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+                    Product updated successfully!
+                    <button #btnCloseUpdatedAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+    
+
+
+        <div *ngIf="addMode" class="col-md-6 offset-md-3 text-center">
+
+    
+            <div class="card card-outline-secondary">
+                <div class="card-body">
+                    <h3 class="text-center">Add Product</h3>
+                    <hr>
+                    <form class="form" role="form" autocomplete="off">
+                    
+                            <div class="form-group">
+                                <label for="categoryid" class="form-label">Category Id</label>
+                <input
+                  type="number" class="form-control" id="categoryid" required name="categoryid" placeholder="Category Id"
+                  [(ngModel)]="currentProduct.category.categoryId" maxlength="1"
+                />
+                            </div>
+                        
+                        <div class="form-group">
+                            <label for="productname" class="form-label">Product Name</label>
+                            <input
+                              type="text" class="form-control" id="productname" required name="productname" placeholder="Product Name"
+                              [(ngModel)]="currentProduct.name"
+                            /></div>
+                            <div class="form-group">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea
+                                  type="text" class="form-control" id="description" required name="description" placeholder="Description"
+                                  [(ngModel)]="currentProduct.description"
+                                ></textarea>
+                            </div>
+                        <div class="form-group row">
+                        
+                            <div class="col-md-4">
+                                <label for="price" class="form-label">Price</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                                        
+                                <input
+                                  type="number" class="form-control text-right" id="price" required name="price" placeholder="Price"
+                                  [(ngModel)]="currentProduct.price"
+                                />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="weight" class="form-label">Weight</label>
+                                <div class="input-group">
+                <input
+                  type="number" class="form-control" id="weight" required name="weight" placeholder="Weight"
+                  [(ngModel)]="currentProduct.weight"
+                />
+                <div class="input-group-prepend"><span class="input-group-text">lbs</span></div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="stockavailable" class="form-label">Stock Available</label>
+                                <input
+                                  type="number" class="form-control" id="stockavailable" required name="stockavailable" placeholder="Stock Available"
+                                  [(ngModel)]="currentProduct.quantity"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageuri" class="form-label">Image URL</label>
+                <textarea
+                  type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
+                  [(ngModel)]="currentProduct.image"
+                ></textarea>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+              
+                              <button class="btn btn-default btn-lg btn-block" (click)="hideAddMode()">Cancel</button>
+                              
+                            </div>
+                            <div class="col-md-6">
+                                <button (click)="addProduct(); closeAlert('added')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div *ngIf="added" id="addedAlert" class="alert alert-success alert-dismissible fade show" role="addedAlert">
+                        Product Added successfully!
+                        <button #btnCloseAddedAlert type="button" class="close" data-dismiss="addedAlert" aria-label="Close" (click)="newAdd()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        

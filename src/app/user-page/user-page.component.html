@@ -25,6 +25,13 @@
                 <li class="w-100" style="margin-bottom: 1em;">
                     <a routerLinkActive="active" routerLink="/user/purchases" class="btn border-0 body-hover p-3 w-100">Purchases</a>
                 </li>
+                <li class="w-100 dropend" style="margin-bottom: 1em;">
+                    <a id="updateCatalogDD" class="btn border-0 body-hover p-3 w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Update Catalog</a>
+                    <ul class="dropdown-menu" aria-labelledby="updateCatalogDD">
+                        <li><a class="btn border-0 body-hover p-3 w-100 dropdown-item">Add Product</a></li>
+                        <li><a routerLinkActive="active" routerLink="/catalog/update" class="btn border-0 body-hover p-3 w-100 dropdown-item">Edit/Delete Products</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

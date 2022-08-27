@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: "user/purchases", component: UserPageComponent },
   { path: "user/cart", component: UserPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },
-  { path: "product/update", component: UpdateCatalogComponent},
+  { path: "catalog/update", component: UserPageComponent},
+  { path: "catalog/add", component: UserPageComponent},
   { path: "**", redirectTo: "home" }];
 
 @NgModule({

@@ -13,21 +13,12 @@ export class UpdateCatalogComponent implements OnInit {
   imageUrl: string = "https://res.cloudinary.com/drukcz14j/image/upload/v1661201584/ecommerce/iPhone-13-PNG-Cutout_wydwdd.png";
 
   @Input() editMode = false;
+  @Input() addMode = false;
 
-  @Input() currentProduct:any = {
-    productId: 0,
-    name: "",
-    description: "",
-    price: 0,
-    weight: 0,
-    quantity: 0,
-    image: "",
-    category:{
-      categoryId: 0,
-    }
-  };
+  @Input() currentProduct:any;
 
-  submitted = false;
+  updated = false;
+  added = false;
   
 
   constructor(
@@ -50,6 +41,42 @@ export class UpdateCatalogComponent implements OnInit {
       error: (e) => console.error(e)});
     }
 
+    deleteProduct(id:any):void{
+      this.productService.deleteProduct(id).subscribe({next:m=>{
+        console.log(m);
+        console.log("product deleted");
+        this.ngOnInit();
+      },
+      error:(e)=>console.error(e)
+      })
+      this.ngOnInit();
+    }
+
+    addProduct():void{
+      const data = {
+        productId: this.currentProduct.productId,
+        name: this.currentProduct.name,
+        description: this.currentProduct.description,
+        price: this.currentProduct.price,
+        weight: this.currentProduct.weight,
+        quantity: this.currentProduct.quantity,
+        image: this.currentProduct.image,
+        rating: this.currentProduct.rating,
+        category: {
+          categoryId: this.currentProduct.category.categoryId
+        }
+      };
+      this.productService.addProduct(data)
+      .subscribe({next:m=>{
+        console.log(m);
+        this.added = true;
+        console.log("Product.added: " +this.added);
+        this.ngOnInit();
+      },
+    error:e=>console.error(e)
+  });
+    }
+
     getProduct(id: any): void {
       this.editMode = true;
       this.productService.getProductById(id)
@@ -58,6 +85,7 @@ export class UpdateCatalogComponent implements OnInit {
             this.currentProduct = data;
             console.log(data);
             console.log("category id is:"+this.currentProduct.category.categoryId);
+            console.log("rating is "+this.currentProduct.rating);
           },
           error: (e) => console.error(e)
         });
@@ -72,35 +100,73 @@ export class UpdateCatalogComponent implements OnInit {
       weight: this.currentProduct.weight,
       quantity: this.currentProduct.quantity,
       image: this.currentProduct.image,
+      rating: this.currentProduct.rating,
       category: {
         categoryId: this.currentProduct.category.categoryId
       }
     };
 console.log(data);
+
     this.productService.updateProduct(data)
     .subscribe({next:m=>{
       console.log(m);
-      this.submitted = true;
-      console.log(this.submitted);
+      this.updated = true;
+      console.log(this.updated);
+      this.ngOnInit();
     },
   error:e=>console.error(e)
 });
 }
 
 newUpdate():void{
-  this.submitted = false;
+  this.updated = false;
+}
+
+newAdd():void{
+  this.added = false;
+  this.currentProduct = {
+    productId: 0,
+    name: "",
+    description: "",
+    price: 0,
+    weight: 0,
+    quantity: 0,
+    image: "",
+    rating:0,
+    category:{
+      categoryId: 0,
+    }
+  }
 }
 
 hideEditMode(){
   this.editMode=false;
 }
 
-@ViewChild('btnCloseAlert') btnCloseAlert!:ElementRef;
-closeAlert(){
+showAddMode(){
+  this.addMode = true;
+  this.editMode = false;
+  this.newAdd();
+}
+
+hideAddMode(){
+  this.addMode = false;
+}
+
+@ViewChild('btnCloseAddedAlert') btnCloseAddedAlert!:ElementRef;
+@ViewChild('btnCloseUpdatedAlert') btnCloseUpdatedAlert!:ElementRef;
+closeAlert(i:any){
   
   setTimeout(()=>{
-    this.btnCloseAlert.nativeElement.click();
-  console.log("btnClose Clicked");
+    if(i == "added"){
+    this.btnCloseAddedAlert.nativeElement.click();
+    console.log("btnCloseAdded Clicked");
+    }
+    else if (i == "updated"){
+      this.btnCloseUpdatedAlert.nativeElement.click();
+      console.log("btnClose updated clicked");
+    }
+  
   }, 2000);
   
 }
