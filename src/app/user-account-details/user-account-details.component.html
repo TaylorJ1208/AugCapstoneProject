@@ -8,7 +8,7 @@
               <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="rounded-circle" width="150">
               <div class="mt-3">
                 <h4>CURRENT LOGGED IN USERNAME</h4>
-                <p>USER ROLE</p>
+                <p>Customer</p>
                  <!-- Change to get current user id-->
                  <button class="btn-danger" (click)="deleteUser(4)">DELETE ACCOUNT</button>
               </div>
@@ -86,7 +86,7 @@
         <div class="col-sm-12">
           <nav>
             <button class="btn-info" routerLinkActive="active" routerLink="/user/editDetails" style="float:left">Edit Account</button>
-            <button class="btn-success" routerLinkActive="active" routerLink="home" style="float:right">Back To Homepage</button>
+            <button class="btn-success" routerLinkActive="active" routerLink="/user/details" style="float:right">Back To User Home</button>
             <router-outlet></router-outlet>
           </nav>
         </div>

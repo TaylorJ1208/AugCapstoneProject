@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 
 @Component({
@@ -16,7 +14,6 @@ export class UserAccountDetailsComponent implements OnInit {
 
   }
 
-  
   deleteUser(userId: number) : void {
     if(confirm("Are you sure to delete your account?")) {
       this.userService.deleteUser(userId)
@@ -26,6 +23,7 @@ export class UserAccountDetailsComponent implements OnInit {
         },
         error: (e) => console.log(e)
       });
+      alert("Account Deleted!");
       this.router.navigate(['home']);
     }
   }

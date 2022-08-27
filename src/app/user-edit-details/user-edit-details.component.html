@@ -2,77 +2,111 @@
     <div class="row my-2">
         <div class="col-lg-8">
             <h2> <strong> Account Update Form </strong> </h2>
-            
         </div>
+
         <div class="col-lg-8 order-lg-1 personal-info">
             <form role="form">
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                    <label class="col-lg-3 col-form-label form-control-label" for="firstName">First name</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" value="CURRENT USER FIRST NAME" />
+                        <input class="form-control" type="text" 
+                            id="firstName"
+                            name="firstName"
+                            [(ngModel)]="user.firstName"/>
                     </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                    <label class="col-lg-3 col-form-label form-control-label" for="lastName"> Last name</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" value="CURRENT USER LAST NAME" />
+                        <input class="form-control" type="text"
+                        id="lasttName"
+                        name="lastName"
+                        [(ngModel)]="user.lastName"/>
                     </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                    <label class="col-lg-3 col-form-label form-control-label" for="email">Email</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="email" value="CURRENT USER EMAIL" />
+                        <input class="form-control" type="text"
+                        id="email"
+                        name="email"
+                        [(ngModel)]="user.email" />
+                    </div>
+                </div>
+                
+            <!-- IMPLEMENT ADDRESS INFORMATION-->
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" 
+                        value="CURRENT USER STREET" placeholder="Street" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-6">
+                        <input class="form-control" type="text" 
+                        value="CURRENT USER CITY" placeholder="City" />
+                    </div>
+
+                    <div class="col-lg-3">
+                        <input class="form-control" type="text" 
+                        value="CURRENT USER STATE" placeholder="State" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="userName">Username</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text"
+                        id="userName"
+                        name="userName"
+                        [(ngModel)]="user.userName" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="contact">Contact</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text"
+                        id="contact"
+                        name="contact"
+                        [(ngModel)]="user.contact" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="ssn">SSN</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="password"
+                        id="ssn"
+                        name="ssn"
+                        [(ngModel)]="user.ssn" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="password">Password</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="password"
+                        id="password"
+                        name="password"
+                        [(ngModel)]="user.password" />
                     </div>
                 </div>
                 
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="text" value="CURRENT USER STREET" placeholder="Street" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label"></label>
-                    <div class="col-lg-6">
-                        <input class="form-control" type="text" value="CURRENT USER CITY" placeholder="City" />
-                    </div>
-                    <div class="col-lg-3">
-                        <input class="form-control" type="text" value="CURRENT USER STATE" placeholder="State" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="text" value="CURRENT USER USERNAME" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">SSN</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="password" value="CURRENT USER SSN" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="password" value="CURRENT USER PASSWORD" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="password" value="CURRENT USER PASSWORD" />
-                    </div>
-                </div>
-                <div class="form-group row">
                     <div class="col-lg-9 ml-auto text-right">
-                        <input type="reset" class="btn btn-outline-secondary" value="Cancel" />
-                        <input type="button" class="btn btn-primary" value="Save Changes" />
+                        <input type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/user/accountDetails" value="Cancel"/>
+                        <router-outlet></router-outlet>
+                        <input type="button" class="btn btn-primary" (click) = "updateUser()" value="Save Changes" />
                     </div>
                 </div>
             </form>
-        </div>
-       
-            </div>
-        </div>
+        </div>   
+    </div>
+</div>
  
