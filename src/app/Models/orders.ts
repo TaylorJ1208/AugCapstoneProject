@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 export interface Orders {
     orderId: number;
     amount: number;
@@ -5,4 +7,6 @@ export interface Orders {
     status: boolean;
     billingAddress: string;
     shippingAddress: string;
+    products: Product[];
+    // user: User;
 }

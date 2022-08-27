@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ResultPageComponent } from './result-page/result-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { UserPurchasesComponent } from './user-purchases/user-purchases.component';
 
 const routes: Routes = [
   { path: "result", component: ResultPageComponent },
   { path: "home", component: HomePageComponent },
   { path: "user/details", component: UserPageComponent },
-  { path: "user/purchases", component: UserPageComponent },
+  { path: "user/purchases", component: UserPurchasesComponent },
   { path: "user/cart", component: UserPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },
   { path: "**", redirectTo: "home" }];
