@@ -5,6 +5,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { UserAccountDetailsComponent } from './user-account-details/user-account-details.component';
 import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.component';
+import { UserAdminComponent } from './user-admin/user-admin.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: "user/purchases", component: UserPageComponent },
   { path: "user/cart", component: UserPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },
+  { path: "user/admin/details", component: UserAdminComponent},
   { path: "**", redirectTo: "home" }];
 
 @NgModule({

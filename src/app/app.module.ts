@@ -13,6 +13,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { StorePurchasesComponent } from './store-purchases/store-purchases.component';
 import { UserAccountDetailsComponent } from './user-account-details/user-account-details.component';
 import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.component';
+import { UserAdminComponent } from './user-admin/user-admin.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.
     StorePurchasesComponent,
     UserAccountDetailsComponent,
     UserEditDetailsComponent,
+    UserAdminComponent,
   ],
   imports: [
     BrowserModule,
