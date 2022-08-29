@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: "result", component: ResultPageComponent },
   { path: "login",component: LoginComponent },
   { path: "login/callback", component: OktaCallbackComponent },
-  { path: "home", component: HomePageComponent },
+  { path: "home", component: HomePageComponent,  canActivate: [OktaAuthGuard] },
   { path: "user/details", component: UserPageComponent },
   { path: "user/purchases", component: UserPageComponent },
   { path: "user/cart", component: UserPageComponent },

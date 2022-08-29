@@ -16,13 +16,12 @@ import { LoginComponent } from './login/login.component';
 import { LoginStatusComponent } from './login-status/login-status.component';
 import myAppConfig from './config/my-app-config';
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
-import { OktaAuth } from '@okta/okta-auth-js';
 import { Router } from '@angular/router';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
     const router = injector.get(Router)
-    router.navigate(['/login']);
+    router.navigate(['login']);
   }
 }, myAppConfig.oidc)
 

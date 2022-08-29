@@ -3,6 +3,7 @@ import { NavService } from '../services/nav-service/nav-service/nav.service';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category-service/category.service';
 import { Category } from '../Models/categories';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-nav',
@@ -13,7 +14,7 @@ export class NavComponent implements OnInit {
   categories: Category[] = [];
   searchString: any = "";
   constructor(private navService: NavService,
-     private route: Router, private categoryService: CategoryService) {
+     private route: Router, private categoryService: CategoryService, private oktaAuthService: OktaAuthService) {
 
   }
 
@@ -39,6 +40,10 @@ export class NavComponent implements OnInit {
 
   routeToResult():void {
     this.route.navigate(['result']);
+  }
+
+  signOut(): void {
+    this.oktaAuthService.signOut();
   }
   
 }

@@ -5,14 +5,6 @@
                 <a routerLinkActive="active" routerLink="home" class="navbar-brand h-100 bg-white" style="padding-right: 1em; padding-left: 1em;"><span
                         class="text-info">Ecom</span>merce</a>
             </li>
-            <li class="nav-item p-1">
-                <select class="form-select w-100" style="font-size:13.5px;">
-                    <option value="DEFAULT" selected hidden>Shop By Category</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-            </li>
         </ul>
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <button class="btn btn-primary w-100 m-0 p-0 d-flex align-items-center h-100"
@@ -33,6 +25,9 @@
             <button class="btn btn-rounded d-flex align-items-center" style="margin-right: 0.5em; margin-left: 0.1em;">
                 <i class="fa-solid fa-cart-shopping fa-xl"></i>
                 <p class=" m-0 text-success" style="padding-left: 0.5em;">12</p>
+            </button>
+            <button class="btn btn-rounded" (click)="signOut()" style="margin-right: 0.5em; margin-left: 0.1em;">
+                <i class="fa-solid fa-right-from-bracket fa-xl"></i>
             </button>
 
 
