@@ -25,4 +25,8 @@ export class UserService {
     updateUser(data: any): Observable<any> {
         return this.http.put("http://localhost:8081/user/customer/update", data);
     }
+
+    getUserById(userId: number): Observable<User> {
+        return this.http.get<User>("http://localhost:8081/user/customer/" + userId);
+    }
 }

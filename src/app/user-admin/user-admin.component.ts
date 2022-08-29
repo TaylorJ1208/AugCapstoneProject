@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-admin',
@@ -9,15 +10,15 @@ import { UserService } from 'src/app/services/user-service/user.service';
 })
 export class UserAdminComponent implements OnInit {
 
+
   users?: User[];
   currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', password: '', email: '', contact: 0, ssn: 0};
   currentIndex = -1;
   
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveUsers();
-
   }
 
   retrieveUsers(): void {
@@ -42,16 +43,15 @@ export class UserAdminComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res)
-        },
-        error: (e) => console.log(e)
-      });
+          },
+          error: (e) => console.log(e)
+        });
       alert("Account Deleted!");
       this.retrieveUsers();
+    }
   }
-}
   
-
-  editUser(user: User): void {
-
+  editUser(userId: number){
+    this.router.navigateByUrl(`user/admin/edit/${userId}`);
   }
 }

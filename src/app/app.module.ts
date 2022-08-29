@@ -14,6 +14,7 @@ import { StorePurchasesComponent } from './store-purchases/store-purchases.compo
 import { UserAccountDetailsComponent } from './user-account-details/user-account-details.component';
 import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.component';
 import { UserAdminComponent } from './user-admin/user-admin.component';
+import { UserAdminEditComponent } from './user-admin-edit/user-admin-edit.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
     UserAccountDetailsComponent,
     UserEditDetailsComponent,
     UserAdminComponent,
+    UserAdminEditComponent,
   ],
   imports: [
     BrowserModule,

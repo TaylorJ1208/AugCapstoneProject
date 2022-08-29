@@ -6,6 +6,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { UserAccountDetailsComponent } from './user-account-details/user-account-details.component';
 import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.component';
 import { UserAdminComponent } from './user-admin/user-admin.component';
+import { UserAdminEditComponent } from './user-admin-edit/user-admin-edit.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "user/cart", component: UserPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },
   { path: "user/admin/details", component: UserAdminComponent},
+  { path: `user/admin/edit/:userId`, component: UserAdminEditComponent},
   { path: "**", redirectTo: "home" }];
 
 @NgModule({
