@@ -17,4 +17,8 @@ export class OrdersService {
   updateOrder(order: Orders) {
     return this.http.put<Orders>(`http://localhost:8081/orders/update`, order);
   }
+
+  addAnOrder(order: Orders) {
+    return this.http.post<Orders>(`http://localhost:8081/orders/add`, order);
+  }
 }

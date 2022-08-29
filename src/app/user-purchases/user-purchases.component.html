@@ -1,0 +1,40 @@
+<div class="container-fluid my-5 d-flex justify-content-center">
+    <div class="card card-1">
+        <div class="card-header bg-white">
+            <div class="media flex-sm-row flex-column-reverse justify-content-between">
+                <div class="col my-auto"><h4 class="mb-0">My Orders</h4></div>
+            </div>
+        </div>
+
+        <div class="card-body" *ngFor="let order of orders">
+            <div class="row justify-content-between mb-3">
+                <div class="col-auto"><h6 class="color-1 mb-0 change-color">Date Placed: {{order.orderDate}} | Order #{{order.orderId}}</h6></div>
+                <div class="col-auto"><h6 class="color-1 mb-0 change-color">Total Price: ${{order.amount}} ({{order.products.length}} items)</h6></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card card-2" *ngFor="let product of order.products">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="sq align-self-center">{{  order.status ? "Shipped" : "In Transit"  }}</div>
+                                <div class="sq align-self-center"><img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
+                                    [src]="product.image" alt="Card image cap"></div>
+                                <div class="media-body my-auto text-right">
+                                    <div class="row my-auto flex-column flex-md-row">
+                                        <div class="col my-auto"><h6 class="mb-0">{{product.name}}</h6></div>
+                                        <div class="col-auto my-auto"><h6 class="mb-0">{{product.price}}</h6></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <hr>
+                        <div class="row">
+                            <div class="col-md-3 md-3"><small>Track Order <</small></div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
