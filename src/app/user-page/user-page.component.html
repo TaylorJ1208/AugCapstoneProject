@@ -1,0 +1,31 @@
+<div class="navbar m-1 bg-white  container-fluid border">
+    <div class="d-flex flex-column" style="padding-top:2em;">
+        <button routerLink="/user" class="b m-3 btn btn-pill" style="width: 13em;">
+            <i class="fa-regular fa-user fa-5x m-2"></i>
+            <!-- Change to get name in local storage {{ localstorage }} -->
+            <h5 class=" text-info ">Taylor</h5>
+        </button>
+        <div class="m-3 d-flex flex-column justify-content-start bg-white m-0 p-0" style="width: 10em;">
+            <ul class="nav">
+
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="home" class="btn border-0 body-hover p-3 w-100">Home</a>
+                </li>
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/details" class="btn border-0 body-hover p-3 w-100">Account Details</a>
+                </li>
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/cart" class="btn border-0 body-hover p-3 w-100">Cart</a>
+                </li>
+                <!-- Check in local storage if logged-in user has role of ADMIN -->
+                <li *ngIf="true" class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/admin/store-purchases" class="btn border-0 body-hover p-3 w-100">Store
+                        Purchases</a>
+                </li>
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/purchases" class="btn border-0 body-hover p-3 w-100">Purchases</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
