@@ -4,9 +4,13 @@ export interface User {
     lastName: string;
     email: string;
     userName: string;
-    contact: string;
     password: string;
-    roles: string;
-    ssn: string;
-    // Still need to add ADDRESS / ROLE / ORDER
+    ssn: number;
+    contact: number;
+    //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
+    /*orders: Order[];
+    roles: Role[];
+    addresses: Address[];
+    userCart: Cart[]
+    */
 }

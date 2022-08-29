@@ -10,7 +10,19 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`http://localhost:8081/user/customer/update`, user);
+  getAllUsers(): Observable<[User]> {
+    return this.http.get<[User]>("http://localhost:8081/user/admin");
+  }
+
+  createUser(data: any): Observable<any> {
+    return this.http.post("http://localhost:8081/user/customer/register", data)
+  }
+
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete("http://localhost:8081/user/customer/delete/" + userId);
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.http.put("http://localhost:8081/user/customer/update", data);
   }
 }
