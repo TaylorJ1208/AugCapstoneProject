@@ -49,7 +49,6 @@ export class UserEditDetailsComponent implements OnInit {
       });
       alert("Account Updated!");
       this.router.navigate(["/user/accountDetails"]);
-
     }
   }
 }

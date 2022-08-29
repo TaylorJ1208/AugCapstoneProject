@@ -6,33 +6,65 @@
 
         <div class="col-lg-8 order-lg-1 personal-info">
             <form role="form">
+                
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="userId">User Id</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" readonly="readonly"
+                            id="userId"
+                            name="userId"
+                            [(ngModel)]="user.userId"/>
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="firstName">First name</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" 
-                            id="firstName"
+                        <input class="form-control" type="text" id="firstName"
+                            required
                             name="firstName"
-                            [(ngModel)]="user.firstName"/>
+                            [(ngModel)]="user.firstName"
+                            #firstName="ngModel" />
+                            <div [hidden]="firstName.valid || firstName.pristine"
+                                class="alert alert-danger">
+                                First Name is required
+                            </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="lastName"> Last name</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text"
-                        id="lasttName"
+                        <input class="form-control" type="text" id="lastName"
+                        required
                         name="lastName"
-                        [(ngModel)]="user.lastName"/>
+                        [(ngModel)]="user.lastName"
+                        #lastName = "ngModel" />
+                        <div [hidden]="lastName.valid || lastName.pristine"
+                            class="alert alert-danger">
+                            Last Name is required
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="email">Email</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text"
-                        id="email"
-                        name="email"
-                        [(ngModel)]="user.email" />
+                        <input class="form-control" type="email" id="email"
+                        required
+                        name="email" ngModel [email]="true"
+                       
+                        [(ngModel)]="user.email" 
+                        #email = "ngModel"/>
+
+                        <div [hidden]="email.valid || email.pristine"
+                            class="alert alert-danger">
+                            Valid Email is required
+                        </div>
+
+                       
+
+
                     </div>
                 </div>
                 
@@ -61,48 +93,79 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="userName">Username</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text"
-                        id="userName"
+                        <input class="form-control" type="text" id="userName"
+                        required
                         name="userName"
-                        [(ngModel)]="user.userName" />
+                        [(ngModel)]="user.userName"
+                        #userName = "ngModel" />
+                        <div [hidden]="userName.valid || userName.pristine"
+                            class="alert alert-danger">
+                            Username is required
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="contact">Contact</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text"
+                        <input class="form-control" type="text" required="required"
                         id="contact"
                         name="contact"
-                        [(ngModel)]="user.contact" />
+                        [(ngModel)]="user.contact" 
+                        #contact = "ngModel"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        maxlength="11"
+                        minlength="10"/>
+                        <div [hidden]="contact.valid || contact.pristine"
+                            class="alert alert-danger">
+                            Valid 10-11 digit contact is required
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="ssn">SSN</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="password"
+                        <input class="form-control" type="password" required="required"
                         id="ssn"
                         name="ssn"
-                        [(ngModel)]="user.ssn" />
+                        [(ngModel)]="user.ssn" 
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        maxlength="4"
+                        minlength="4"
+                        #ssn = "ngModel"/>
+                        <div [hidden]="ssn.valid || ssn.pristine"
+                            class="alert alert-danger">
+                            Valid 4 digit SSN is required
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="password">Password</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="password"
+                        <input class="form-control" type="password" required="required"
                         id="password"
                         name="password"
-                        [(ngModel)]="user.password" />
+                        [(ngModel)]="user.password"
+                        #password = "ngModel"/>
+                        <div [hidden]="password.valid || password.pristine"
+                            class="alert alert-danger">
+                            Password is required
+                        </div>
                     </div>
                 </div>
                 
                 <div class="form-group row">
                     <div class="col-lg-9 ml-auto text-right">
-                        <input type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/user/accountDetails" value="Cancel"/>
+                        <input type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/user/admin/details" value="Cancel"/>
                         <router-outlet></router-outlet>
-                        <input type="button" class="btn btn-primary" (click) = "updateUser()" value="Save Changes" />
+                        <input type="button" class="btn btn-primary" 
+                        [disabled]="firstName.errors?.['required'] || lastName.errors?.['required']
+                         || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
+                         || contact.errors?.['required']  || ssn.errors?.['required'] 
+                         || password.errors?.['required']
+                        " (click) = "updateUser()" value="Save Changes" />
                     </div>
                 </div>
             </form>
