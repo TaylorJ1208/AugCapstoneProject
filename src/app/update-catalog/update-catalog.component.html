@@ -36,95 +36,25 @@
                     Stock</button>
          
                     <button class="btn btn-primary m-2" (click)="getProduct(product.productId)" style="float: right;" [hidden]="false">Edit Product</button>
-                    <button class="btn btn-danger m-2" (click)="deleteProduct(product.productId);" style="float: right;" [hidden]="false">Delete Product</button>
-  
-                
+                    <button class="btn btn-danger m-2" (click)="deletePopupProductId = product.productId" style="float: right;" [hidden]="false">Delete Product</button>              
             </div>
   
+
+                    <!--Delete Pop-up window-->
+         <div class="overlay" *ngIf="deletePopupProductId == product.productId">
+            <div class = "popup">
+                <p>The product <span style="text-transform:uppercase; color:red">{{product.name}}</span> will be deleted permanently!</p>
+                <a class ="btn btn-danger btn-block close" (click)="deleteProduct(deletePopupProductId);">Delete</a>
+                <a class="btn btn-outline-danger btn-block close" (click)="deletePopupProductId = 0">Cancel</a>
+            </div>
+        </div>
+
+
         </div>
     </div>
   </div>
   
-  
-  
-  
-  <!--<div>
-      <div *ngIf="editProductMode" class="container-fluid col-sm-4 text-center">
-        <h2 style="font-weight:lighter">Edit Product</h2>
-          <div class="mb-3">
-           
-            <label for="productid" class="form-label">Product Id</label>
-              <input
-              type="number" class="form-control" id="productid" required name="productid" placeholder="Product Id" readonly
-              [(ngModel)]="currentProduct.productId"
-            />
-          </div>
-          <div class="mb-3">
-          <label for="productname">Product Name</label>
-            <input
-              type="text" class="form-control" id="productname" required name="productname" placeholder="Product Name"
-              [(ngModel)]="currentProduct.name"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="description">Description</label>
-            <textarea
-              type="text" class="form-control" id="description" required name="description" placeholder="Description"
-              [(ngModel)]="currentProduct.description"
-            ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="price">Price</label>
-            <input
-              type="number" class="form-control" id="price" required name="price" placeholder="Price"
-              [(ngModel)]="currentProduct.price"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="weight">Weight</label>
-            <input
-              type="number" class="form-control" id="weight" required name="weight" placeholder="Weight"
-              [(ngModel)]="currentProduct.weight"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="stockavailable">Stock Available</label>
-            <input
-              type="number" class="form-control" id="stockavailable" required name="stockavailable" placeholder="Stock Available"
-              [(ngModel)]="currentProduct.quantity"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="imageuri">Image URL</label>
-            <textarea
-              type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
-              [(ngModel)]="currentProduct.image"
-            ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="categoryid">Category Id</label>
-            <input
-              type="number" class="form-control" id="categoryid" required name="categoryid" placeholder="Category Id"
-              [(ngModel)]="currentProduct.category.categoryId" maxlength="1"
-            />
-          </div>
-          <div>
-            <button (click)="updateProduct(); closeAlert()" class="btn btn-primary">Submit</button>
-  
-            <button class="btn btn-primary" (click)="hideEditProductMode()">Cancel</button>
-          </div>
-  
-            <div *ngIf="productUpdated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-              Product updated successfully!
-              <button #btnCloseAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          
-      </div>
-    </div>-->
-
-    
+     
 
 
     <div *ngIf="editProductMode" class="col-md-8 offset-md-3 text-center">
@@ -353,12 +283,25 @@
                     <button *ngIf="editCategoryModeId != category.categoryId " class="btn btn-primary btn-block" (click)="getCategory(category.categoryId)">Edit category name</button>
                     <button *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false" class="btn btn-primary btn-block" (click)="updateCategory()">Save category name</button>
 
-                    <button class="btn btn-danger btn-block" (click)="deleteCategory(category.categoryId);" [hidden]="false">Delete Category</button>
+                    <button class="btn btn-danger btn-block" (click)="deletePopupCategoryId=category.categoryId" [hidden]="false">Delete Category</button>
                     
                 </div>
-      
+                
+                <!--Delete Pop-up window-->
+         <div class="overlay" *ngIf="deletePopupCategoryId == category.categoryId">
+            <div class = "popup">
+                <p>You have selected to delete the <span style="text-transform:uppercase; color:red">{{category.category}}</span> category!</p>
+                <p><small class="text-danger">Deleting a category will delete all the products in it.</small></p>
+                <a class ="btn btn-danger btn-block close" (click)="deleteCategory(deletePopupCategoryId);">Delete</a>
+                <a class="btn btn-outline-danger btn-block close" (click)="deletePopupCategoryId = 0">Cancel</a>
             </div>
         </div>
+
+
+            </div>
+
+        </div>
+
       </div>
 
 

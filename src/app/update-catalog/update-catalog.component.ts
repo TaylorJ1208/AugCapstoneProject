@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../Models/product';
 import { Category } from '../Models/category';
@@ -13,23 +13,24 @@ import { CategoryService } from '../services/category-service/category.service';
 export class UpdateCatalogComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
-  imageUrl: string = "https://res.cloudinary.com/drukcz14j/image/upload/v1661201584/ecommerce/iPhone-13-PNG-Cutout_wydwdd.png";
 
-  @Input() showProductMode = false;
-  @Input() editProductMode = false;
-  @Input() addProductMode = false;
-  @Input() showCategoryMode = false;
-  @Input() editCategoryMode = false;
-  @Input() editCategoryModeId = 0;
-  @Input() addCategoryMode = false;
+  showProductMode = false;
+  editProductMode = false;
+  addProductMode = false;
+  showCategoryMode = false;
+  editCategoryMode = false;
+  editCategoryModeId = 0;
+  addCategoryMode = false;
 
-  @Input() currentProduct:any;
-  @Input() currentCategory:any;
+  currentProduct:any;
+  currentCategory:any;
 
   productUpdated = false;
   productAdded = false;
   categoryUpdated = false;
   categoryAdded = false;
+  deletePopupCategoryId = 0;
+  deletePopupProductId = 0;
   
 
   constructor(
@@ -289,4 +290,5 @@ deleteCategory(id:any):void{
   })
   this.ngOnInit();
 }
+
 }
