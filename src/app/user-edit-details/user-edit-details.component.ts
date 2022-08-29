@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 
@@ -21,7 +22,7 @@ export class UserEditDetailsComponent implements OnInit {
   };
   submitted = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -47,6 +48,8 @@ export class UserEditDetailsComponent implements OnInit {
         error: (e) => console.error(e)
       });
       alert("Account Updated!");
+      this.router.navigate(["/user/accountDetails"]);
+
     }
   }
 }
