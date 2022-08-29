@@ -26,31 +26,34 @@ export class CheckoutPageComponent implements OnInit {
   inputCVV: string = "";
   inputOwner: string = "";
   currentAddress: string = "";
-  test:Product[] = [];
+  products:Product[] = [];
 
   constructor(private orderService:OrdersService, private userService:UserService, private productService:ProductService) { }
-  testPrd = this.productService.getProductByName("MSI Gaming laptop");
-  
 
   ngOnInit(): void { 
     this.getProduct();
   }
 
   getProduct() {
-    this.productService.getProductByName("MSI Gaming laptop").subscribe(x => this.test = x);
+    this.productService.getAllProducts()
+      .subscribe({ next: (data: Product[]) => {
+        this.products = data;
+      },
+      error: (e) => console.error(e)});
   }
+  
 
   addOrder() :void {
-    const time = Date.parse('28 Aug 2022 00:12:00 GMT');
+    const time = Date.parse('29 Aug 2022 00:12:00 GMT');
     let role:Role[] = [{ roleId: 1, role: "ROLE_ADMIN"}]
       
     const data = {
-      orderId: 1,
+      orderId: 3,
       amount: 1000,
       orderDate: time,
       status: true,
-      billingAddress: this.inputAddress + " " + this.inputAptNo+ ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
-      shippingAddress: this.inputAddress + " " + this.inputAptNo+ ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
+      billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
+      shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       user: {
         userId: 1,
         firstName: "Blaise",
@@ -62,7 +65,7 @@ export class CheckoutPageComponent implements OnInit {
         ssn: "1111",
         roles: role
       },
-      products: this.test
+      products: this.products
     };
     this.orderService.addAnOrder(data)
     .subscribe({next:m =>{
@@ -86,6 +89,7 @@ export class CheckoutPageComponent implements OnInit {
   }
   
   changedAddress(event : any){
+    console.log("Hi " + JSON.stringify(this.products))
     this.inputAddress = event.target.value;
   }
 

@@ -171,9 +171,22 @@
         </div>
         <div class="card text-white bg-white mb-3 ms-3 mt-3" style="height: 400px">
             <div class="card-header text-dark text-center">Cart</div>
-            <div class="card-body">
-                <h5 class="card-title text-dark">This will show the current items in cart before checkout.</h5>
-                <p class="card-text text-dark"></p>
+            <div class="card-body" style="width: 350px;">
+                <div class="d-flex flex-row" *ngFor="let product of products; let i = index">
+                    <div class="col-md-1 text-dark text-center mt-3">
+                        <p>{{i+1}}</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img class="card-img-top" style="border-radius: 15px; width: 100px; height: 58px;" [src]="product.image"
+                        alt="Card image cap">
+                    </div>
+                    <div class="col-md-6 text-dark text-center mt-3">
+                        <p>${{product.price}}</p>
+                    </div>
+                </div>
+                <div class="text-center" style="position: absolute; bottom: 0;">
+                    <p class="card-text text-dark p-1 text-center" style="position: absolute; bottom: 0;">Total: $2000</p>
+                </div>
             </div>
         </div>
     </div>
