@@ -4,21 +4,20 @@
         
     </ul>
   </div>
-  
-  <div *ngIf="!editMode && !addMode" class="main bg-light">
+
+<div *ngIf="showProductMode">
+  <div *ngIf="!editProductMode && !addProductMode" class="main bg-light">
   
     <div class="container m-2">
-        <a href=#>
-            <h2 style="font-weight:lighter">Browse By Popular Products</h2>
-        </a>
+        
 
-        <button class="btn btn-primary btn-lg btn-block" (click)="showAddMode(); newAdd()">Add New Product</button>
+        <button class="btn btn-primary btn-lg btn-block" (click)="showAddProductMode();">Add New Product</button>
                         
     </div>
   
     <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
   
-        <div class="card m-2" style="width: 18em;" *ngFor="let product of products">
+        <div class="card m-2" style="width: 15em;" *ngFor="let product of products">
             <h5 *ngIf="product.quantity <= 10 && product.quantity > 0" class="bg-info text-dark">Only
                 <span class="text-white">{{ product.quantity }}</span> left!
             </h5>
@@ -50,7 +49,7 @@
   
   
   <!--<div>
-      <div *ngIf="editMode" class="container-fluid col-sm-4 text-center">
+      <div *ngIf="editProductMode" class="container-fluid col-sm-4 text-center">
         <h2 style="font-weight:lighter">Edit Product</h2>
           <div class="mb-3">
            
@@ -112,10 +111,10 @@
           <div>
             <button (click)="updateProduct(); closeAlert()" class="btn btn-primary">Submit</button>
   
-            <button class="btn btn-primary" (click)="hideEditMode()">Cancel</button>
+            <button class="btn btn-primary" (click)="hideEditProductMode()">Cancel</button>
           </div>
   
-            <div *ngIf="updated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+            <div *ngIf="productUpdated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
               Product updated successfully!
               <button #btnCloseAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
                   <span aria-hidden="true">&times;</span>
@@ -128,7 +127,7 @@
     
 
 
-    <div *ngIf="editMode" class="col-md-6 offset-md-3 text-center">
+    <div *ngIf="editProductMode" class="col-md-8 offset-md-3 text-center">
 
     
         <div class="card card-outline-secondary">
@@ -145,11 +144,14 @@
                       />
                         </div>
                         <div class="col-md-6">
-                            <label for="categoryid" class="form-label">Category Id</label>
-            <input
-              type="number" class="form-control" id="categoryid" required name="categoryid" placeholder="Category Id"
-              [(ngModel)]="currentProduct.category.categoryId" maxlength="1"
-            />
+                           
+                                <label for="categoryid" class="form-label">Choose Category</label>
+
+                <select [(ngModel)]="currentProduct.category.categoryId" class="form-select" id="categoryid" required name="categoryid">
+                <option selected value="">Select Category</option>  
+                <option style="text-transform:uppercase;" *ngFor="let category of categories" [value]="category.categoryId">{{category.category}}</option>
+                </select>
+            
                         </div>
                     </div>
                     <div class="form-group">
@@ -208,17 +210,17 @@
                     <div class="form-group row">
                         <div class="col-md-6">
           
-                          <button class="btn btn-default btn-lg btn-block" (click)="hideEditMode()">Cancel</button>
+                          <button class="btn btn-default btn-lg btn-block" (click)="hideEditProductMode()">Cancel</button>
                           
                         </div>
                         <div class="col-md-6">
-                            <button (click)="updateProduct(); closeAlert('updated')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                            <button (click)="updateProduct(); closeAlert('productUpdated')" class="btn btn-primary btn-lg btn-block">Submit</button>
                         </div>
                     </div>
                 </form>
-                <div *ngIf="updated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+                <div *ngIf="productUpdated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
                     Product updated successfully!
-                    <button #btnCloseUpdatedAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
+                    <button #btnCloseProductUpdatedAlert type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newUpdate()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -228,7 +230,7 @@
     
 
 
-        <div *ngIf="addMode" class="col-md-6 offset-md-3 text-center">
+        <div *ngIf="addProductMode" class="col-md-8 offset-md-3 text-center">
 
     
             <div class="card card-outline-secondary">
@@ -238,11 +240,13 @@
                     <form class="form" role="form" autocomplete="off">
                     
                             <div class="form-group">
-                                <label for="categoryid" class="form-label">Category Id</label>
-                <input
-                  type="number" class="form-control" id="categoryid" required name="categoryid" placeholder="Category Id"
-                  [(ngModel)]="currentProduct.category.categoryId" maxlength="1"
-                />
+                                <label for="categoryid" class="form-label">Choose Category</label>
+
+                <select [(ngModel)]="currentProduct.category.categoryId" class="form-select" id="categoryid" required name="categoryid">
+                <option selected value="">Select Category</option>  
+                <option style="text-transform:uppercase ;" *ngFor="let category of categories" [value]="category.categoryId">{{category.category}}</option>
+                </select>
+            
                             </div>
                         
                         <div class="form-group">
@@ -301,21 +305,102 @@
                         <div class="form-group row">
                             <div class="col-md-6">
               
-                              <button class="btn btn-default btn-lg btn-block" (click)="hideAddMode()">Cancel</button>
+                              <button class="btn btn-default btn-lg btn-block" (click)="hideAddProductMode()">Cancel</button>
                               
                             </div>
                             <div class="col-md-6">
-                                <button (click)="addProduct(); closeAlert('added')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                                <input type="submit" (click)="addProduct(); closeAlert('productAdded')" class="btn btn-primary btn-lg btn-block">
                             </div>
                         </div>
                     </form>
-                    <div *ngIf="added" id="addedAlert" class="alert alert-success alert-dismissible fade show" role="addedAlert">
+                    <div *ngIf="productAdded" id="productAddedAlert" class="alert alert-success alert-dismissible fade show" role="productAddedAlert">
                         Product Added successfully!
-                        <button #btnCloseAddedAlert type="button" class="close" data-dismiss="addedAlert" aria-label="Close" (click)="newAdd()">
+                        <button #btnCloseProductAddedAlert type="button" class="close" data-dismiss="productAddedAlert" aria-label="Close" (click)="newAdd()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 </div>
             </div>
             </div>
+</div>
+
+
+<!------------------- CATEGORY UPDATE ------------------>
+
+
+<div *ngIf="showCategoryMode">
+    <div *ngIf="!addCategoryMode" class="main bg-light">
+  
+        <div class="container m-2">
+            
+    
+            <button class="btn btn-primary btn-lg btn-block" (click)="showAddCategoryMode();">Add New Category</button>
+                            
+        </div>
+      
+        <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+      
+            <div class="card m-2" style="width: 18em;" *ngFor="let category of categories">
+                
+                <div class="card-body text-center">
+                  <!--  <h4 class="card-title">Category ID: {{ category.categoryId }}</h4>-->
+                    <h2 style="text-transform:uppercase" class="card-subtitle">{{ category.category }}</h2><br>
+                
+                <input *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false"
+                  type="text" class="form-control text-center" id="categoryname" required name="categoryname" placeholder="Category Name"
+                  [(ngModel)]="currentCategory.category"
+                />
+                    <button *ngIf="editCategoryModeId != category.categoryId " class="btn btn-primary btn-block" (click)="getCategory(category.categoryId)">Edit category name</button>
+                    <button *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false" class="btn btn-primary btn-block" (click)="updateCategory()">Save category name</button>
+
+                    <button class="btn btn-danger btn-block" (click)="deleteCategory(category.categoryId);" [hidden]="false">Delete Category</button>
+                    
+                </div>
+      
+            </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="addCategoryMode" class="main bg-light">
+  
+        <div class="container m-2">
+                       
+        </div>
+      
+        <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+      
+            <div class="card m-2" style="width: 18em;">
+                
+                <div class="card-body text-center">
+                    <h2 style="text-transform:uppercase" class="card-subtitle">New Category</h2><br>
+
+                    <form class="form" role="form" autocomplete="off">
+                    
+                        <div class="form-group">
+                            <!--<label for="categoryname" class="form-label">Category Name</label>-->
+                            <input
+                            type="text" class="form-control text-center" id="categoryname" required name="categoryname" placeholder="Category Name"
+                            [(ngModel)]="currentCategory.category"
+                          />
+                        </div>
+
+                        <button (click)="addCategory(); closeAlert('categoryAdded')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        <button class="btn btn-default btn-lg btn-block" (click)="hideAddCategoryMode()">Cancel</button>
+                    </form>
+                    <div *ngIf="categoryAdded" id="categoryAddedAlert" class="alert alert-success alert-dismissible fade show" role="categoryAddedAlert">
+                        Category Added!
+                        <button #btnCloseCategoryAddedAlert type="button" class="close" data-dismiss="categoryAddedAlert" aria-label="Close" (click)="newAdd()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+      
+            </div>
+        </div>
+      </div>
+
+
+      
+</div>
         

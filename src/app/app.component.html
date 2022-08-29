@@ -9,7 +9,11 @@
     <app-store-purchases></app-store-purchases>
   </div>
 
-  <div *ngIf="url == '/catalog/update'">
+  <div *ngIf="url == '/catalog/update-products'">
+    <app-update-catalog></app-update-catalog>
+  </div>
+
+  <div *ngIf="url == '/catalog/update-categories'">
     <app-update-catalog></app-update-catalog>
   </div>
   

@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../Models/product';
+import { Category } from '../Models/category';
 import { ProductService } from '../services/product-service/product.service';
+import { CategoryService } from '../services/category-service/category.service';
 
 @Component({
   selector: 'app-update-catalog',
@@ -10,27 +12,49 @@ import { ProductService } from '../services/product-service/product.service';
 })
 export class UpdateCatalogComponent implements OnInit {
   products: Product[] = [];
+  categories: Category[] = [];
   imageUrl: string = "https://res.cloudinary.com/drukcz14j/image/upload/v1661201584/ecommerce/iPhone-13-PNG-Cutout_wydwdd.png";
 
-  @Input() editMode = false;
-  @Input() addMode = false;
+  @Input() showProductMode = false;
+  @Input() editProductMode = false;
+  @Input() addProductMode = false;
+  @Input() showCategoryMode = false;
+  @Input() editCategoryMode = false;
+  @Input() editCategoryModeId = 0;
+  @Input() addCategoryMode = false;
 
   @Input() currentProduct:any;
+  @Input() currentCategory:any;
 
-  updated = false;
-  added = false;
+  productUpdated = false;
+  productAdded = false;
+  categoryUpdated = false;
+  categoryAdded = false;
   
 
   constructor(
     private productService:ProductService,
+    private categoryService:CategoryService,
     private route: ActivatedRoute,
     private router: Router
     ) { }
 
   ngOnInit(): void {
     this.getProducts();
+    this.getCategories();
+    this.showMode();
   }
 
+  showMode():void{
+    
+      if (this.router.url == "/catalog/update-products"){
+        this.showProductMode = true;
+      }
+      else if(this.router.url == "/catalog/update-categories"){
+        this.showCategoryMode = true;
+      }
+  
+  }
   
   getProducts() {
     this.productService.getAllProducts()
@@ -69,8 +93,8 @@ export class UpdateCatalogComponent implements OnInit {
       this.productService.addProduct(data)
       .subscribe({next:m=>{
         console.log(m);
-        this.added = true;
-        console.log("Product.added: " +this.added);
+        this.productAdded = true;
+        console.log("Product.added: " +this.productAdded);
         this.ngOnInit();
       },
     error:e=>console.error(e)
@@ -78,7 +102,7 @@ export class UpdateCatalogComponent implements OnInit {
     }
 
     getProduct(id: any): void {
-      this.editMode = true;
+      this.editProductMode = true;
       this.productService.getProductById(id)
         .subscribe({
           next: (data) => {
@@ -110,8 +134,8 @@ console.log(data);
     this.productService.updateProduct(data)
     .subscribe({next:m=>{
       console.log(m);
-      this.updated = true;
-      console.log(this.updated);
+      this.productUpdated = true;
+      console.log(this.productUpdated);
       this.ngOnInit();
     },
   error:e=>console.error(e)
@@ -119,11 +143,11 @@ console.log(data);
 }
 
 newUpdate():void{
-  this.updated = false;
+  this.productUpdated = false;
 }
 
 newAdd():void{
-  this.added = false;
+  this.productAdded = false;
   this.currentProduct = {
     productId: 0,
     name: "",
@@ -137,38 +161,132 @@ newAdd():void{
       categoryId: 0,
     }
   }
+
+  this.categoryAdded = false;
+  this.currentCategory = {
+    categoryId:0,
+    category:""
+  };
+
 }
 
-hideEditMode(){
-  this.editMode=false;
+hideEditProductMode(){
+  this.editProductMode=false;
 }
 
-showAddMode(){
-  this.addMode = true;
-  this.editMode = false;
+showAddProductMode(){
+  this.addProductMode = true;
+  this.editProductMode = false;
   this.newAdd();
 }
 
-hideAddMode(){
-  this.addMode = false;
+hideAddProductMode(){
+  this.addProductMode = false;
 }
 
-@ViewChild('btnCloseAddedAlert') btnCloseAddedAlert!:ElementRef;
-@ViewChild('btnCloseUpdatedAlert') btnCloseUpdatedAlert!:ElementRef;
+@ViewChild('btnCloseProductAddedAlert') btnCloseProductAddedAlert!:ElementRef;
+@ViewChild('btnCloseProductUpdatedAlert') btnCloseProductUpdatedAlert!:ElementRef;
+@ViewChild('btnCloseCategoryAddedAlert') btnCloseCategoryAddedAlert!:ElementRef;
 closeAlert(i:any){
   
   setTimeout(()=>{
-    if(i == "added"){
-    this.btnCloseAddedAlert.nativeElement.click();
+    if(i == "productAdded"){
+    this.btnCloseProductAddedAlert.nativeElement.click();
     console.log("btnCloseAdded Clicked");
     }
-    else if (i == "updated"){
-      this.btnCloseUpdatedAlert.nativeElement.click();
+    else if (i == "productUpdated"){
+      this.btnCloseProductUpdatedAlert.nativeElement.click();
       console.log("btnClose updated clicked");
+    }
+    else if (i == "categoryAdded"){
+      this.btnCloseCategoryAddedAlert.nativeElement.click();
+      console.log("btnClose category added clicked");
     }
   
   }, 2000);
   
 }
 
+
+//  Edit/Add/Delete Category
+getCategories():void{
+  this.categoryService.getCategories()
+  .subscribe({ next: (data: Category[]) => {
+    console.log(data);
+    this.categories = data;
+  },
+  error: (e) => console.error(e)});
+}
+
+getCategory(id: any): void {
+  this.editCategoryModeId = id;
+  this.categoryUpdated = false;
+  this.categoryService.getCategoryById(id)
+    .subscribe({
+      next: (data) => {
+        this.currentCategory = data;
+        console.log(data);
+        console.log("category id is:"+this.currentCategory.categoryId);
+      },
+      error: (e) => console.error(e)
+    });
+}
+
+updateCategory():void{
+  const data = {
+    categoryId: this.currentCategory.categoryId,
+    category: this.currentCategory.category
+  };
+console.log(data);
+
+  this.categoryService.updateCategory(data)
+  .subscribe({next:m=>{
+    console.log(m);
+    this.categoryUpdated = true;
+    this.editCategoryModeId = 0;
+    console.log(this.categoryUpdated);
+    this.ngOnInit();
+  },
+error:e=>console.error(e)
+});
+}
+
+showAddCategoryMode(){
+  this.addCategoryMode = true;
+  this.newAdd();
+}
+
+hideAddCategoryMode(){
+  this.addCategoryMode = false;
+}
+
+addCategory():void{
+  const data = {
+    categoryId: this.currentCategory.categoryId,
+    category: this.currentCategory.category
+  };
+console.log(data);
+
+  this.categoryService.addCategory(data)
+  .subscribe({next:m=>{
+    console.log(m);
+    this.categoryAdded = true;
+    console.log(this.categoryAdded);
+    this.ngOnInit();
+  },
+error:e=>console.error(e)
+});
+}
+
+deleteCategory(id:any):void{
+  this.categoryService.deleteCategory(id)
+  .subscribe({next:m=>{
+    console.log(m);
+    console.log("category deleted");
+    this.ngOnInit();
+  },
+  error:(e)=>console.error(e)
+  })
+  this.ngOnInit();
+}
 }
