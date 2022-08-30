@@ -1,4 +1,5 @@
 import { Role } from "./role";
+import { Address } from "./address";
 
 export interface User {
     userId: number;

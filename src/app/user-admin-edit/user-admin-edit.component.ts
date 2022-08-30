@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Address } from '../Models/address';
+import { AddressService } from '../services/address-service/address.service';
 
 @Component({
   selector: 'app-user-admin-edit',
@@ -18,22 +20,37 @@ export class UserAdminEditComponent implements OnInit {
      email: '',
      userName: '',
      password: '',
-     ssn: "0",
-     contact: "0",
+     ssn: '',
+     contact: '',
      roles: []
    };
 
+   address: Address = {
+    addressId: 0,
+    city: '',
+    state: '',
+    street: '',
+    zipcode: '',
+    country: '',
+    apartmentNumber: '',
+    userId: 0
+  }
+
+
+
   confirmPw:string = '';
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { 
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
+    private addressService: AddressService) { 
       
   }
   
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
     this.userService.getUserById(userId).subscribe(x => this.user = x);
+    this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
-  updateUser() : boolean {
+  updateUser() : void {
     const data = {
       userId: this.user.userId,
       firstName: this.user.firstName,
@@ -46,7 +63,6 @@ export class UserAdminEditComponent implements OnInit {
     };
 
   if(confirm("Are you sure you would like to update this account?")) {
-    if(this.confirmMatchingPasswords()) {
       this.userService.updateUser(data)
         .subscribe({
           next: (res) => {
@@ -56,24 +72,6 @@ export class UserAdminEditComponent implements OnInit {
         });
         alert("Account Updated!");
         this.router.navigate(["user/admin/details"]);
-        return true;
       }
-      alert("Passwords do not match");
     }
-    return false;
-  }
-  confirmMatchingPasswords(): boolean {
-    
-    this.confirmPw = (<HTMLInputElement>document.getElementById("confirmPassword")).value;
-    //console.log(this.confirmPw)
-   
-    if(this.user.password.length != 0 && this.confirmPw.length != 0) {
-      if(this.user.password === this.confirmPw) {
-        console.log(this.user.password === this.confirmPw);
-        return true;
-      } 
-  }
-
-    return false;
-  }
 }

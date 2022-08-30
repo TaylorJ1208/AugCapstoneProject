@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "result", component: ResultPageComponent },
   { path: "login",component: LoginComponent },
   { path: "login/callback", component: OktaCallbackComponent },
-  { path: "home", component: HomePageComponent, canActivate: [OktaAuthGuard] },
+  { path: "home", component: HomePageComponent },
   { path: "user/details", component: UserPageComponent },
   { path: "user/accountDetails", component: UserAccountDetailsComponent},
   { path: "user/editDetails", component: UserEditDetailsComponent},
@@ -28,7 +28,8 @@ const routes: Routes = [
   { path: "catalog/update-categories", component: UserPageComponent},
   { path: "user/admin/details", component: UserAdminComponent},
   { path: `user/admin/edit/:userId`, component: UserAdminEditComponent},
-  { path: "**", redirectTo: "home" }];
+  { path: `user/editDetails/:userId/:addressId`, component: UserEditDetailsComponent},
+  { path: "**", redirectTo: "login" }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

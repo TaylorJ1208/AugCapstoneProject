@@ -1,5 +1,5 @@
 <div class="container py-2 justify-content-center">
-    <div class="row my-2">
+    <div class="row my-2 justify-content-center">
         <div class="col-lg-8">
             <h2> <strong> Account Update Form </strong> </h2>
         </div>
@@ -68,25 +68,66 @@
                     </div>
                 </div>
                 
-            <!-- IMPLEMENT ADDRESS INFORMATION-->
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Address</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" 
-                        value="CURRENT USER STREET" placeholder="Street" />
+                        <input class="form-control" type="text" id="street"
+                        required
+                        name="street"
+                        [(ngModel)]="address.street" 
+                        #street = "ngModel"/>
+
+                        <div [hidden]="street.valid || street.pristine"
+                            class="alert alert-danger">
+                            Street is required
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
-                    <div class="col-lg-6">
-                        <input class="form-control" type="text" 
-                        value="CURRENT USER CITY" placeholder="City" />
+                    <div class="col-lg-3">
+                        <input class="form-control" type="text" id="city"
+                        required
+                        name="city"
+                        [(ngModel)]="address.city" 
+                        #city = "ngModel"/>
+
+                        <div [hidden]="city.valid || city.pristine"
+                            class="alert alert-danger">
+                            City is required
+                        </div>
+
                     </div>
 
                     <div class="col-lg-3">
-                        <input class="form-control" type="text" 
-                        value="CURRENT USER STATE" placeholder="State" />
+                        <input class="form-control" type="text" id="country"
+                        required
+                        name="country"
+                        [(ngModel)]="address.country" 
+                        #country = "ngModel"/>
+
+                        <div [hidden]="country.valid || country.pristine"
+                            class="alert alert-danger">
+                            Country is required
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <input class="form-control" type="text" id="zipcode"
+                        required
+                        name="zipcode"
+                        [(ngModel)]="address.zipcode" 
+                        #zipcode = "ngModel"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        maxlength="5"
+                        minlength="5"/>
+
+                        <div [hidden]="zipcode.valid || zipcode.pristine"
+                            class="alert alert-danger">
+                            Zipcode is required
+                        </div>
                     </div>
                 </div>
 
@@ -160,31 +201,19 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" for="confirmPassword"> Confirm Password</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="password"
-                        required
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value=password/>
-                    </div>
-                </div>
-              
-
-                <div class="form-group row">
                     <div class="col-lg-9 ml-auto text-right">
                         <input type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/user/admin/details" value="Cancel"/>
                         <router-outlet></router-outlet>
                         <input type="submit" class="btn btn-primary" 
                         [disabled]="firstName.errors?.['required'] || lastName.errors?.['required']
-                         || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
-                         || contact.errors?.['required']  || ssn.errors?.['required'] 
-                         || password.errors?.['required']" 
-                         (click) = "updateUser()" value="Save Changes" />
+                        || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
+                        || contact.errors?.['required']  || ssn.errors?.['required'] ||ssn.errors?.['minlength']
+                        || password.errors?.['required'] || contact.errors?.['minlength'] ||zipcode.errors?.['minlength']
+                        || street.errors?.['required'] || zipcode.errors?.['required'] || city.errors?.['required'] || country.errors?.['required'] "
+                        (click) = "updateUser()" value="Save Changes" />
                     </div>
                 </div>
             </form>
         </div>   
     </div>
 </div>
- 

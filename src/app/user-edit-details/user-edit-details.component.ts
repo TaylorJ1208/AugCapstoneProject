@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { Address } from '../Models/address';
+import { AddressService } from '../services/address-service/address.service';
 
 @Component({
   selector: 'app-user-edit-details',
@@ -11,24 +13,42 @@ import { UserService } from 'src/app/services/user-service/user.service';
 export class UserEditDetailsComponent implements OnInit {
   user: User = {
     //GET THE CURRENT USER DETAILS TO INIT USER
-    userId: 1,
-    firstName: 'LOGGED IN USER FIRST',
-    lastName: 'LOGGED IN USER LAST',
-    email: 'LOGGEDINUSEREMAIL@gmail.com',
-    userName: 'admin',
-    password: 'Password',
-    ssn: "1233",
-    contact: "123456780",
+    userId: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    userName: '',
+    password: '',
+    ssn: '',
+    contact: '',
     roles: []
   };
+
+  address: Address = {
+    addressId: 0,
+    city: '',
+    state: '',
+    street: '',
+    zipcode: '',
+    country: '',
+    apartmentNumber: '',
+    userId: 0
+  }
+
 
   confirmPw:string = '';
   showPw: boolean = false;
   showConfirm: boolean = false;
+  visibleSSN: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
+    private addressService: AddressService) { }
 
   ngOnInit(): void {
+    const userId = this.route.snapshot.params["userId"];
+    const addressId = this.route.snapshot.params["addressId"]
+    this.userService.getUserById(userId).subscribe(x => this.user = x);
+    this.addressService.getAddressById(addressId).subscribe(x => this.address=x);
   }
 
  
@@ -79,5 +99,9 @@ export class UserEditDetailsComponent implements OnInit {
 
   showConfirmPassword() {
     this.showConfirm = !this.showConfirm;
+  }
+
+  showSSN() {
+    this.visibleSSN = !this.visibleSSN;
   }
 }

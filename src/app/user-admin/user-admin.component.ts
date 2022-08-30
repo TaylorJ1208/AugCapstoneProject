@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Router } from '@angular/router';
+import { Address } from '../Models/address';
+import { AddressService } from '../services/address-service/address.service';
 
 @Component({
   selector: 'app-user-admin',
@@ -12,13 +14,27 @@ export class UserAdminComponent implements OnInit {
 
 
   users?: User[];
-  currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', password: '', email: '', contact: "0", ssn: "0", roles: []};
+
+  currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', 
+  password: '', email: '', contact: '', ssn: '', roles: []};
   currentIndex = -1;
+  address: Address = {
+    addressId: 0,
+    city: '',
+    state: '',
+    street: '',
+    zipcode: '',
+    country: '',
+    apartmentNumber: '',
+    userId: 0
+  }
   
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.retrieveUsers();
+    this.addressService.getAddressById(1).subscribe(x => this.address = x);
+
   }
 
   retrieveUsers(): void {
@@ -31,6 +47,8 @@ export class UserAdminComponent implements OnInit {
         error: (e) => console.error(e)
       });
   }
+
+  
 
   setActiveUser(user: User, index: number): void {
     this.currentUser = user;
