@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: "result", component: ResultPageComponent },
   { path: "home", component: HomePageComponent },
   { path: "user/details", component: UserPageComponent },
-  { path: "user/purchases", component: UserPurchasesComponent },
+  { path: "user/purchases", component: UserPageComponent },
   { path: "user/cart", component: UserPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },
   { path: "**", redirectTo: "home" }];

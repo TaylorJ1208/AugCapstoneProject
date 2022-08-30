@@ -14,9 +14,10 @@ import { OrdersService } from '../services/orders-service/orders.service';
   orders: Orders[] = [];
   cast = this.orders$.asObservable();
   constructor(private ordersService: OrdersService) { }
+  display="none";
 
   ngOnInit(): void {
-    this.getOrderSearch();
+    this.getOrderSearch(1);
     this.cast.subscribe((orders) => {
       this.orders = orders;
     });
@@ -27,7 +28,10 @@ import { OrdersService } from '../services/orders-service/orders.service';
     
   }
 
-  getOrderSearch() {
+  //todo: get current authenticated user and only return the 
+  //orders that belong to them
+
+  getOrderSearch(id:number) {
     this.ordersService.getAllOrders()
       .subscribe ((data: any) => {
         this.cast = data;
@@ -36,6 +40,11 @@ import { OrdersService } from '../services/orders-service/orders.service';
       })
   } 
 
-  
+  openModal(){
+    this.display="block";
+  }
+  onCloseHandled(){
+    this.display="none";
+  }
     
   }

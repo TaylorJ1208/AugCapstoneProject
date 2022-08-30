@@ -13,4 +13,5 @@ export class OrdersService {
   getAllOrders(): Observable<Orders[]> {
     return this.http.get<Orders[]>(`http://localhost:8081/orders/admin`);
   }
+
 }
