@@ -18,8 +18,8 @@ export class UserAdminEditComponent implements OnInit {
      email: '',
      userName: '',
      password: '',
-     ssn: 0,
-     contact: 0
+     ssn: '',
+     contact: ''
    };
 
   confirmPw:string = '';
@@ -32,7 +32,7 @@ export class UserAdminEditComponent implements OnInit {
     this.userService.getUserById(userId).subscribe(x => this.user = x);
   }
 
-  updateUser() : boolean {
+  updateUser() : void {
     const data = {
       userId: this.user.userId,
       firstName: this.user.firstName,
@@ -45,7 +45,6 @@ export class UserAdminEditComponent implements OnInit {
     };
 
   if(confirm("Are you sure you would like to update this account?")) {
-    if(this.confirmMatchingPasswords()) {
       this.userService.updateUser(data)
         .subscribe({
           next: (res) => {
@@ -55,24 +54,7 @@ export class UserAdminEditComponent implements OnInit {
         });
         alert("Account Updated!");
         this.router.navigate(["user/admin/details"]);
-        return true;
       }
-      alert("Passwords do not match");
     }
-    return false;
-  }
-  confirmMatchingPasswords(): boolean {
-    
-    this.confirmPw = (<HTMLInputElement>document.getElementById("confirmPassword")).value;
-    //console.log(this.confirmPw)
-   
-    if(this.user.password.length != 0 && this.confirmPw.length != 0) {
-      if(this.user.password === this.confirmPw) {
-        console.log(this.user.password === this.confirmPw);
-        return true;
-      } 
-  }
-
-    return false;
-  }
 }
+

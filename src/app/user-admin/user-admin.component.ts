@@ -12,7 +12,7 @@ export class UserAdminComponent implements OnInit {
 
 
   users?: User[];
-  currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', password: '', email: '', contact: 0, ssn: 0};
+  currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', password: '', email: '', contact: '', ssn: ''};
   currentIndex = -1;
   
   constructor(private userService: UserService, private router: Router) { }

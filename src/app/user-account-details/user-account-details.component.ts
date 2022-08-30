@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 
 @Component({
@@ -9,9 +10,20 @@ import { UserService } from '../services/user-service/user.service';
   })
 
 export class UserAccountDetailsComponent implements OnInit {
+  user: User = {
+    userId: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    userName: '',
+    password: '',
+    ssn: '',
+    contact: ''
+  };
+  
   ngOnInit(): void {}
   constructor(private userService: UserService, private router: Router) { 
-
+    this.userService.getUserById(18).subscribe(x => this.user = x);
   }
 
   deleteUser(userId: number) : void {
@@ -26,5 +38,9 @@ export class UserAccountDetailsComponent implements OnInit {
       alert("Account Deleted!");
       this.router.navigate(['home']);
     }
+  }
+  editUser(userId: number){
+    console.log("edit user " + userId);
+    this.router.navigateByUrl(`user/editDetails/${userId}`);
   }
 }  

@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: "home", component: HomePageComponent },
   { path: "user/details", component: UserPageComponent },
   { path: "user/accountDetails", component: UserAccountDetailsComponent},
-  { path: "user/editDetails", component: UserEditDetailsComponent},
+  { path: `user/editDetails/:userId`, component: UserEditDetailsComponent},
   { path: "user/purchases", component: UserPageComponent },
   { path: "user/cart", component: UserPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },

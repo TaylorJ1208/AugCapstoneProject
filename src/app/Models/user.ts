@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export interface User {
     userId: number;
     firstName: string;
@@ -5,8 +7,8 @@ export interface User {
     email: string;
     userName: string;
     password: string;
-    ssn: number;
-    contact: number;
+    ssn: string;
+    contact: string;
     //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
     //orders: Order[];
     //roles: Role[];
