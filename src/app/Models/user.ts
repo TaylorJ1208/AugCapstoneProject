@@ -1,16 +1,17 @@
+import { Role } from "./role";
+
 export interface User {
     userId: number;
     firstName: string;
     lastName: string;
     email: string;
     userName: string;
+    contact: string;
     password: string;
-    ssn: number;
-    contact: number;
-    //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
-    /*orders: Order[];
     roles: Role[];
-    addresses: Address[];
+    ssn: string;
+    //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
+    /*addresses: Address[];
     userCart: Cart[]
     */
 }

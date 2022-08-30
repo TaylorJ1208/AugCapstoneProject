@@ -7,17 +7,25 @@ import { UserAccountDetailsComponent } from './user-account-details/user-account
 import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.component';
 import { UserAdminComponent } from './user-admin/user-admin.component';
 import { UserAdminEditComponent } from './user-admin-edit/user-admin-edit.component';
-
+import { LoginComponent } from './login/login.component';
+import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { CartDetailsComponent } from './cart-details/cart-details.component';
 
 const routes: Routes = [
   { path: "result", component: ResultPageComponent },
-  { path: "home", component: HomePageComponent },
+  { path: "login",component: LoginComponent },
+  { path: "login/callback", component: OktaCallbackComponent },
+  { path: "home", component: HomePageComponent, canActivate: [OktaAuthGuard] },
   { path: "user/details", component: UserPageComponent },
   { path: "user/accountDetails", component: UserAccountDetailsComponent},
   { path: "user/editDetails", component: UserEditDetailsComponent},
   { path: "user/purchases", component: UserPageComponent },
-  { path: "user/cart", component: UserPageComponent },
+  { path: "user/cart", component: CartDetailsComponent },
+  { path: "user/cart/checkout", component: CheckoutPageComponent },
   { path: "user/admin/store-purchases", component: UserPageComponent },
+  { path: "catalog/update-products", component: UserPageComponent},
+  { path: "catalog/update-categories", component: UserPageComponent},
   { path: "user/admin/details", component: UserAdminComponent},
   { path: `user/admin/edit/:userId`, component: UserAdminEditComponent},
   { path: "**", redirectTo: "home" }];

@@ -18,8 +18,9 @@ export class UserAdminEditComponent implements OnInit {
      email: '',
      userName: '',
      password: '',
-     ssn: 0,
-     contact: 0
+     ssn: "0",
+     contact: "0",
+     roles: []
    };
 
   confirmPw:string = '';

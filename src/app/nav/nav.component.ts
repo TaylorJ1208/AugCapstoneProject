@@ -31,7 +31,7 @@ export class NavComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getAllCategories()
+    this.categoryService.getCategories()
       .subscribe((categories) => {
         this.categories = categories;
         console.log("CATEGORY DATA ->", this.categories);

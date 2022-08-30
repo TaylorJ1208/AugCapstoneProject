@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../Models/product';
 import { NavService } from '../services/nav-service/nav-service/nav.service';
-import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-result-page',
@@ -12,12 +11,11 @@ export class ResultPageComponent implements OnInit {
   products$ = this.navService.products$;
   cast = this.products$.asObservable();
   products: Product[] = [];
-  constructor(private navService: NavService, private oktaAuthService: OktaAuthService) {
+  constructor(private navService: NavService) {
 
   }
 
   ngOnInit(): void {
-    this.oktaAuthService.signOut();
     this.cast.subscribe((products) => {
       this.products = products;
     });

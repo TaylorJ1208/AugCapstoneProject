@@ -17,8 +17,9 @@ export class UserEditDetailsComponent implements OnInit {
     email: 'LOGGEDINUSEREMAIL@gmail.com',
     userName: 'admin',
     password: 'Password',
-    ssn: 1233,
-    contact: 123456780
+    ssn: "1233",
+    contact: "123456780",
+    roles: []
   };
 
   confirmPw:string = '';

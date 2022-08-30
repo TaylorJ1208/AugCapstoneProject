@@ -22,10 +22,7 @@
             <button routerLink="user/details" class="btn btn-rounded" style="margin-right: 0.5em; margin-left: 0.1em;">
                 <i class="fa-regular fa-user fa-xl"></i>
             </button>
-            <button class="btn btn-rounded d-flex align-items-center" style="margin-right: 0.5em; margin-left: 0.1em;">
-                <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                <p class=" m-0 text-success" style="padding-left: 0.5em;">12</p>
-            </button>
+            <app-cart-status></app-cart-status>
             <button class="btn btn-rounded" (click)="signOut()" style="margin-right: 0.5em; margin-left: 0.1em;">
                 <i class="fa-solid fa-right-from-bracket fa-xl"></i>
             </button>
