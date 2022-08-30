@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/Orders';
 import { OrdersService } from '../services/orders-service/orders.service';
 
+
 @Component({
     selector: 'app-user-purchases',
     templateUrl: './user-purchases.component.html',
@@ -14,7 +15,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
   orders: Orders[] = [];
   cast = this.orders$.asObservable();
   constructor(private ordersService: OrdersService) { }
-  display="none";
+  
 
   ngOnInit(): void {
     this.getOrderSearch(1);
@@ -39,12 +40,5 @@ import { OrdersService } from '../services/orders-service/orders.service';
         console.log(this.cast);
       })
   } 
-
-  openModal(){
-    this.display="block";
-  }
-  onCloseHandled(){
-    this.display="none";
-  }
     
   }

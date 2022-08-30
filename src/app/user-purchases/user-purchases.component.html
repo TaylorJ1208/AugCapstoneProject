@@ -8,9 +8,15 @@
             </div>
     
             <div class="card-body"  *ngFor="let order of orders">
-                <div class="row justify-content-between mb-3">
-                    <div class="col-auto"><h6 class="color-1 mb-0 change-color">Date Placed: {{order.orderDate}} | Order #{{order.orderId}}</h6></div>
-                    <div class="col-auto"><h6 class="color-1 mb-0 change-color">Total Price: ${{order.amount}} ({{order.products.length}} items)</h6></div>
+                <div class="row justify-content-between mb-3" *ngIf="order.user.userId == 1">
+                    <div class="col-auto"><h6 class="color-1 mb-0 change-color">Date Placed: <br>{{order.orderDate}} | Order #{{order.orderId}}</h6></div>
+                    <div class="col-auto"><h6 class="color-1 mb-0 change-color">Total Price: <br>${{order.amount}}</h6></div>
+                    <div class="col-auto"><h6 class="color-1 mb-0 change-color">Ship To: <br><button  data-toggle="tooltip" data-placement="bottom" 
+                        title= "<em>{{order.user.firstName}} {{order.user.lastName}}</em> <br> {{order.shippingAddress}}">
+                            {{order.user.firstName}} {{order.user.lastName}}
+                    </button></h6></div>
+                    <div class="col-auto"><h6 class="color-1 mb-0 change-color">Order #{{order.orderId}} </h6></div>
+
                 </div>
                 <div class="row">
                     <div class="col" style="border: 1.5px solid lightslategray; border-radius: 10px; ">
@@ -27,13 +33,10 @@
 
                                     <hr>
                         </div>
-                        <div class="col my-auto vstack">
-                            <div style=" padding: 10px;">Shipping Address: <br>{{order.shippingAddress}}</div>
-                            
-                        </div>
                         <!-- <div class="col justify-content-center my-auto hstack gap-5" style="padding:20px">
                             <button class="btn body-hover">Track Your Package</button>
                             <button type="button"  class="btn body-hover">Order Details</button>
+
                             <button class="btn body-hover">Write a Product Review</button>
                         </div> -->
                     </div>
