@@ -77,6 +77,8 @@ export class UpdateCatalogComponent implements OnInit {
     }
 
     addProduct():void{
+      this.currentProduct.image = (<HTMLInputElement>document.getElementById("imageuri")).value;
+      console.log(this.currentProduct.image);
       const data = {
         productId: this.currentProduct.productId,
         name: this.currentProduct.name,
@@ -116,6 +118,8 @@ export class UpdateCatalogComponent implements OnInit {
     }
 
   updateProduct():void{
+    this.currentProduct.image = (<HTMLInputElement>document.getElementById("imageuri")).value;
+      console.log(this.currentProduct.image);
     const data = {
       productId: this.currentProduct.productId,
       name: this.currentProduct.name,

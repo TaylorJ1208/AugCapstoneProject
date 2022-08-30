@@ -167,7 +167,7 @@
                     </div>
                     <div class="form-group">
                         <label for="imageuri" class="form-label">Image URL</label>
-            <textarea
+            <textarea hidden
               type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
               [(ngModel)]="currentProduct.image" #upimage="ngModel"
             ></textarea>
@@ -176,6 +176,13 @@
                     Image URL is required.
                 </div>  
             </div>
+
+            <div class="form-group"><button onclick="openWidget()" id="upload_widget" class="submit btn btn-primary btn-lg btn-block">Upload Image</button>
+                <div>
+                    <img hidden="true" id="productimage" class="card-img-top" style="border-radius: 15px; height: auto;" alt="Card image cap">
+                </div>
+              </div>
+
                     </div>
                     <hr>
                     <div class="form-group row">
@@ -307,18 +314,37 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="imageuri" class="form-label">Image URL</label>
-                <textarea
-                  type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
+                           <!-- <label for="imageuri" class="form-label">Image URL</label>-->
+                <textarea hidden
+                 #imageuri type="text" class="form-control" id="imageuri" required name="imageuri" minlength=1 placeholder="Image URL"
                   [(ngModel)]="currentProduct.image" #pimage="ngModel"
                 ></textarea>
                 <div *ngIf="pimage.invalid && (pimage.dirty || pimage.touched)">
-                    <div *ngIf="pimage.errors?.['required']" class="alert alert-danger">
-                        Image URL is required.
+                    <div *ngIf="pimage.errors?.['required'] || pimage.errors?.['minlength']" class="alert alert-danger">
+                        Image is required.
                     </div>  
                 </div>
                         </div>
+             <!--   <form id="imageuploadform" method="post" enctype="multipart/form-data">
+                    <input type="file" name="files[]" multiple>
+                    <input onclick="uploadImage()" type="submit" value="Upload Files" name="submit">
+                    <img id="productimage" class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
+                alt="Card image cap">
+                  </form>-->
 
+
+
+
+                  <div class="form-group"><button onclick="openWidget()" id="upload_widget" class="submit btn btn-primary btn-lg btn-block">Upload Image</button>
+                    <div>
+                        <img hidden="true" id="productimage" class="card-img-top" style="border-radius: 15px; height: auto;" alt="Card image cap">
+                    </div>
+                  </div>
+
+  
+
+
+                        
                         <hr>
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -329,7 +355,7 @@
                             <div class="col-md-6">
                                 <button [disabled]="(pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
                                 || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
-                                || pweight.errors?.['min'] || pstock.errors?.['required'] || pimage.errors?.['required'])" type="submit" (click)="addProduct(); closeAlert('productAdded')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                                || pweight.errors?.['min'] || pstock.errors?.['required'])" type="submit" (click)="addProduct(); closeAlert('productAdded')" class="btn btn-primary btn-lg btn-block">Submit</button>
                             </div>
                         </div>
 
