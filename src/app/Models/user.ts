@@ -12,6 +12,5 @@ export interface User {
     //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
     //orders: Order[];
     //roles: Role[];
-    //addresses: Address[];
     //userCart: Cart[]
 }

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Address } from '../Models/address';
+import { AddressService } from '../services/address-service/address.service';
 
 @Component({
   selector: 'app-user-admin-edit',
@@ -19,17 +21,32 @@ export class UserAdminEditComponent implements OnInit {
      userName: '',
      password: '',
      ssn: '',
-     contact: ''
+     contact: '',
    };
 
+   address: Address = {
+    addressId: 0,
+    city: '',
+    state: '',
+    street: '',
+    zipcode: '',
+    country: '',
+    apartmentNumber: '',
+    userId: 0
+  }
+
+
+
   confirmPw:string = '';
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { 
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
+    private addressService: AddressService) { 
       
   }
   
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
     this.userService.getUserById(userId).subscribe(x => this.user = x);
+    this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
   updateUser() : void {

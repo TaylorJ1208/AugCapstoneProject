@@ -22,7 +22,7 @@
         <td>{{user.email}}</td>
         <td>{{user.contact}}</td>
         <td>{{user.userName}}</td>
-        <td>"address"</td>
+        <td>{{address.street}} {{address.state}}, {{address.city}}, {{address.zipcode}}, {{address.country}}</td>
         <td>
             <button class="btn btn-block btn-primary data-inline=true" (click)="editUser(user.userId)">Edit</button>
         </td>

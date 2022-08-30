@@ -19,15 +19,7 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <label class="col-lg-3 col-form-label form-control-label" for="userId">User Id</label>
-    <div class="col-lg-9">
-        <input class="form-control" type="text" readonly="readonly"
-            id="userId"
-            name="userId"
-            [(ngModel)]="user.userId"/>
-    </div>
-</div>
+  
   
   <div class="card mt-3">
     <div class="card-body">
@@ -62,15 +54,16 @@
       </div>
       <hr>
 
-   <!--   <div class="row">
+      <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Address(es)</h6>
+          <h6 class="mb-0">Address</h6>
         </div>
         <div class="col-sm-9">
-          CURRENT USER ADDRESS TO STRING
+          {{address.city}} {{address.state}}, {{address.street}}, {{address.zipcode}}, {{address.country}}
         </div>
       </div>
-      <hr> -->
+      <hr>
+     
 
       <div class="row">
         <label class="col-lg-3 col-form-label form-control-label" for="userId">SSN</label>
@@ -92,7 +85,7 @@
       <div class="row">
         <div class="col-sm-12">
           <nav>
-            <button class="btn-info"  (click)="editUser(user.userId)" style="float:left">Edit Account</button>
+            <button class="btn-info"  (click)="editUser(user.userId, address.addressId)" style="float:left">Edit Account</button>
             <button class="btn-success" routerLinkActive="active" routerLink="/user/details" style="float:right">Back To User Home</button>
             <router-outlet></router-outlet>
           </nav>

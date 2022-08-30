@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { Address } from '../Models/address';
+import { AddressService } from '../services/address-service/address.service';
 
 @Component({
   selector: 'app-user-edit-details',
@@ -18,8 +20,19 @@ export class UserEditDetailsComponent implements OnInit {
     userName: '',
     password: '',
     ssn: '',
-    contact: ''
+    contact: '',
   };
+
+  address: Address = {
+    addressId: 0,
+    city: '',
+    state: '',
+    street: '',
+    zipcode: '',
+    country: '',
+    apartmentNumber: '',
+    userId: 0
+  }
 
 
   confirmPw:string = '';
@@ -27,11 +40,14 @@ export class UserEditDetailsComponent implements OnInit {
   showConfirm: boolean = false;
   visibleSSN: boolean = false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
+    private addressService: AddressService) { }
 
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
+    const addressId = this.route.snapshot.params["addressId"]
     this.userService.getUserById(userId).subscribe(x => this.user = x);
+    this.addressService.getAddressById(addressId).subscribe(x => this.address=x);
   }
 
  

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
+import { Address } from '../Models/address';
+import { AddressService } from '../services/address-service/address.service';
 
 @Component({
     selector: 'app-user-account-details',
@@ -18,12 +20,25 @@ export class UserAccountDetailsComponent implements OnInit {
     userName: '',
     password: '',
     ssn: '',
-    contact: ''
+    contact: '',
   };
+
+  address: Address = {
+    addressId: 0,
+    city: '',
+    state: '',
+    street: '',
+    zipcode: '',
+    country: '',
+    apartmentNumber: '',
+    userId: 0
+  }
   
   ngOnInit(): void {}
-  constructor(private userService: UserService, private router: Router) { 
+  constructor(private userService: UserService, private router: Router,
+    private addressService: AddressService) { 
     this.userService.getUserById(18).subscribe(x => this.user = x);
+    this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
   deleteUser(userId: number) : void {
@@ -39,8 +54,8 @@ export class UserAccountDetailsComponent implements OnInit {
       this.router.navigate(['home']);
     }
   }
-  editUser(userId: number){
+  editUser(userId: number, addressId: number){
     console.log("edit user " + userId);
-    this.router.navigateByUrl(`user/editDetails/${userId}`);
+    this.router.navigateByUrl(`user/editDetails/${userId}/${addressId}`);
   }
 }  
