@@ -108,7 +108,8 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="contact">Contact</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" required="required"
+                        <input class="form-control" type="text"
+                        required
                         id="contact"
                         name="contact"
                         [(ngModel)]="user.contact" 
@@ -126,7 +127,8 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="ssn">SSN</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="password" required="required"
+                        <input class="form-control" type="password"
+                        required
                         id="ssn"
                         name="ssn"
                         [(ngModel)]="user.ssn" 
@@ -144,7 +146,8 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="password">Password</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="password" required="required"
+                        <input class="form-control" type="password"
+                        required
                         id="password"
                         name="password"
                         [(ngModel)]="user.password"
@@ -155,17 +158,29 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="confirmPassword"> Confirm Password</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="password"
+                        required
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value=password/>
+                    </div>
+                </div>
+              
+
                 <div class="form-group row">
                     <div class="col-lg-9 ml-auto text-right">
                         <input type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/user/admin/details" value="Cancel"/>
                         <router-outlet></router-outlet>
-                        <input type="button" class="btn btn-primary" 
+                        <input type="submit" class="btn btn-primary" 
                         [disabled]="firstName.errors?.['required'] || lastName.errors?.['required']
                          || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
                          || contact.errors?.['required']  || ssn.errors?.['required'] 
-                         || password.errors?.['required']
-                        " (click) = "updateUser()" value="Save Changes" />
+                         || password.errors?.['required']" 
+                         (click) = "updateUser()" value="Save Changes" />
                     </div>
                 </div>
             </form>

@@ -14,20 +14,24 @@ export class UserEditDetailsComponent implements OnInit {
     userId: 1,
     firstName: 'LOGGED IN USER FIRST',
     lastName: 'LOGGED IN USER LAST',
-    email: 'LOGGED IN USER EMAIL',
+    email: 'LOGGEDINUSEREMAIL@gmail.com',
     userName: 'admin',
     password: 'Password',
     ssn: 1233,
-    contact: 1234567
+    contact: 123456780
   };
-  submitted = false;
+
+  confirmPw:string = '';
+  showPw: boolean = false;
+  showConfirm: boolean = false;
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  updateUser() : void {
+ 
+  updateUser() : boolean {
     const data = {
       userId: this.user.userId,
       firstName: this.user.firstName,
@@ -36,19 +40,43 @@ export class UserEditDetailsComponent implements OnInit {
       userName: this.user.userName,
       password: this.user.password,
       ssn: this.user.ssn,
-      contact: this.user.contact
+      contact: this.user.contact,
     };
 
-  if(confirm("Are you sure you would like to update your account?")) {
-    this.userService.updateUser(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (e) => console.error(e)
-      });
-      alert("Account Updated!");
-      this.router.navigate(["/user/accountDetails"]);
+  if(confirm("Are you sure you would like to update this account?")) {
+    if(this.confirmMatchingPasswords()) {
+      this.userService.updateUser(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (e) => console.error(e)
+        });
+        alert("Account Updated!");
+        this.router.navigate(["/user/accountDetails"]);
+        return true;
+      }
+      alert("Passwords do not match");
     }
+    return false;
+  }
+
+  confirmMatchingPasswords(): boolean {
+    this.confirmPw = (<HTMLInputElement>document.getElementById("confirmPassword")).value;
+      if(this.user.password.length != 0 && this.confirmPw.length != 0) {
+        if(this.user.password === this.confirmPw) {
+          console.log(this.user.password === this.confirmPw);
+          return true;
+        } 
+      }
+    return false;
+  }
+  
+  showPassword() {
+    this.showPw = !this.showPw;
+  }
+
+  showConfirmPassword() {
+    this.showConfirm = !this.showConfirm;
   }
 }

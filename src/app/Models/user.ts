@@ -8,9 +8,8 @@ export interface User {
     ssn: number;
     contact: number;
     //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
-    /*orders: Order[];
-    roles: Role[];
-    addresses: Address[];
-    userCart: Cart[]
-    */
+    //orders: Order[];
+    //roles: Role[];
+    //addresses: Address[];
+    //userCart: Cart[]
 }
