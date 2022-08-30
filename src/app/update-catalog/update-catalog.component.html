@@ -77,25 +77,44 @@
                            
                                 <label for="categoryid" class="form-label">Choose Category</label>
 
-                <select [(ngModel)]="currentProduct.category.categoryId" class="form-select" id="categoryid" required name="categoryid">
+                <select [(ngModel)]="currentProduct.category.categoryId" #upcategory="ngModel" class="form-select" id="categoryid" required name="categoryid">
                 <option selected value="">Select Category</option>  
                 <option style="text-transform:uppercase;" *ngFor="let category of categories" [value]="category.categoryId">{{category.category}}</option>
                 </select>
             
+                <div *ngIf="(upcategory.dirty || upcategory.touched)">
+                    <div *ngIf="upcategory.errors?.['required']" class="alert alert-danger">
+                        Category is required.
+                    </div>  
+                </div>
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="productname" class="form-label">Product Name</label>
                         <input
                           type="text" class="form-control" id="productname" required name="productname" placeholder="Product Name"
-                          [(ngModel)]="currentProduct.name"
-                        /></div>
+                          [(ngModel)]="currentProduct.name" #upname="ngModel"
+                        />
+                    
+                        <div *ngIf="(upname.dirty || upname.touched)">
+                            <div *ngIf="upname.errors?.['required']" class="alert alert-danger">
+                                Name is required.
+                            </div>  
+                        </div>
+
+                    </div>
                         <div class="form-group">
                             <label for="description" class="form-label">Description</label>
                             <textarea
                               type="text" class="form-control" id="description" required name="description" placeholder="Description"
-                              [(ngModel)]="currentProduct.description"
+                              [(ngModel)]="currentProduct.description" #updesc="ngModel"
                             ></textarea>
+                            <div *ngIf="(updesc.dirty || updesc.touched)">
+                                <div *ngIf="updesc.errors?.['required']" class="alert alert-danger">
+                                    Description is required.
+                                </div>  
+                            </div>
                         </div>
                     <div class="form-group row">
                     
@@ -105,36 +124,58 @@
                                 <div class="input-group-prepend"><span class="input-group-text">$</span></div>
                                     
                             <input
-                              type="number" class="form-control text-right" id="price" required name="price" placeholder="Price"
-                              [(ngModel)]="currentProduct.price"
+                              type="number" class="form-control text-right" id="price" required min=0.1 name="price" placeholder="Price"
+                              [(ngModel)]="currentProduct.price" #upprice="ngModel"
                             />
+
+                            <div *ngIf="upprice.invalid && (upprice.dirty || upprice.touched)">
+                                <div *ngIf="upprice.errors?.['required'] || upprice.errors?.['min']" class="alert alert-danger">
+                                    Required.
+                                </div>  
+                            </div>
+
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="weight" class="form-label">Weight</label>
                             <div class="input-group">
             <input
-              type="number" class="form-control" id="weight" required name="weight" placeholder="Weight"
-              [(ngModel)]="currentProduct.weight"
+              type="number" class="form-control" id="weight" required min=0.1 name="weight" placeholder="Weight"
+              [(ngModel)]="currentProduct.weight" #upweight="ngModel"
             />
             <div class="input-group-prepend"><span class="input-group-text">lbs</span></div>
                                 
+                            </div>
+                            <div *ngIf="upweight.invalid && (upweight.dirty || upweight.touched)">
+                                <div *ngIf="upweight.errors?.['required'] || upweight.errors?.['min']" class="alert alert-danger">
+                                    Required.
+                                </div>  
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="stockavailable" class="form-label">Stock Available</label>
                             <input
                               type="number" class="form-control" id="stockavailable" required name="stockavailable" placeholder="Stock Available"
-                              [(ngModel)]="currentProduct.quantity"
+                              [(ngModel)]="currentProduct.quantity" #upstock = "ngModel"
                             />
+                            <div *ngIf="upstock.invalid && (upstock.dirty || upstock.touched)">
+                                <div *ngIf="upstock.errors?.['required']" class="alert alert-danger">
+                                    Stock is required.
+                                </div>  
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="imageuri" class="form-label">Image URL</label>
             <textarea
               type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
-              [(ngModel)]="currentProduct.image"
+              [(ngModel)]="currentProduct.image" #upimage="ngModel"
             ></textarea>
+            <div *ngIf="upimage.invalid && (upimage.dirty || upimage.touched)">
+                <div *ngIf="upimage.errors?.['required']" class="alert alert-danger">
+                    Image URL is required.
+                </div>  
+            </div>
                     </div>
                     <hr>
                     <div class="form-group row">
@@ -143,10 +184,14 @@
                           <button class="btn btn-default btn-lg btn-block" (click)="hideEditProductMode()">Cancel</button>
                           
                         </div>
-                        <div class="col-md-6">
-                            <button (click)="updateProduct(); closeAlert('productUpdated')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        <div  class="col-md-6" >
+                            <button [disabled]="(upname.errors?.['required'] || updesc.errors?.['required'] || upcategory.errors?.['required']
+                            || upprice.errors?.['required'] || upprice.errors?.['min'] || upweight.errors?.['required'] 
+                            || upweight.errors?.['min'] || upstock.errors?.['required'] || upimage.errors?.['required'])" 
+                            (click)="updateProduct(); closeAlert('productUpdated')" class="btn btn-primary btn-lg btn-block">Submit</button>
                         </div>
                     </div>
+
                 </form>
                 <div *ngIf="productUpdated" id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
                     Product updated successfully!
@@ -172,25 +217,44 @@
                             <div class="form-group">
                                 <label for="categoryid" class="form-label">Choose Category</label>
 
-                <select [(ngModel)]="currentProduct.category.categoryId" class="form-select" id="categoryid" required name="categoryid">
+                <select [(ngModel)]="currentProduct.category.categoryId" #pcategory = "ngModel" class="form-select" id="categoryid" required name="categoryid">
                 <option selected value="">Select Category</option>  
                 <option style="text-transform:uppercase ;" *ngFor="let category of categories" [value]="category.categoryId">{{category.category}}</option>
                 </select>
             
-                            </div>
+                <div *ngIf="pcategory.invalid && (pcategory.dirty || pcategory.touched)">
+                    <div *ngIf="pcategory.errors?.['required']" class="alert alert-danger">
+                        Category is required.
+                    </div>  
+                </div>
+      </div>
                         
                         <div class="form-group">
                             <label for="productname" class="form-label">Product Name</label>
                             <input
                               type="text" class="form-control" id="productname" required name="productname" placeholder="Product Name"
-                              [(ngModel)]="currentProduct.name"
-                            /></div>
+                              [(ngModel)]="currentProduct.name" #pname="ngModel"
+                            />
+                        <div *ngIf="pname.invalid && (pname.dirty || pname.touched)">
+                            <div *ngIf="pname.errors?.['required']" class="alert alert-danger">
+                                Product name is required.
+                            </div>  
+                        </div>
+
+                        </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea
                                   type="text" class="form-control" id="description" required name="description" placeholder="Description"
-                                  [(ngModel)]="currentProduct.description"
+                                  [(ngModel)]="currentProduct.description" #pdesc="ngModel"
                                 ></textarea>
+
+                                <div *ngIf="pdesc.invalid && (pdesc.dirty || pdesc.touched)">
+                                    <div *ngIf="pdesc.errors?.['required']" class="alert alert-danger">
+                                        Product description is required.
+                                    </div>  
+                                </div>
+
                             </div>
                         <div class="form-group row">
                         
@@ -200,37 +264,61 @@
                                     <div class="input-group-prepend"><span class="input-group-text">$</span></div>
                                         
                                 <input
-                                  type="number" class="form-control text-right" id="price" required name="price" placeholder="Price"
-                                  [(ngModel)]="currentProduct.price"
+                                  type="number" class="form-control text-right" id="price" required min=0.1 name="price" placeholder="Price"
+                                  [(ngModel)]="currentProduct.price" #pprice = "ngModel"
                                 />
+                                <div *ngIf="pprice.invalid && (pprice.dirty || pprice.touched)">
+                                    <div *ngIf="pprice.errors?.['min'] || pprice.errors?.['required']" class="alert alert-danger">
+                                        Required.
+                                    </div>  
+                                </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="weight" class="form-label">Weight</label>
                                 <div class="input-group">
                 <input
-                  type="number" class="form-control" id="weight" required name="weight" placeholder="Weight"
-                  [(ngModel)]="currentProduct.weight"
+                  type="number" class="form-control" id="weight" required min=0.1 name="weight" placeholder="Weight"
+                  [(ngModel)]="currentProduct.weight" #pweight="ngModel"
                 />
+
                 <div class="input-group-prepend"><span class="input-group-text">lbs</span></div>
                                     
+                                </div>
+                                <div *ngIf="pweight.invalid && (pweight.dirty || pweight.touched)">
+                                    <div *ngIf="pweight.errors?.['min'] || pweight.errors?.['required']" class="alert alert-danger">
+                                        Required.
+                                    </div>  
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="stockavailable" class="form-label">Stock Available</label>
                                 <input
                                   type="number" class="form-control" id="stockavailable" required name="stockavailable" placeholder="Stock Available"
-                                  [(ngModel)]="currentProduct.quantity"
+                                  [(ngModel)]="currentProduct.quantity" #pstock="ngModel"
                                 />
+
+                                <div *ngIf="pstock.invalid && (pstock.dirty || pstock.touched)">
+                                    <div *ngIf="pstock.errors?.['required']" class="alert alert-danger">
+                                        Required.
+                                    </div>  
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="imageuri" class="form-label">Image URL</label>
                 <textarea
                   type="text" class="form-control" id="imageuri" required name="imageuri" placeholder="Image URL"
-                  [(ngModel)]="currentProduct.image"
+                  [(ngModel)]="currentProduct.image" #pimage="ngModel"
                 ></textarea>
+                <div *ngIf="pimage.invalid && (pimage.dirty || pimage.touched)">
+                    <div *ngIf="pimage.errors?.['required']" class="alert alert-danger">
+                        Image URL is required.
+                    </div>  
+                </div>
                         </div>
+
                         <hr>
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -239,9 +327,26 @@
                               
                             </div>
                             <div class="col-md-6">
-                                <input type="submit" (click)="addProduct(); closeAlert('productAdded')" class="btn btn-primary btn-lg btn-block">
+                                <button [disabled]="(pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
+                                || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
+                                || pweight.errors?.['min'] || pstock.errors?.['required'] || pimage.errors?.['required'])" type="submit" (click)="addProduct(); closeAlert('productAdded')" class="btn btn-primary btn-lg btn-block">Submit</button>
                             </div>
                         </div>
+
+                                    <!--Required Pop-up window in Add Product-->
+      <!--  <div>
+         <div class="overlay" *ngIf="(pname.invalid || pdesc.invalid || pcategory.invalid || pprice.invalid || pweight.invalid ||pstock.invalid || pimage.invalid)
+         && addProductValidationPopup == true">
+            <div *ngIf="pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
+                        || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
+                        || pweight.errors?.['min'] || pstock.errors?.['required'] || pimage.errors?.['required']" class = "popup">
+                <p>Please fill out all the <span style="text-transform:uppercase; color:red">fields.</span></p>
+                <a class="btn btn-outline-danger btn-block close"  (click)="addProductValidationPopup=false">Cancel</a>
+            </div>
+        </div>
+        </div>-->
+
+
                     </form>
                     <div *ngIf="productAdded" id="productAddedAlert" class="alert alert-success alert-dismissible fade show" role="productAddedAlert">
                         Product Added successfully!
@@ -324,11 +429,16 @@
                             <!--<label for="categoryname" class="form-label">Category Name</label>-->
                             <input
                             type="text" class="form-control text-center" id="categoryname" required name="categoryname" placeholder="Category Name"
-                            [(ngModel)]="currentCategory.category"
+                            [(ngModel)]="currentCategory.category" #cname="ngModel"
                           />
+                          <div *ngIf="cname.invalid && (cname.dirty || cname.touched)">
+                            <div *ngIf="cname.errors?.['required']" class="alert alert-danger">
+                                Category name is required.
+                            </div>  
+                        </div>
                         </div>
 
-                        <button (click)="addCategory(); closeAlert('categoryAdded')" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        <button [disabled]="cname.errors?.['required']" (click)="addCategory(); closeAlert('categoryAdded')" class="btn btn-primary btn-lg btn-block">Submit</button>
                         <button class="btn btn-default btn-lg btn-block" (click)="hideAddCategoryMode()">Cancel</button>
                     </form>
                     <div *ngIf="categoryAdded" id="categoryAddedAlert" class="alert alert-success alert-dismissible fade show" role="categoryAddedAlert">

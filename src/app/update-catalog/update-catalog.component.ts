@@ -31,7 +31,6 @@ export class UpdateCatalogComponent implements OnInit {
   categoryAdded = false;
   deletePopupCategoryId = 0;
   deletePopupProductId = 0;
-  
 
   constructor(
     private productService:ProductService,
@@ -161,7 +160,7 @@ newAdd():void{
     category:{
       categoryId: 0,
     }
-  }
+  };
 
   this.categoryAdded = false;
   this.currentCategory = {
