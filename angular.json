@@ -3,7 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+<<<<<<< HEAD
     "ecommerce-project": {
+=======
+    "ecommerce-frontend": {
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +21,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+<<<<<<< HEAD
             "outputPath": "dist/ecommerce-project",
+=======
+            "outputPath": "dist/ecommerce-frontend",
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +77,17 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
+<<<<<<< HEAD
               "browserTarget": "ecommerce-project:build:production"
             },
             "development": {
               "browserTarget": "ecommerce-project:build:development"
+=======
+              "browserTarget": "ecommerce-frontend:build:production"
+            },
+            "development": {
+              "browserTarget": "ecommerce-frontend:build:development"
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +95,11 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+<<<<<<< HEAD
             "browserTarget": "ecommerce-project:build"
+=======
+            "browserTarget": "ecommerce-frontend:build"
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
           }
         },
         "test": {
@@ -105,6 +124,10 @@
     }
   },
   "cli": {
+<<<<<<< HEAD
     "analytics": "cd61f79c-2fa9-4817-973d-ca2f48b5e14c"
+=======
+    "analytics": "343a1035-569f-4f0d-a9a1-06bc68301b7a"
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
   }
 }

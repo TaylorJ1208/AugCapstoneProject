@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "ecommerce-project",
+=======
+  "name": "ecommerce-frontend",
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -15,6 +19,7 @@
     "@angular/compiler": "^14.1.0",
     "@angular/core": "^14.1.0",
     "@angular/forms": "^14.1.0",
+<<<<<<< HEAD
     "@angular/localize": "^14.1.0",
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
@@ -26,6 +31,12 @@
     "bootstrap": "^5.2.0",
     "rxjs": "~7.5.0",
     "rxjs-compat": "^6.6.7",
+=======
+    "@angular/platform-browser": "^14.1.0",
+    "@angular/platform-browser-dynamic": "^14.1.0",
+    "@angular/router": "^14.1.0",
+    "rxjs": "~7.5.0",
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

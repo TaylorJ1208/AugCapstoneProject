@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # EcommerceProject
+=======
+# EcommerceFrontend
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
 

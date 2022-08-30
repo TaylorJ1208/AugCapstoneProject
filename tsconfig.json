@@ -5,7 +5,10 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
+<<<<<<< HEAD
     "allowSyntheticDefaultImports": true,
+=======
+>>>>>>> 72c1cdc264bbe11cf2bb8b865158fafb9d99fb11
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
