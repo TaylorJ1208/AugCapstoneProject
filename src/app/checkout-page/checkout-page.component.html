@@ -9,7 +9,7 @@
                     <button class="accordion-button collapsed shadow-sm" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         <div>
-                            <b>Shipping & Billing Address</b>
+                            <i class="fas fa-plus-square pe-2"></i><b>Shipping & Billing Address</b>
                         </div>
                     </button>
                 </h2>
@@ -19,43 +19,44 @@
                         <form>
                             <div class="form-group col-md-9 pe-3">
                                 <label for="inputName">Full Name</label>
-                                <input type="text" class="form-control" id="inputName"
-                                    placeholder="" [(ngModel)]="inputName" (input)="changedName($event)" name ="fullName"/>
+                                <input type="text" class="form-control" id="inputName" placeholder=""
+                                    [(ngModel)]="inputName" (input)="changedName($event)" name="fullName" />
                             </div>
                             <div class="d-flex flex-row">
-                                <div class="form-group col-md-9 pe-3">
+                                <div class="form-group col-md-8 pe-3">
                                     <label for="inputAddress">Address</label>
-                                    <input type="text" class="form-control" id="inputAddress"
-                                        placeholder="123 Main St" [(ngModel)]="inputAddress" (input)="changedAddress($event)" name="address"/>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="123 Main St"
+                                        [(ngModel)]="inputAddress" (input)="changedAddress($event)" name="address" />
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inputAptNo">Apt No.</label>
-                                    <input type="text" class="form-control" id="inputAptNo" placeholder="" 
-                                    [(ngModel)]="inputAptNo" (input)="changedAptNo($event)" name="aptNo"/>
+                                    <input type="text" class="form-control" id="inputAptNo" placeholder=""
+                                        [(ngModel)]="inputAptNo" (input)="changedAptNo($event)" name="aptNo" />
                                 </div>
                             </div>
                             <div class="d-flex flex-row">
                                 <div class="form-group col-md-4 pe-3">
                                     <label for="inputCity">City</label>
-                                    <input type="email" class="form-control" id="inputCity" 
-                                    [(ngModel)]="inputCity" (input)="changedCity($event)" name="city"/>
+                                    <input type="email" class="form-control" id="inputCity" [(ngModel)]="inputCity"
+                                        (input)="changedCity($event)" name="city" />
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label for="inputState">State</label>
-                                    <input type="text" class="form-control" id="inputState"
-                                    [(ngModel)]="inputState" (input)="changedState($event)" name="state"/>
+                                    <input type="text" class="form-control" id="inputState" [(ngModel)]="inputState"
+                                        (input)="changedState($event)" name="state" />
                                 </div>
-                                <div class="form-group col-md-2 ps-3">
+                                <div class="form-group col-md-4 ps-3">
                                     <label for="inputZipcode">Zip</label>
-                                    <input type="text" class="form-control" id="inputZipcode" 
-                                    [(ngModel)]="inputZipcode" (input)="changedZipcode($event)" name="zipcode"/>
+                                    <input type="text" class="form-control" id="inputZipcode" [(ngModel)]="inputZipcode"
+                                        (input)="changedZipcode($event)" name="zipcode" />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputCountry">Country</label>
                                     <input type="text" class="form-control" style="margin-bottom: 20px;"
-                                        id="inputCountry" [(ngModel)]="inputCountry" (input)="changedCountry($event)" name="country"/>
+                                        id="inputCountry" [(ngModel)]="inputCountry" (input)="changedCountry($event)"
+                                        name="country" />
                                 </div>
                             </div>
                         </form>
@@ -66,7 +67,7 @@
                 <h2 class="accordion-header shadow-sm" id="flush-headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        <b>Payment Information</b>
+                        <i class="fas fa-plus-square pe-2"></i><b>Payment Information</b>
                     </button>
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse shadow-sm"
@@ -75,24 +76,24 @@
                         <form>
                             <div class="form-group col-md-8 pe-3">
                                 <label for="inputOwner">Card Owner</label>
-                                <input type="text" class="form-control" id="inputOwner" placeholder="" 
-                                [(ngModel)]="inputOwner" (input)="changedOwner($event)" name="cardOwner"/>
+                                <input type="text" class="form-control" id="inputOwner" placeholder=""
+                                    [(ngModel)]="inputOwner" (input)="changedOwner($event)" name="cardOwner" />
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="inputCardNum">Card Number</label>
-                                <input type="text" class="form-control" id="inputCardNum" placeholder="" 
-                                [(ngModel)]="inputCardNum" (input)="changedCardNum($event)" name="cardNumber"/>
+                                <input type="text" class="form-control" id="inputCardNum" placeholder=""
+                                    [(ngModel)]="inputCardNum" (input)="changedCardNum($event)" name="cardNumber" />
                             </div>
                             <div class="d-flex flex-row">
                                 <div class="form-group col-md-5 pe-3">
                                     <label for="inputExpDate">Expiration Date</label>
-                                    <input type="text" class="form-control" id="inputExpDate" placeholder="" 
-                                    [(ngModel)]="inputExpDate" (input)="changedExpDate($event)" name="expDate"/>
+                                    <input type="text" class="form-control" id="inputExpDate" placeholder=""
+                                        [(ngModel)]="inputExpDate" (input)="changedExpDate($event)" name="expDate" />
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputCVV">CVV</label>
-                                    <input type="text" class="form-control mb-3" id="inputCVV" placeholder="" 
-                                    [(ngModel)]="inputCVV" (input)="changedCVV($event)" name="cvv"/>
+                                    <input type="text" class="form-control mb-3" id="inputCVV" placeholder=""
+                                        [(ngModel)]="inputCVV" (input)="changedCVV($event)" name="cvv" />
                                 </div>
                             </div>
                         </form>
@@ -103,7 +104,7 @@
                 <h2 class="accordion-header shadow-sm" id="flush-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        <b>Checkout</b>
+                        <i class="fas fa-plus-square pe-2"></i><b>Checkout</b>
                     </button>
                 </h2>
                 <div id="flush-collapseThree" class="accordion-collapse collapse shadow-sm"
@@ -111,7 +112,8 @@
                     <div class="accordion-body">
                         <form>
                             <div class="text-center mb-4">
-                                <h6>Please ensure the information you provided below is correct before checking out.</h6>
+                                <h6>Please ensure the information you provided below is correct before checking out.
+                                </h6>
                             </div>
                             <div class="d-flex flex-row flex-fix justify-content-center text-nowrap">
                                 <div class="d-flex flex-column justify-content-centertext-start">
@@ -133,7 +135,8 @@
                                         <p>{{inputCountry}}</p>
                                     </ng-template>
                                 </div>
-                                <div class="d-flex flex-column justify-content-center text-start" style="margin-left: 115px; margin-right: 85px;">
+                                <div class="d-flex flex-column justify-content-center text-start"
+                                    style="margin-left: 115px; margin-right: 85px;">
                                     <p class="mb-0">Billing Address</p>
                                     <hr class="my-1" style="width: 105px;">
                                     <p>{{inputName}}</p>
@@ -158,34 +161,45 @@
                                     <p>{{inputName}}</p>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex flex-row container-fluid justify-content-center ps-0 pe-4">
-                                <div class="form-group">
-                                    <button (click)="addOrder()"class="btn btn-primary mt-3" type="submit">Checkout</button>
-                                </div>
+                                <ng-container *ngIf="cartItems.length != 0; else emptyCart">
+                                    <button (click)="addOrder()" class="btn btn-primary mt-3"
+                                        type="submit">Checkout</button>
+                                </ng-container>
+                                <ng-template #emptyCart>
+                                    <button (click)="addOrder()" class="btn btn-primary mt-3" type="submit"
+                                        disabled>Checkout</button>
+                                </ng-template>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card text-white bg-white mb-3 ms-3 mt-3" style="height: 400px">
+        <div class="card text-white bg-white mb-3 ms-3 mt-3" style="height: fit-content; min-height: 424px;">
             <div class="card-header text-dark text-center">Cart</div>
             <div class="card-body" style="width: 350px;">
-                <div class="d-flex flex-row" *ngFor="let product of products; let i = index">
+                <div class="d-flex flex-row" *ngFor="let product of cartItems; let i = index">
                     <div class="col-md-1 text-dark text-center mt-3">
                         <p>{{i+1}}</p>
                     </div>
                     <div class="col-md-6 text-center">
-                        <img class="card-img-top" style="border-radius: 15px; width: 100px; height: 58px;" [src]="product.image"
-                        alt="Card image cap">
+                        <img class="card-img-top" style="border-radius: 15px; width: 100px; height: 58px;"
+                            [src]="product.image" alt="Card image cap">
                     </div>
                     <div class="col-md-6 text-dark text-center mt-3">
-                        <p>${{product.price}}</p>
+                        <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
                     </div>
                 </div>
-                <div class="text-center" style="position: absolute; bottom: 0;">
-                    <p class="card-text text-dark p-1 text-center" style="position: absolute; bottom: 0;">Total: $2000</p>
+                <div class="text-center">
+                    <hr style="background-color: black;">
+                    <p class="card-text text-dark p-1 text-center"
+                        style="position: absolute; bottom: 0; margin-left: 155px;">Total Price: {{ (totalPrice) |
+                        currency: 'USD' }}</p>
+                </div>
+                <div class="text-center">
+                    <p class="card-text text-dark p-1 text-center">You're cart is empty.</p>
                 </div>
             </div>
         </div>

@@ -12,6 +12,9 @@ import { CategoryNavComponent } from './category-nav/category-nav.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { StorePurchasesComponent } from './store-purchases/store-purchases.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CartDetailsComponent } from './cart-details/cart-details.component';
+import { CartStatusComponent } from './cart-status/cart-status.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +25,16 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
     CategoryNavComponent,
     UserPageComponent,
     StorePurchasesComponent,
-    CheckoutPageComponent
+    CheckoutPageComponent,
+    CartDetailsComponent,
+    CartStatusComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    CommonModule,
+    CurrencyPipe,
     FormsModule
   ],
   providers: [],

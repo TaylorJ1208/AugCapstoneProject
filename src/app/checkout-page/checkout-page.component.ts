@@ -1,9 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouteConfigLoadEnd } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, ReplaySubject, Subject } from 'rxjs';
+import { CartItem } from '../Models/cart-item';
+import { Category } from '../Models/categories';
 import { Product } from '../Models/product';
 import { Role } from '../Models/role';
 import { User } from '../Models/user';
+import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
 import { UserService } from '../services/user-service/user.service';
@@ -26,30 +29,102 @@ export class CheckoutPageComponent implements OnInit {
   inputCVV: string = "";
   inputOwner: string = "";
   currentAddress: string = "";
-  products:Product[] = [];
+  cartItems: any;
+  test: any;
+  totalPrice: number = 0;
+  totalQuantity: number = 0;
+  total: number = 0;
+  finalCart: Product[] = [];
+  oldProducts$ = new BehaviorSubject<Product[]>([]);
 
-  constructor(private orderService:OrdersService, private userService:UserService, private productService:ProductService) { }
+  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService) { }
 
-  ngOnInit(): void { 
-    this.getProduct();
+  ngOnInit(): void {
+    this.listCartDetails();
+    this.getProducts();
   }
 
-  getProduct() {
+  getProducts() {
     this.productService.getAllProducts()
-      .subscribe({ next: (data: Product[]) => {
-        this.products = data;
-      },
-      error: (e) => console.error(e)});
+      .subscribe({
+        next: (data: Product[]) => {
+          this.test = data;
+          this.retrieveProducts(data);
+          console.log(this.test);
+        },
+        error: (e) => console.error(e)
+      });
   }
-  
 
-  addOrder() :void {
+  retrieveProducts(products: Product[]) {
+    this.oldProducts$.next(products);
+    console.log("All = " + this.oldProducts$.getValue());
+  }
+
+  listCartDetails() {
+
+    //get a handle to the cart items
+    this.cartItems = this.cartService.cartItems;
+
+    // subscribe to the cart totalPrice
+    this.cartService.totalPrice.subscribe(
+      data => this.totalPrice = data
+
+    );
+
+    // subscribe to the cart totalQuantity
+    this.cartService.totalQuantity.subscribe(
+      data => this.totalQuantity = data
+
+    );
+    // compute cart total price and quantity
+    this.cartService.computeCartTotals();
+
+  }
+
+  incrementQuantity(theCartItem: CartItem) {
+    this.cartService.addToCart(theCartItem);
+  }
+  decrementQuantity(theCartItem: CartItem) {
+    this.cartService.decrementQuantity(theCartItem);
+  }
+  remove(theCartItem: CartItem) {
+    this.cartService.remove(theCartItem);
+  }
+
+  addOrder(): void {
+    let index = 0;
+    let help: Product[] = [];
+    let productIds = this.cartItems.map((item: Product) => item.productId);
+    console.log(productIds);
+    while (index < this.cartItems.length) {
+      let temp2: Product[] = this.oldProducts$.getValue().map((item: Product) => item).filter((item: { productId: any; }) => item.productId == productIds[index]);
+      help.push(temp2[0]);
+      index++;
+    }
+    help.forEach(element => {
+      const data = {
+        productId: element.productId,
+        name: element.name,
+        description: element.description,
+        price: element.price * this.cartItems.map((item: Product) => item).filter((item: { productId: any; }) => item.productId == element.productId).map(((item: { quantity: any; }) => item.quantity))[0],
+        weight: element.weight,
+        quantity: this.cartItems.map((item: Product) => item).filter((item: { productId: any; }) => item.productId == element.productId).map(((item: { quantity: any; }) => item.quantity))[0],
+        image: element.image,
+        categoryId: element.category.categoryId,
+        rating: element.rating,
+        category: element.category
+      }
+      this.finalCart.push(data);
+    });
+
+    console.log(this.finalCart);
     const time = Date.parse('29 Aug 2022 00:12:00 GMT');
-    let role:Role[] = [{ roleId: 1, role: "ROLE_ADMIN"}]
-      
+    let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
+
     const data = {
-      orderId: 3,
-      amount: 1000,
+      orderId: 4,
+      amount: this.total,
       orderDate: time,
       status: true,
       billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
@@ -65,68 +140,67 @@ export class CheckoutPageComponent implements OnInit {
         ssn: "1111",
         roles: role
       },
-      products: this.products
+      products: this.finalCart
     };
     this.orderService.addAnOrder(data)
-    .subscribe({next:m =>{
-      console.log(m);
-      this.ngOnInit()
-    },
-    error:e=>console.error(e)
-  });
+      .subscribe({
+        next: m => {
+          console.log(m);
+          this.ngOnInit()
+        },
+        error: e => console.error(e)
+      });
   }
 
   addressChanged(): string {
-    if(this.inputAptNo != "") {
-      return this.inputAddress + this.inputAptNo+ ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode
+    if (this.inputAptNo != "") {
+      return this.inputAddress + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode
     } else {
       return this.inputAddress + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode
     }
   }
 
-  changedName(event : any){
+  changedName(event: any) {
     this.inputName = event.target.value;
   }
-  
-  changedAddress(event : any){
-    console.log("Hi " + JSON.stringify(this.products))
+
+  changedAddress(event: any) {
     this.inputAddress = event.target.value;
   }
 
-  changedCity(event : any){
+  changedCity(event: any) {
     this.inputCity = event.target.value;
   }
 
-  changedAptNo(event : any){
+  changedAptNo(event: any) {
     this.inputAptNo = event.target.value;
   }
 
-  changedState(event : any){
+  changedState(event: any) {
     this.inputState = event.target.value;
   }
 
-  changedCountry(event : any){
+  changedCountry(event: any) {
     this.inputCountry = event.target.value;
   }
 
-  changedZipcode(event : any){
+  changedZipcode(event: any) {
     this.inputZipcode = event.target.value;
   }
 
-  changedOwner(event : any){
+  changedOwner(event: any) {
     this.inputOwner = event.target.value;
   }
 
-  changedCardNum(event : any){
+  changedCardNum(event: any) {
     this.inputCardNum = event.target.value;
   }
 
-  changedExpDate(event : any){
+  changedExpDate(event: any) {
     this.inputExpDate = event.target.value;
   }
 
-  changedCVV(event : any){
+  changedCVV(event: any) {
     this.inputCVV = event.target.value;
   }
-
 }
