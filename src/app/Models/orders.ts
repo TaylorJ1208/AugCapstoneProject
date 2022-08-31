@@ -4,7 +4,7 @@ import { User } from "./user";
 export interface Orders {
     orderId: number;
     amount: number;
-    orderDate: string;
+    orderDate: Date;
     status: boolean;
     billingAddress: string;
     shippingAddress: string;

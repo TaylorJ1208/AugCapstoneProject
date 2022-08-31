@@ -13,6 +13,7 @@ import { OktaAuthService } from '@okta/okta-angular';
 export class NavComponent implements OnInit {
   categories: Category[] = [];
   searchString: any = "";
+  router = this.route.url;
   constructor(private navService: NavService,
      private route: Router, private categoryService: CategoryService, private oktaAuthService: OktaAuthService) {
 
@@ -44,6 +45,10 @@ export class NavComponent implements OnInit {
 
   signOut(): void {
     this.oktaAuthService.signOut();
+  }
+
+  sendHome() {
+    this.route.navigate(['home']);
   }
   
 }
