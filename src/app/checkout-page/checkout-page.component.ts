@@ -98,8 +98,8 @@ export class CheckoutPageComponent implements OnInit {
     let productIds = this.cartItems.map((item: Product) => item.productId);
     console.log(productIds);
     while (index < this.cartItems.length) {
-      let temp2: Product[] = this.oldProducts$.getValue().map((item: Product) => item).filter((item: { productId: any; }) => item.productId == productIds[index]);
-      help.push(temp2[0]);
+      let valueHolder: Product[] = this.oldProducts$.getValue().map((item: Product) => item).filter((item: { productId: any; }) => item.productId == productIds[index]);
+      help.push(valueHolder[0]);
       index++;
     }
     help.forEach(element => {
@@ -111,7 +111,7 @@ export class CheckoutPageComponent implements OnInit {
         weight: element.weight,
         quantity: this.cartItems.map((item: Product) => item).filter((item: { productId: any; }) => item.productId == element.productId).map(((item: { quantity: any; }) => item.quantity))[0],
         image: element.image,
-        categoryId: element.category.categoryId,
+        categoryId: element.categoryId,
         rating: element.rating,
         category: element.category
       }
@@ -119,13 +119,13 @@ export class CheckoutPageComponent implements OnInit {
     });
 
     console.log(this.finalCart);
-    const time = Date.parse('29 Aug 2022 00:12:00 GMT');
+    let dateString = '2022-08-30T00:00:00';
     let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
 
     const data = {
-      orderId: 5,
+      orderId: 6,
       amount: this.total,
-      orderDate: time,
+      orderDate: dateString,
       status: true,
       billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
@@ -144,11 +144,11 @@ export class CheckoutPageComponent implements OnInit {
     };
     this.orderService.addAnOrder(data)
       .subscribe({
-        next: m => {
+        next: (m: any) => {
           console.log(m);
           this.ngOnInit()
         },
-        error: e => console.error(e)
+        error: (e: any) => console.error(e)
       });
   }
 
