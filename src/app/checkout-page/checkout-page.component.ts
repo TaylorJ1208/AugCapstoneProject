@@ -98,8 +98,8 @@ export class CheckoutPageComponent implements OnInit {
     let productIds = this.cartItems.map((item: Product) => item.productId);
     console.log(productIds);
     while (index < this.cartItems.length) {
-      let temp2: Product[] = this.oldProducts$.getValue().map((item: Product) => item).filter((item: { productId: any; }) => item.productId == productIds[index]);
-      help.push(temp2[0]);
+      let valueHolder: Product[] = this.oldProducts$.getValue().map((item: Product) => item).filter((item: { productId: any; }) => item.productId == productIds[index]);
+      help.push(valueHolder[0]);
       index++;
     }
     help.forEach(element => {
