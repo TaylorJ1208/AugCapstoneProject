@@ -18,7 +18,7 @@ export class UserAdminComponent implements OnInit {
   currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', 
   password: '', email: '', contact: '', ssn: '', roles: []};
   currentIndex = -1;
-  address: Address = {
+ /* address: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -27,13 +27,13 @@ export class UserAdminComponent implements OnInit {
     country: '',
     apartmentNumber: '',
     userId: 0
-  }
+  } */
   
   constructor(private userService: UserService, private router: Router, private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.retrieveUsers();
-    this.addressService.getAddressById(1).subscribe(x => this.address = x);
+    //this.addressService.getAddressById(1).subscribe(x => this.address = x);
 
   }
 

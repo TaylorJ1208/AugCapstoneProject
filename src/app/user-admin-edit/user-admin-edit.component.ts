@@ -25,7 +25,7 @@ export class UserAdminEditComponent implements OnInit {
      roles: []
    };
 
-   address: Address = {
+  /* address: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -34,7 +34,7 @@ export class UserAdminEditComponent implements OnInit {
     country: '',
     apartmentNumber: '',
     userId: 0
-  }
+  } */
 
 
 
@@ -47,7 +47,7 @@ export class UserAdminEditComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
     this.userService.getUserById(userId).subscribe(x => this.user = x);
-    this.addressService.getAddressById(1).subscribe(x => this.address = x);
+   // this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
   updateUser() : void {

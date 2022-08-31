@@ -24,7 +24,7 @@ export class UserAccountDetailsComponent implements OnInit {
     roles: []
   };
 
-  address: Address = {
+  /*address: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -33,13 +33,13 @@ export class UserAccountDetailsComponent implements OnInit {
     country: '',
     apartmentNumber: '',
     userId: 0
-  }
+  } */
   
   ngOnInit(): void {}
   constructor(private userService: UserService, private router: Router,
     private addressService: AddressService) { 
     this.userService.getUserById(18).subscribe(x => this.user = x);
-    this.addressService.getAddressById(1).subscribe(x => this.address = x);
+    //this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
   deleteUser(userId: number) : void {
@@ -55,8 +55,8 @@ export class UserAccountDetailsComponent implements OnInit {
       this.router.navigate(['home']);
     }
   }
-  editUser(userId: number, addressId: number){
+  editUser(userId: number): void {
     console.log("edit user " + userId);
-    this.router.navigateByUrl(`user/editDetails/${userId}/${addressId}`);
+    this.router.navigateByUrl(`user/editDetails/${userId}`);
   }
 }  

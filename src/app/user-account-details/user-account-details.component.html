@@ -52,7 +52,7 @@
       </div>
       <hr>
 
-      <div class="row">
+     <!-- <div class="row">
         <div class="col-sm-3">
           <h6 class="mb-0">Address</h6>
         </div>
@@ -60,7 +60,7 @@
           {{address.city}} {{address.state}}, {{address.street}}, {{address.zipcode}}, {{address.country}}
         </div>
       </div>
-      <hr>
+      <hr> -->
      
 
       <div class="row">
@@ -83,7 +83,7 @@
       <div class="row">
         <div class="col-sm-12">
           <nav>
-            <button class="btn-info"  (click)="editUser(user.userId, address.addressId)" style="float:left">Edit Account</button>
+            <button class="btn-info"  (click)="editUser(user.userId)" style="float:left">Edit Account</button>
             <button class="btn-success" routerLinkActive="active" routerLink="/user/details" style="float:right">Back To User Home</button>
             <router-outlet></router-outlet>
           </nav>

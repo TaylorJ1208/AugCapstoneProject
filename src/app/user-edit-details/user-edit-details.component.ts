@@ -24,7 +24,7 @@ export class UserEditDetailsComponent implements OnInit {
     roles: []
   };
 
-  address: Address = {
+ /* address: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -33,7 +33,7 @@ export class UserEditDetailsComponent implements OnInit {
     country: '',
     apartmentNumber: '',
     userId: 0
-  }
+  } */
 
 
   confirmPw:string = '';
@@ -48,7 +48,7 @@ export class UserEditDetailsComponent implements OnInit {
     const userId = this.route.snapshot.params["userId"];
     const addressId = this.route.snapshot.params["addressId"]
     this.userService.getUserById(userId).subscribe(x => this.user = x);
-    this.addressService.getAddressById(addressId).subscribe(x => this.address=x);
+   // this.addressService.getAddressById(addressId).subscribe(x => this.address=x);
   }
 
  
