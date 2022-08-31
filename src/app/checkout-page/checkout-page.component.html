@@ -192,15 +192,19 @@
                         <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
                     </div>
                 </div>
-                <div class="text-center">
-                    <hr style="background-color: black;">
-                    <p class="card-text text-dark p-1 text-center"
-                        style="position: absolute; bottom: 0; margin-left: 155px;">Total Price: {{ (totalPrice) |
-                        currency: 'USD' }}</p>
-                </div>
-                <div class="text-center">
-                    <p class="card-text text-dark p-1 text-center">You're cart is empty.</p>
-                </div>
+                <ng-container *ngIf="cartItems.length == 0; else notEmpty">
+                    <div class="text-center">
+                        <p class="card-text text-dark p-1 text-center">Your cart is empty.</p>
+                    </div>
+                </ng-container>
+                <ng-template #notEmpty>
+                    <div class="text-center">
+                        <hr style="background-color: black;">
+                        <p class="card-text text-dark p-1 text-center"
+                            style="position: absolute; bottom: 0; margin-left: 155px;">Total Price: {{ (totalPrice) |
+                            currency: 'USD' }}</p>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
