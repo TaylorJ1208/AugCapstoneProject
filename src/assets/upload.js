@@ -1,7 +1,7 @@
 const url = "https://api.cloudinary.com/v1_1/demo/image/upload";
 const form = document.getElementById("imageuploadform");
 
-console.log("ajaya");
+console.log("In the 'upload.js' script");
 
 function uploadImage(){
   
@@ -34,12 +34,12 @@ var myWidget = cloudinary.createUploadWidget({
     uploadPreset: 'zfppobuq'}, (error, result) => { 
       if (!error && result && result.event === "success") { 
         console.log('Done! Here is the image info: ', result.info);
-        //var obj = result.url;
         document.getElementById("imageuri").select();
         document.getElementById("imageuri").value = result.info.url;
         document.getElementById("productimage").src = result.info.url;
         document.getElementById("productimage").hidden = false;
-        console.log("URLL is "+result.info.url); 
+        document.getElementById("upload_widget").textContent = "Change Image";
+        console.log("Image URL is "+result.info.url); 
       }
     }
   )

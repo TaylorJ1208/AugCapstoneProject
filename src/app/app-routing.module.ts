@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: "catalog/update-categories", component: UserPageComponent},
   { path: "user/admin/details", component: UserAdminComponent},
   { path: `user/admin/edit/:userId`, component: UserAdminEditComponent},
-  { path: `user/editDetails/:userId/:addressId`, component: UserEditDetailsComponent},
+  { path: `user/editDetails/:userId`, component: UserEditDetailsComponent},
   { path: "**", redirectTo: "login" }];
 
 @NgModule({

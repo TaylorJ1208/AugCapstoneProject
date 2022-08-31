@@ -8,7 +8,7 @@
             </div>
     
             <div class="card-body"  *ngFor="let order of orders">
-                <div class="row justify-content-between mb-3">
+                <div class="row justify-content-between mb-3" *ngIf="order.user.userId == 3">
                     <div class="col-auto"><h6 class="color-1 mb-0 change-color">Date Placed: {{order.orderDate}} | Order #{{order.orderId}}</h6></div>
                     <div class="col-auto"><h6 class="color-1 mb-0 change-color">Total Price: ${{order.amount}} ({{order.products.length}} items)</h6></div>
                 </div>
