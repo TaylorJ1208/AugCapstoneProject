@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
@@ -8,9 +9,11 @@ import { OktaAuthService } from '@okta/okta-angular';
 })
 export class UserPageComponent implements OnInit {
   username: any;
-  constructor(private oktaAuthService: OktaAuthService) { }
+  url = this.router.url
+  constructor(private oktaAuthService: OktaAuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.url = this.router.url;
     this.getUsername();
   }
 

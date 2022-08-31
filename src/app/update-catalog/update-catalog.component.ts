@@ -87,7 +87,7 @@ export class UpdateCatalogComponent implements OnInit {
         weight: this.currentProduct.weight,
         quantity: this.currentProduct.quantity,
         image: this.currentProduct.image,
-        rating: this.currentProduct.rating,
+        rating: 3,
         category: {
           categoryId: this.currentProduct.category.categoryId
         }
@@ -160,7 +160,7 @@ newAdd():void{
     weight: 0,
     quantity: 0,
     image: "",
-    rating:0,
+    rating: 0,
     category:{
       categoryId: 0,
     }

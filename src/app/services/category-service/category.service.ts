@@ -27,7 +27,7 @@ export class CategoryService {
   }
 
   addCategory(data:any):Observable<any>{
-    return this.http.post(`http://localhost:8081/category/add`, data);
+    return this.http.post(`http://localhost:8081/category/admin/add`, data);
   }
 
 }
