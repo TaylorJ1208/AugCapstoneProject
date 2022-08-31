@@ -4,7 +4,7 @@
         <div class="container m-2">
 
 
-            <button class="btn btn-info btn-lg btn-block" (click)="showAddProductMode();">Add New Product</button>
+            <button class="btn btn-info btn-lg btn-block" (click)="showAddProductMode(); newAdd()">Add New Product</button>
 
         </div>
 
@@ -96,6 +96,14 @@
                             </div>
                         </div>
 
+                        <div *ngFor="let product of products">
+                            <div *ngIf="(upname.dirty || upname.touched)">
+                                <div *ngIf="(product.name == upname.value)" class="alert alert-danger">
+                                    Product name already exists.
+                                </div>
+                            </div>
+                            </div>
+
                     </div>
                     <div class="form-group">
                         <label for="description" class="form-label">Description</label>
@@ -156,7 +164,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="imageuri" class="form-label">Image URL</label>
+                        <!--<label for="imageuri" class="form-label">Image URL</label>-->
                         <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
                             placeholder="Image URL" [(ngModel)]="currentProduct.image" #upimage="ngModel"></textarea>
                         <div *ngIf="upimage.invalid && (upimage.dirty || upimage.touched)">
@@ -165,12 +173,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group"><button onclick="openWidget()" id="upload_widget"
-                                class="submit btn btn-info btn-lg btn-block">Upload Image</button>
+                        <div class="form-group">
                             <div>
-                                <img hidden="true" id="productimage" class="card-img-top"
+                                <img src="{{currentProduct.image}}" id="productimage" class="card-img-top"
                                     style="border-radius: 15px; height: auto;" alt="Card image cap">
                             </div>
+                            <button onclick="openWidget()" id="upload_widget"
+                                class="submit btn btn-info btn-lg btn-block">Change Image</button>
                         </div>
 
                     </div>
@@ -193,13 +202,15 @@
                     </div>
 
                 </form>
-                <div *ngIf="productUpdated" id="alert" class="alert alert-success alert-dismissible fade show"
+                <div *ngIf="productUpdated" id="alert" class="overlay alert-dismissible fade show"
                     role="alert">
+                    <div class="popup">
                     Product updated successfully!
                     <button #btnCloseProductUpdatedAlert type="button" class="close" data-dismiss="alert"
                         aria-label="Close" (click)="newUpdate()">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                </div>
                 </div>
             </div>
         </div>
@@ -241,6 +252,14 @@
                             <div *ngIf="pname.errors?.['required']" class="alert alert-danger">
                                 Product name is required.
                             </div>
+                        </div>
+
+                        <div *ngFor="let product of products">
+                        <div *ngIf="(pname.dirty || pname.touched)">
+                            <div *ngIf="(product.name == pname.value)" class="alert alert-danger">
+                                Product name already exists.
+                            </div>
+                        </div>
                         </div>
 
                     </div>
@@ -326,12 +345,13 @@
 
 
 
-                    <div class="form-group"><button onclick="openWidget()" id="upload_widget"
-                            class="submit btn btn-info btn-lg btn-block">Upload Image</button>
+                    <div class="form-group">
                         <div>
-                            <img hidden="true" id="productimage" class="card-img-top"
+                            <img #pimg hidden="true" id="productimage" class="card-img-top"
                                 style="border-radius: 15px; height: auto;" alt="Card image cap">
                         </div>
+                        <button onclick="openWidget()" (click)='currentProduct.image ="abc" ' id="upload_widget"
+                            class="submit btn btn-info btn-lg btn-block">Upload Image</button>
                     </div>
 
 
@@ -349,8 +369,8 @@
                         <div class="col-md-6">
                             <button [disabled]="(pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
                                 || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
-                                || pweight.errors?.['min'] || pstock.errors?.['required'])" type="submit"
-                                (click)="addProduct(); closeAlert('productAdded')"
+                                || pweight.errors?.['min'] || pstock.errors?.['required'] || currentProduct.image=='')" type="submit"
+                                (click)="addProduct(); closeAlert('productAdded');"
                                 class="btn btn-success btn-lg btn-block">Submit</button>
                         </div>
                     </div>
@@ -370,13 +390,15 @@
 
 
                 </form>
-                <div *ngIf="productAdded" id="productAddedAlert" class="alert alert-success alert-dismissible fade show"
+                <div *ngIf="productAdded" id="productAddedAlert" class="overlay alert-dismissible fade show"
                     role="productAddedAlert">
+                    <div class="popup">
                     Product Added successfully!
                     <button #btnCloseProductAddedAlert type="button" class="close" data-dismiss="productAddedAlert"
-                        aria-label="Close" (click)="newAdd()">
+                        aria-label="Close" (click)="newAdd(); pimg.hidden = true;">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    </div>
                 </div>
             </div>
         </div>
