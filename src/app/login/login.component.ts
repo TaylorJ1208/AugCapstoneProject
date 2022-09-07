@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import myAppConfig from '../config/my-app-config';
 import OktaSignIn from '@okta/okta-signin-widget';
 import { OktaAuthService } from '@okta/okta-angular';
+import {Tokens} from '@okta/okta-auth-js';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
       }
     })
   }
-  ngOnInit(): void {
+  /* ngOnInit(): void {
     this.oktaSignin.renderEl({
       el: '#okta-sign-in-widget'},
       (response: any) => {
@@ -37,5 +38,21 @@ export class LoginComponent implements OnInit {
       (error:any)=>{
         throw error;
       })
+  } */
+
+  async ngOnInit() {
+    const  originalUri = this.oktaAuthService.getOriginalUri();
+    if(!originalUri){
+      this.oktaAuthService.setOriginalUri("/home");
+    }
+    const token:Tokens = await
+    this.oktaSignin.showSignInToGetTokens({
+      el: '#okta-sign-in-widget',
+      });
+      this.oktaAuthService.handleLoginRedirect(token);
+      const userClaims = this.oktaAuthService.getUser();
+      console.log("User is: "+(await userClaims).name);
+      this.oktaSignin.hide();
+      window.location.reload();
   }
 }

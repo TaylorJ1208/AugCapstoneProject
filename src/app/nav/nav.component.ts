@@ -13,15 +13,31 @@ import { OktaAuthService } from '@okta/okta-angular';
 export class NavComponent implements OnInit {
   categories: Category[] = [];
   searchString: any = "";
+  isAuthenticated!:boolean;
+  username!:string;
   constructor(private navService: NavService,
      private route: Router, private categoryService: CategoryService, private oktaAuthService: OktaAuthService) {
 
+      this.oktaAuthService.$authenticationState.subscribe(
+      isAuth => this.isAuthenticated = isAuth
+    );
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.isAuthenticated = await this.oktaAuthService.isAuthenticated();
+    console.log("is user authenticated: "+this.isAuthenticated);
+    if(this.isAuthenticated){
+      const userClaims = await this.oktaAuthService.getUser();
+      this.username = userClaims.name || "";
+      console.log("loggedUserIs: "+this.username);
+    }
     this.getCategories();
     this.searchProducts();
   }
+
+   logout(){
+     this.oktaAuthService.signOut();
+   }
 
   searchProducts(): void {
     if (this.searchString) {

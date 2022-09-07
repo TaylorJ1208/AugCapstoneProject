@@ -15,7 +15,7 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
 const routes: Routes = [
   { path: "result", component: ResultPageComponent },
   { path: "login",component: LoginComponent },
-  { path: "login/callback", component: OktaCallbackComponent },
+  //{ path: "login/callback", component: OktaCallbackComponent },
   { path: "home", component: HomePageComponent },
   { path: "user/details", component: UserPageComponent },
   { path: "user/accountDetails", component: UserAccountDetailsComponent},
