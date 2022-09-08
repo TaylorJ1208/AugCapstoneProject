@@ -27,7 +27,7 @@ import com.ecommerce.service.UserService;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(AddressController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class AddressTest {	
+class AddressTest {	
 	
 	@MockBean
 	private AddressService addressService;
@@ -39,7 +39,7 @@ public class AddressTest {
 	private MockMvc mockMvc;
 	
 	@Test
-	public void testFindAllAddresses() throws Exception {
+	void testFindAllAddresses() throws Exception {
 		// Instantiate necessary objects
 		User user = new User();
 		

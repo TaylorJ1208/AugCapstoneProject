@@ -34,7 +34,7 @@ public class UserCartController {
 	}
 	
 	@PostMapping("/customer/add")
-	public void addItemToCart(@RequestBody UserCart userCart) throws Exception {
+	public void addItemToCart(@RequestBody UserCart userCart) {
 		service.addUserCart(userCart);
 	}
 	

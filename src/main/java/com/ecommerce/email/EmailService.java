@@ -51,6 +51,7 @@ public class EmailService {
 	}
 	
 	public void sendReceipt(Orders order) throws MessagingException {
+		String html = "</p>\r\n";
 		List<Product> products = order.getProducts();
 		String productString = "";
 		String imgUrl = "https://res.cloudinary.com/drukcz14j/image/upload/v1661205170/ecommerce/238-2381636_happy-face-color-in-smiley-face-hd-png_gyzizn.png";
@@ -82,11 +83,11 @@ public class EmailService {
 				+ "<img style='width: 18em; border-radium: 15px;' src='" + imgUrl + "' alt='Picture of a smiley face'>"
 				+ "  <h5>Order details</h5>\r\n"
 				+ "  <div>\r\n"
-				+ "    <p>Products : " + productString + "</p> \r\n"
-				+ "    <p>Total items : " + totalItems + "</p>\r\n"
-				+ "    <p>Shipping to : " + order.getShippingAddress() + "</p>\r\n"
-				+ "    <p>Billed to : " + order.getBillingAddress() + "</p>\r\n"
-				+ "    <p>Total Price : <span style='font-weight:bold'>$" + productTotal + "</span></p>\r\n"
+				+ "    <p>Products : " + productString + html
+				+ "    <p>Total items : " + totalItems + html
+				+ "    <p>Shipping to : " + order.getShippingAddress() + html
+				+ "    <p>Billed to : " + order.getBillingAddress() + html
+				+ "    <p>Total Price : <span style='font-weight:bold'>$" + productTotal + "</span>" + html
 				+ "  </div>\r\n"
 				+ "</div>" + "</body>" + "</html>", true);
 

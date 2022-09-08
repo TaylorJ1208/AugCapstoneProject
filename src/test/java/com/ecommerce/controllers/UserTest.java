@@ -33,7 +33,7 @@ import com.ecommerce.service.UserService;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class UserTest {
+class UserTest {
 	
 	@MockBean
 	private UserService userService;
@@ -51,7 +51,7 @@ public class UserTest {
 	private MockMvc mockMvc;
 	
 	@Test
-	public void testFindAllUsers() throws Exception {
+	void testFindAllUsers() throws Exception {
 		// Instantiate necessary objects
 		List<Orders> orders = new ArrayList<>();
 		Set<Role> roles = new HashSet<>();
