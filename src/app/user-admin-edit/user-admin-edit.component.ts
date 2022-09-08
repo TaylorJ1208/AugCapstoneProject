@@ -66,7 +66,7 @@ export class UserAdminEditComponent implements OnInit {
       this.userService.updateUser(data)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            console.log(data);
           },
           error: (e) => console.error(e)
         });

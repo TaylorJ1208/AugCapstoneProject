@@ -35,6 +35,7 @@ export class StorePurchasesComponent implements OnInit {
     this.ordersService.getAllOrders()
       .subscribe((data: any) => {
         this.cast = data;
+        console.log("STORE ORDERS: ", data);
         this.retrieveOrders(data);
 
       })
@@ -52,7 +53,7 @@ export class StorePurchasesComponent implements OnInit {
   updateOrder(order: Orders) {
     this.ordersService.updateOrder(order)
       .subscribe((data: any) => {
-        console.log("UPDATE ORDER", data);
+        console.log("UPDATED ORDER", order);
         this.retrieveOrders(data);
         this.getAllOrders();
       })

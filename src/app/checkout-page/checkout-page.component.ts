@@ -120,7 +120,7 @@ export class CheckoutPageComponent implements OnInit {
 
     console.log(this.finalCart);
     let dateString = new Date('2022-08-30T00:00:00');
-    let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
+    let role: Role[] = [{ roleId: 7, role: "ROLE_ADMIN" }]
 
     const data = {
       orderId: 6,
@@ -130,7 +130,7 @@ export class CheckoutPageComponent implements OnInit {
       billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       user: {
-        userId: 1,
+        userId: 3,
         firstName: "Blaise",
         lastName: "Harris",
         email: "123@123.com",

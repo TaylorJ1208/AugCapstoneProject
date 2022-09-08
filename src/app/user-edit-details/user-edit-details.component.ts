@@ -68,7 +68,7 @@ export class UserEditDetailsComponent implements OnInit {
       this.userService.updateUser(data)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            console.log(data);
           },
           error: (e) => console.error(e)
         });
@@ -85,7 +85,7 @@ export class UserEditDetailsComponent implements OnInit {
     this.confirmPw = (<HTMLInputElement>document.getElementById("confirmPassword")).value;
       if(this.user.password.length != 0 && this.confirmPw.length != 0) {
         if(this.user.password === this.confirmPw) {
-          console.log(this.user.password === this.confirmPw);
+          console.log("Passwords match: ", this.user.password === this.confirmPw);
           return true;
         } 
       }

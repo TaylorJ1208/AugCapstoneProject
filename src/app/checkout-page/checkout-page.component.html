@@ -188,7 +188,8 @@
                         <img class="card-img-top" style="border-radius: 15px; width: 100px; height: 58px;"
                             [src]="product.image" alt="Card image cap">
                     </div>
-                    <div class="col-md-6 text-dark text-center mt-3">
+                    <div class="col-md-6 text-dark text-center mt-3 d-flex flex-nowrap"> 
+                        <p style="margin-right: 1em; font-weight: bolder;">({{  product.quantity  }}) </p>
                         <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
                     </div>
                 </div>

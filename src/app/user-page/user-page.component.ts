@@ -14,20 +14,20 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.url = this.router.url;
-    this.getUsername();
+    // this.oktaAuthService.getUser();
   }
 
-  getUsername(): void {
-    this.oktaAuthService.getUser().then(
-    (res) => {
-      this.username = res.name;
-      // retrieve the user's email from authentication response
-      const theEmail = res.email;
-      // now store the email in browser storage
-      // this.storage.setItem('userEmail', JSON.stringify(theEmail));
+  // getUsername(): void {
+  //   this.oktaAuthService.getUser().then(
+  //   (res) => {
+  //     this.username = res.name;
+  //     // retrieve the user's email from authentication response
+  //     const theEmail = res.email;
+  //     // now store the email in browser storage
+  //     // this.storage.setItem('userEmail', JSON.stringify(theEmail));
       
-    });
-  }
+  //   });
+  // }
   
 
 }

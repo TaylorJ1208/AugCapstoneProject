@@ -29,7 +29,7 @@ import { UpdateCatalogComponent } from './update-catalog/update-catalog.componen
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
     const router = injector.get(Router)
-    router.navigate(['login']);
+    router.navigate(['home']);
   }
 }, myAppConfig.oidc)
 
