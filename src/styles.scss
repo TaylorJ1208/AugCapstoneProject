@@ -1,0 +1,43 @@
+html {
+    .nav {
+        font-weight: bold;
+    }
+
+    .body-hover:hover {
+        background-color: cornsilk;
+        transition: 0.3s;
+    }
+
+    .text-hover:hover {
+        color: cornsilk;
+        transition: 0.3s;
+    }
+
+    .b {
+        background-color: cornsilk;
+    }
+
+    .active {
+        background-color: cornsilk;
+        
+        .btn {
+            background-color: cornsilk;
+        }
+    }
+
+    button {     
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;      
+    }
+
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: cornsilk;
+        transition: 0.3s;
+      }
+
+    .table {
+        overflow-y: scroll;
+    }
+}
+
