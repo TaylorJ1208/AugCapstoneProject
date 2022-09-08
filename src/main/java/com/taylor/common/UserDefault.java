@@ -1,7 +1,5 @@
 package com.taylor.common;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

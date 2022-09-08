@@ -24,11 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userService);
 	}
 	
+	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		//csrf->cross site request forgery
-//	    http.authorizeRequests().antMatchers("/user/customer/**", "/orders/admin/**"
-//	    		, "catalog/customer/**","orders/customer", "/cart/**", "/user/admin/**", "/catalog/admin/**", "cart/admin/**").permitAll().and().authorizeRequests()
-//	            .antMatchers("user/admin/admin").hasAuthority("ROLE_ADMIN").and().httpBasic().and().formLogin();
+
 	}
 	
 	
