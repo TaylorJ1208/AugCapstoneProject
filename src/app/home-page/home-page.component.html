@@ -28,7 +28,7 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
-                <h5 class="card-subtitle">${{ product.price }}</h5><br>
+                <br>
                 <p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
 
 
@@ -37,14 +37,13 @@
             </div>
             <div class="d-flex flex-column justify-content-center align-items-center"
                 style="margin-bottom: 5em; margin-top: 0; padding-top: 0;">
-                <input type="number" min="0" [max]="product.quantity" style="float: left;"
-                    class="form-control border w-50 text-center m-1" placeholder="quantity">
                 <button class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity <= 0)"
                     disabled>Out of
                     Stock</button>
                 <button (click)="addToCart(product)" class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity > 0)">Add
                     To
                     Cart</button>
+                    <h5 class="card-subtitle pt-2">${{ product.price }}</h5><br>
             </div>
 
         </div>

@@ -4,6 +4,8 @@ import { Orders } from '../Models/orders';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Product } from '../Models/product';
 
 @Component({
   selector: 'app-store-purchases',
@@ -13,8 +15,10 @@ import { UserService } from '../services/user-service/user.service';
 export class StorePurchasesComponent implements OnInit {
   orders$ = new BehaviorSubject<Orders[]>([]);
   orders: Orders[] = [];
+  statuses: any = [true, false];
   cast = this.orders$.asObservable();
-  constructor(private ordersService: OrdersService, private userService: UserService) { }
+  constructor(private ordersService: OrdersService, private userService: UserService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getAllOrders();
@@ -25,13 +29,6 @@ export class StorePurchasesComponent implements OnInit {
 
   retrieveOrders(orders: Orders[]) {
     this.orders$.next(orders);
-  }
-
-  updateUser(user: User): void {
-    this.userService.updateUser(user)
-      .subscribe((data: any) => {
-        this.retrieveOrders(data);
-      })
   }
 
   getAllOrders() {
@@ -46,30 +43,49 @@ export class StorePurchasesComponent implements OnInit {
   onEdit(item: any, field: string) {
     item.editFieldName = field;
   }
-
+  // Updates data when user exits inline-editing
   close(order: Orders) {
-    const newOrder = {
-      orderId: order.orderId,
-      amount: order.amount,
-      orderDate: order.orderDate,
-      status: order.status,
-      billingAddress: order.billingAddress,
-      shippingAddress: order.shippingAddress,
-      user: order.user,
-      products: order.products
-    }
-    this.updateUser(order.user);
     order.editFieldName = '';
-    this.updateOrder(newOrder);
-    
+    this.updateOrder(order);
   }
 
   updateOrder(order: Orders) {
     this.ordersService.updateOrder(order)
       .subscribe((data: any) => {
+        console.log("UPDATE ORDER", data);
         this.retrieveOrders(data);
         this.getAllOrders();
       })
   }
+
+  verifyDeleteOrder(verifyDelete: any) {
+    this.modalService.open(verifyDelete, {backdropClass: 'light-blue-backdrop'});
+  }
+
+  deleteOrder(order: Orders) {
+    this.ordersService.deleteOrder(order.orderId)
+    .subscribe((data: any) => {
+      this.retrieveOrders(data);
+      this.getAllOrders();
+    })
+  }
+
+  viewOrderItems(items: any) {
+    this.modalService.open(items, { size: 'xl' });
+  }
+
+  orderItems(order: Orders): Product[] {
+    return order.products;
+  }
+  
+// Should user be able to remove items from order???
+  // updateOrderItems(order: Orders, product: Product): void {
+  //   let items = order.products.filter((data) => data.productId != product.productId);
+  //   let total = items.reduce((total, data) => total + data.price, 0);
+  //   order.products = items;
+  //   order.amount = total;
+  //   this.updateOrder(order);
+
+  // }
 
 }

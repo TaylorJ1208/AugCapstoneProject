@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../services/nav-service/nav-service/nav.service';
-import { ProductService } from '../services/product-service/product.service';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category-service/category.service';
 import { Category } from '../Models/categories';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-nav',
@@ -13,15 +13,31 @@ import { Category } from '../Models/categories';
 export class NavComponent implements OnInit {
   categories: Category[] = [];
   searchString: any = "";
-  constructor(private navService: NavService, private productService: ProductService,
-     private route: Router, private categoryService: CategoryService) {
+  isAuthenticated!:boolean;
+  username!:string;
+  constructor(private navService: NavService,
+     private route: Router, private categoryService: CategoryService, private oktaAuthService: OktaAuthService) {
 
+      this.oktaAuthService.$authenticationState.subscribe(
+      isAuth => this.isAuthenticated = isAuth
+    );
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.isAuthenticated = await this.oktaAuthService.isAuthenticated();
+    console.log("is user authenticated: "+this.isAuthenticated);
+    if(this.isAuthenticated){
+      const userClaims = await this.oktaAuthService.getUser();
+      this.username = userClaims.name || "";
+      console.log("loggedUserIs: "+this.username);
+    }
     this.getCategories();
     this.searchProducts();
   }
+
+   logout(){
+     this.oktaAuthService.signOut();
+   }
 
   searchProducts(): void {
     if (this.searchString) {
@@ -31,7 +47,7 @@ export class NavComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getAllCategories()
+    this.categoryService.getCategories()
       .subscribe((categories) => {
         this.categories = categories;
         console.log("CATEGORY DATA ->", this.categories);
@@ -40,6 +56,10 @@ export class NavComponent implements OnInit {
 
   routeToResult():void {
     this.route.navigate(['result']);
+  }
+
+  signOut(): void {
+    this.oktaAuthService.signOut();
   }
   
 }

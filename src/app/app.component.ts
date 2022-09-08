@@ -11,6 +11,11 @@ export class AppComponent {
   constructor(private router: Router){}
   title = 'ecommerce-frontend';
 
+  isLogin(){
+    this.url = this.router.url;
+    return this.router.url === '/login'
+  }
+// For Category Nav
   isValidRoute() {
    this.url = this.router.url;
     return this.router.url === '/home' || this.router.url === '/result';

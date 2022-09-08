@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CartItem } from '../Models/cart-item';
 import { Product } from '../Models/product';
-import { CartService } from '../services/cart-service/cart.service';
 import { ProductService } from '../services/product-service/product.service';
+import { CartService } from '../services/cart-service/cart.service';
+import { CartItem } from '../Models/cart-item';
 
 @Component({
   selector: 'app-home-page',
@@ -33,5 +33,3 @@ export class HomePageComponent implements OnInit {
 	}
 
 }
-
-

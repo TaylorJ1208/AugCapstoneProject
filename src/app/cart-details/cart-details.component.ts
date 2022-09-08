@@ -22,7 +22,7 @@ export class CartDetailsComponent implements OnInit {
 
 		// subscribe to the cart totalPrice
 		this.cartService.totalPrice.subscribe(
-			data => this.totalPrice = data
+			(data:any) => this.totalPrice = data
 
 		);
 

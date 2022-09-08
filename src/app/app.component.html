@@ -1,13 +1,25 @@
-<app-nav></app-nav>
-<div *ngIf="isValidRoute()">
-  <app-category-nav></app-category-nav>
+<div *ngIf="!isLogin()" style="padding-top: 1em;">
+  <app-nav></app-nav>
+  <br>
+  <div *ngIf="isValidRoute()">
+    <app-category-nav></app-category-nav>
+  </div>
 </div>
-
-<div class="container-lg" [ngStyle]="{'display': url === '/user/admin/store-purchases' ? 'flex' : ' '}">
+<div class="container-lg" [ngStyle]="{'display': url === '/user/admin/store-purchases' || url === '/user/purchases' 
+  || url === '/catalog/update-products' || url === '/catalog/update-categories'
+  || url === 'user/cart' ? 'flex' : ' '}">
   <router-outlet></router-outlet>
-  <div *ngIf="url == '/user/admin/store-purchases'">
+  <div *ngIf="url == '/user/admin/store-purchases'" style="margin-left: 1em;">
     <app-store-purchases></app-store-purchases>
   </div>
+  <div *ngIf="url == '/user/purchases'" style="margin-left: 1em;">
+    <app-user-purchases></app-user-purchases>
+  </div>
+  <div *ngIf="url == '/catalog/update-products'" style="margin-left: 1em;">
+    <app-update-catalog></app-update-catalog>
+  </div>
 
-  
+  <div *ngIf="url == '/catalog/update-categories'" style="margin-left: 1em;">
+    <app-update-catalog></app-update-catalog>
+  </div>
 </div>

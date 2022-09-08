@@ -94,5 +94,3 @@ export class CartService {
 
 	}
 }
-
-
