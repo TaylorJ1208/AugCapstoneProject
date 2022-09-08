@@ -1,0 +1,51 @@
+.form-group{
+    margin: 1rem 0;
+}
+
+.card{
+    position: initial;
+}
+
+.alert{
+    padding: 0.25rem 1.5rem;
+}
+
+$color_1: #333;
+$color_2: #06D85F;
+$font-family_1: Tahoma, Arial, sans-serif;
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 500ms;
+	visibility: visible;
+	opacity: 1;
+}
+.popup {
+	margin: 70px auto;
+	padding: 20px;
+	background: #fff;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	transition: all 5s ease-in-out;
+	h2 {
+		margin-top: 0;
+		color: $color_1;
+		font-family: $font-family_1;
+	}
+
+	.content {
+		max-height: 30%;
+		overflow: auto;
+	}
+}
+@media screen and (max-width: 700px) {
+	.popup {
+		width: 70%;
+	}
+}

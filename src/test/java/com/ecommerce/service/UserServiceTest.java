@@ -47,7 +47,7 @@ class UserServiceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new UserService(repo, rRepo);
+		service = new UserService();
 		u = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 	}
 

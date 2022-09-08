@@ -47,7 +47,7 @@ class ProductServiceTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new ProductService(repo);
+		service = new ProductService();
 		p = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
 	}
 
@@ -68,7 +68,7 @@ class ProductServiceTest {
 	
 	void testAddProduct() {
 		when(repo.save(p)).thenReturn(p);
-		assertThat(service.addProduct(p)).isEqualTo(p);
+		assertTrue(repo.count() == 1);
 	}
 
 	@Test

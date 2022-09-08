@@ -39,7 +39,7 @@ class RoleServiceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new RoleService(repo);
+		service = new RoleService();
 		r = new Role(id,"USER",u);
 	}
 
@@ -62,7 +62,7 @@ class RoleServiceTest {
 	@Test
 	void testAddRole() {
 		when(repo.save(r)).thenReturn(r);
-		assertThat(service.addRole(r)).isEqualTo(r);
+		assertTrue(repo.count() == 1);
 	}
 
 	@Test

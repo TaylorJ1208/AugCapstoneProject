@@ -33,7 +33,7 @@ class ProductCategoryServiceTest {
 	
 	@BeforeEach
 	void setUp(){
-		service = new ProductCategoryService(repo);
+		service = new ProductCategoryService();
 		p = new ProductCategory(1,"laptop",products);
 	}
 
@@ -55,7 +55,7 @@ class ProductCategoryServiceTest {
 	@Test
 	void testAddCategory() {
 		when(repo.save(p)).thenReturn(p);
-		assertThat(service.addCategory(p)).isEqualTo(p);
+		assertTrue(repo.count() == 1);
 	}
 
 	@Test

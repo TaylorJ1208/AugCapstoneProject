@@ -48,7 +48,7 @@ class OrderServiceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new OrderService(repo);
+		service = new OrderService();
 		o = new Orders(1,amount,date,true,u,a,a,p);
 	}
 

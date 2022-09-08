@@ -1,0 +1,10 @@
+<div *ngIf="!isLogin() " style="padding-top: 1em;">
+  <app-nav></app-nav>
+  <br>
+  <div *ngIf="isValidRoute()">
+    <app-category-nav></app-category-nav>
+  </div>
+</div>
+<div class="container-lg">
+  <router-outlet></router-outlet>
+</div>
