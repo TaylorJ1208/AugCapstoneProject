@@ -33,7 +33,7 @@ export class UserAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveUsers();
-    // this.addressService.getAddressById(1).subscribe(x => this.address = x);
+    this.addressService.getAddressById(1).subscribe(x => this.address = x);
 
   }
 

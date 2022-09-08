@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, Input, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../Models/product';
 import { Category } from '../Models/categories';
 import { ProductService } from '../services/product-service/product.service';
@@ -35,6 +35,7 @@ export class UpdateCatalogComponent implements OnInit {
   constructor(
     private productService:ProductService,
     private categoryService:CategoryService,
+    private route: ActivatedRoute,
     private router: Router
     ) { }
 
@@ -86,10 +87,9 @@ export class UpdateCatalogComponent implements OnInit {
         weight: this.currentProduct.weight,
         quantity: this.currentProduct.quantity,
         image: this.currentProduct.image,
-        rating: 3,
+        rating: this.currentProduct.rating,
         category: {
-          categoryId: this.currentProduct.category.categoryId,
-          category: this.currentProduct.category.category
+          categoryId: this.currentProduct.category.categoryId
         }
       };
       this.productService.addProduct(data)
@@ -103,7 +103,7 @@ export class UpdateCatalogComponent implements OnInit {
   });
     }
 
-    getProduct(id: number): void {
+    getProduct(id: any): void {
       this.editProductMode = true;
       this.productService.getProductById(id)
         .subscribe({
@@ -130,14 +130,14 @@ export class UpdateCatalogComponent implements OnInit {
       image: this.currentProduct.image,
       rating: this.currentProduct.rating,
       category: {
-        categoryId: this.currentProduct.category.categoryId,
-        category: this.currentProduct.category.category
+        categoryId: this.currentProduct.category.categoryId
       }
     };
 console.log(data);
 
     this.productService.updateProduct(data)
-    .subscribe({next:m=> {
+    .subscribe({next:m=>{
+      console.log(m);
       this.productUpdated = true;
       console.log(this.productUpdated);
       this.ngOnInit();
@@ -160,10 +160,9 @@ newAdd():void{
     weight: 0,
     quantity: 0,
     image: "",
-    rating: 0,
+    rating:0,
     category:{
       categoryId: 0,
-      category: ""
     }
   };
 
@@ -201,6 +200,7 @@ closeAlert(i:any){
     }
     else if (i == "productUpdated"){
       this.btnCloseProductUpdatedAlert.nativeElement.click();
+      console.log("btnClose updated clicked");
     }
     else if (i == "categoryAdded"){
       this.btnCloseCategoryAddedAlert.nativeElement.click();
@@ -230,6 +230,7 @@ getCategory(id: any): void {
       next: (data) => {
         this.currentCategory = data;
         console.log(data);
+        console.log("category id is:"+this.currentCategory.categoryId);
       },
       error: (e) => console.error(e)
     });
@@ -244,7 +245,10 @@ console.log(data);
 
   this.categoryService.updateCategory(data)
   .subscribe({next:m=>{
+    console.log(m);
+    this.categoryUpdated = true;
     this.editCategoryModeId = 0;
+    console.log(this.categoryUpdated);
     this.ngOnInit();
   },
 error:e=>console.error(e)
@@ -269,6 +273,9 @@ console.log(data);
 
   this.categoryService.addCategory(data)
   .subscribe({next:m=>{
+    console.log(m);
+    this.categoryAdded = true;
+    console.log(this.categoryAdded);
     this.ngOnInit();
   },
 error:e=>console.error(e)
@@ -278,6 +285,7 @@ error:e=>console.error(e)
 deleteCategory(id:any):void{
   this.categoryService.deleteCategory(id)
   .subscribe({next:m=>{
+    console.log(m);
     console.log("category deleted");
     this.ngOnInit();
   },

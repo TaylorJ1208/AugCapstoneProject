@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../Models/product';
 import { NavService } from '../services/nav-service/nav-service/nav.service';
-import { ProductService } from '../services/product-service/product.service';
-import { CartService } from '../services/cart-service/cart.service';
-import { CartItem } from '../Models/cart-item';
 
 @Component({
   selector: 'app-result-page',
@@ -14,8 +11,7 @@ export class ResultPageComponent implements OnInit {
   products$ = this.navService.products$;
   cast = this.products$.asObservable();
   products: Product[] = [];
-  constructor(private navService: NavService, private productService: ProductService,
-    private cartService: CartService) {
+  constructor(private navService: NavService) {
 
   }
 
@@ -62,11 +58,5 @@ export class ResultPageComponent implements OnInit {
     });
 
   }
-
-  addToCart(theProduct: Product) {
-    const theCartItem = new CartItem(theProduct);
-    
-    this.cartService.addToCart(theCartItem);
-    }
 
 }

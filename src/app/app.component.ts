@@ -1,28 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   url = this.router.url;
-  isAuthenticated: boolean = false;
-  constructor(public oktaAuth: OktaAuthService, public router: Router){
-      // Subscribe to authentication state changes
-      this.oktaAuth.$authenticationState.subscribe(
-        (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
-      );
-  }
+  constructor(private router: Router){}
   title = 'ecommerce-frontend';
-
-  async ngOnInit() {
-    this.url = this.router.url;
-    // Get the authentication state for immediate use
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-  }
 
   isLogin(){
     this.url = this.router.url;
@@ -31,6 +18,6 @@ export class AppComponent implements OnInit {
 // For Category Nav
   isValidRoute() {
    this.url = this.router.url;
-    return this.router.url.startsWith('/home') || this.router.url === '/result';
+    return this.router.url === '/home' || this.router.url === '/result';
   }
 }

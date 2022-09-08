@@ -9,7 +9,7 @@
           <th scope="col">Email</th>
           <th scope="col">Contact</th>
           <th scope="col">Username</th>
-          <!-- <th scope="col">Address</th> -->
+          <th scope="col">Address</th>
           <th scope="col">Edit User</th> 
           <th scope="col">Delete User</th> 
         </tr>
@@ -22,7 +22,7 @@
           <td>{{user.email}}</td>
           <td>{{user.contact}}</td>
           <td>{{user.userName}}</td>
-          <!-- <td>{{address.street}} {{address.state}}, {{address.city}}, {{address.zipcode}}, {{address.country}}</td> -->
+          <td>{{address.street}} {{address.state}}, {{address.city}}, {{address.zipcode}}, {{address.country}}</td>
           <td>
               <button class="btn btn-block btn-primary data-inline=true" (click)="editUser(user.userId)">Edit</button>
           </td>

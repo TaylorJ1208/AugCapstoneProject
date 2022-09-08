@@ -36,7 +36,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
       .subscribe ((data: any) => {
         this.cast = data;
         this.retrieveOrders(data);
-        console.log("USER ORDERS: ", this.cast);
+        console.log(this.cast);
       })
   } 
 

@@ -1,14 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RouteConfigLoadEnd } from '@angular/router';
-import { BehaviorSubject, map, Observable, ReplaySubject, Subject } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { OktaAuthService } from '@okta/okta-angular';
+import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../Models/cart-item';
-import { Category } from '../Models/categories';
+import { Charges } from '../Models/charges';
 import { Product } from '../Models/product';
 import { Role } from '../Models/role';
-import { User } from '../Models/user';
 import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
+import { StripeService } from '../services/stripe-service/stripe-service.service';
 import { UserService } from '../services/user-service/user.service';
 
 @Component({
@@ -34,12 +34,41 @@ export class CheckoutPageComponent implements OnInit {
   totalPrice: number = 0;
   totalQuantity: number = 0;
   total: number = 0;
+  token:any;
   finalCart: Product[] = [];
+  paymentHandler: any = null;
   oldProducts$ = new BehaviorSubject<Product[]>([]);
+  token$ = new BehaviorSubject<any>([]);
+  isAuthenticated!:boolean;
+  username!:string;
+  charge:Charges = {
+    amount: 0,
+    currency: 'USD',
+    source: "",
+    description: ''
+  };
 
-  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService) { }
+  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService) {
+    this.oktaAuthService.$authenticationState.subscribe(
+      isAuth => this.isAuthenticated = isAuth
+    );
+  }
+  
 
-  ngOnInit(): void {
+  @Input() amount: any;
+  @Input() description: any;
+
+  confirmation: any;
+  loading = false;
+
+  async ngOnInit() {
+    this.isAuthenticated = await this.oktaAuthService.isAuthenticated();
+    console.log("is user authenticated: "+this.isAuthenticated);
+    if(this.isAuthenticated){
+      const userClaims = await this.oktaAuthService.getUser();
+      this.username = userClaims.locale || "";
+      console.log("loggedUserIs: "+this.username);
+    }
     this.listCartDetails();
     this.getProducts();
   }
@@ -92,6 +121,47 @@ export class CheckoutPageComponent implements OnInit {
     this.cartService.remove(theCartItem);
   }
 
+  async makePayment(amount: number) {
+    this.paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51LflSODncq9KJa816vSKNjdic3V39Y1HZ0ZvX4TmkpoqUdMGFmb9xBklhywlxvwcFPqyiKn0xOlxou0NJkaORrnw00SACxUFmk',
+      locale:'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken);
+        retrieveToken(stripeToken);
+      }
+  });
+
+  const retrieveToken = (token: any) => {
+    this.token$.next(token);
+    if(this.isAuthenticated) {
+         paymentStripe();
+    }
+    console.log("TOKEN = " + this.token$.getValue());
+  }
+
+  const paymentStripe = () => {
+    this.charge = {
+      amount: this.totalPrice,
+      currency: "USD",
+      description: "Second try",
+      source: this.token$.getValue().id
+    }
+
+    console.log("Charge " + this.charge)
+    console.log(this.token$.getValue());
+     this.stripeService.makePayment(this.charge).subscribe((data:any) => {
+       console.log(data);
+    });
+  }
+  
+  this.paymentHandler.open({
+    name: 'Payment Information',
+    description: 'Please enter details below',
+    amount: amount * 100,
+    locale: 'auto',
+  });
+}
+
   addOrder(): void {
     let index = 0;
     let help: Product[] = [];
@@ -119,8 +189,8 @@ export class CheckoutPageComponent implements OnInit {
     });
 
     console.log(this.finalCart);
-    let dateString = new Date('2022-08-30T00:00:00');
-    let role: Role[] = [{ roleId: 7, role: "ROLE_ADMIN" }]
+    let dateString = '2022-08-30T00:00:00';
+    let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
 
     const data = {
       orderId: 6,
@@ -130,7 +200,7 @@ export class CheckoutPageComponent implements OnInit {
       billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       user: {
-        userId: 3,
+        userId: 1,
         firstName: "Blaise",
         lastName: "Harris",
         email: "123@123.com",
@@ -203,4 +273,6 @@ export class CheckoutPageComponent implements OnInit {
   changedCVV(event: any) {
     this.inputCVV = event.target.value;
   }
+  
 }
+

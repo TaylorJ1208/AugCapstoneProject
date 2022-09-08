@@ -19,16 +19,18 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
-    "@cloudinary/angular": "^1.0.0-beta.14",
-    "@cloudinary/angular-5.x": "^1.5.3",
     "@ng-bootstrap/ng-bootstrap": "^13.0.0",
     "@okta/okta-angular": "^3.0.1",
     "@okta/okta-signin-widget": "^6.7.0",
     "@popperjs/core": "^2.10.2",
+    "@types/stripe-v3": "^3.1.27",
     "bootstrap": "^5.2.0",
-    "ng2-file-upload": "^1.4.0",
+    "crypto-browserify": "^3.12.0",
+    "http-browserify": "^1.7.0",
+    "https-browserify": "^1.0.0",
     "rxjs": "~7.5.0",
     "rxjs-compat": "^6.6.7",
+    "stripe": "^10.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -44,5 +46,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.7.2"
-  }
+   } 
 }
