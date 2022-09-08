@@ -34,12 +34,12 @@ public class UserCartController {
 	}
 	
 	@PostMapping("/customer/add")
-	public void addItemToCart(@RequestBody UserCart userCart) throws Exception {
+	public void addItemToCart(@RequestBody UserCart userCart) {
 		service.addUserCart(userCart);
 	}
 	
 	@PutMapping("/customer/update")
-	public void updateItem(UserCart userCart) {
+	public void updateItem(@RequestBody UserCart userCart) {
 		service.updateUserCart(userCart);
 	}
 	
