@@ -61,6 +61,8 @@ public class UserController {
 	
 	@PutMapping("/customer/update")
 	public void updateUser(@RequestBody User user) {
+		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encryptPassword);
 		userService.updateUser(user);
 	}
 	
