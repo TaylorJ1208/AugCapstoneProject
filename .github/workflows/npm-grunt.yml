@@ -26,9 +26,8 @@ jobs:
     - name: Build
       run: npm run build:prod
 
-    - name: Deploy
-      if: success()
-      uses: peaceiris/actions-gh-pages@v3
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         sonar_token: ${{ secrets.SONAR_TOKEN }}
