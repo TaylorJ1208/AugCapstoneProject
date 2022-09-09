@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { StripeService } from './stripe-service';
 
-describe('UserService', () => {
-  let service: UserService;
+describe('StripeServiceService', () => {
+  let service: StripeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(StripeService);
   });
 
   it('should be created', () => {

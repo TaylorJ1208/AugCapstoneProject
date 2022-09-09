@@ -33,7 +33,7 @@ export class NavComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories()
-      .subscribe((categories) => {
+      .subscribe((categories: any) => {
         this.categories = categories;
         console.log("CATEGORY DATA ->", this.categories);
       });

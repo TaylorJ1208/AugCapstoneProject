@@ -64,43 +64,6 @@
                 </div>
             </div>
             <div class="accordion-item border">
-                <h2 class="accordion-header shadow-sm" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        <i class="fas fa-plus-square pe-2"></i><b>Payment Information</b>
-                    </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse shadow-sm"
-                    aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlush">
-                    <div class="accordion-body">
-                        <form>
-                            <div class="form-group col-md-8 pe-3">
-                                <label for="inputOwner">Card Owner</label>
-                                <input type="text" class="form-control" id="inputOwner" placeholder=""
-                                    [(ngModel)]="inputOwner" (input)="changedOwner($event)" name="cardOwner" />
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="inputCardNum">Card Number</label>
-                                <input type="text" class="form-control" id="inputCardNum" placeholder=""
-                                    [(ngModel)]="inputCardNum" (input)="changedCardNum($event)" name="cardNumber" />
-                            </div>
-                            <div class="d-flex flex-row">
-                                <div class="form-group col-md-5 pe-3">
-                                    <label for="inputExpDate">Expiration Date</label>
-                                    <input type="text" class="form-control" id="inputExpDate" placeholder=""
-                                        [(ngModel)]="inputExpDate" (input)="changedExpDate($event)" name="expDate" />
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputCVV">CVV</label>
-                                    <input type="text" class="form-control mb-3" id="inputCVV" placeholder=""
-                                        [(ngModel)]="inputCVV" (input)="changedCVV($event)" name="cvv" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item border">
                 <h2 class="accordion-header shadow-sm" id="flush-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
@@ -164,11 +127,12 @@
 
                             <div class="d-flex flex-row container-fluid justify-content-center ps-0 pe-4">
                                 <ng-container *ngIf="cartItems.length != 0; else emptyCart">
-                                    <button (click)="addOrder()" class="btn btn-primary mt-3"
-                                        type="submit">Checkout</button>
+                                    <button (click)="makePayment(totalPrice)" class="btn btn-primary mt-3"
+                                        type="submit" [disabled]="inputName == '' || inputAddress == '' || inputState == ''
+                                        || inputCity == '' || inputZipcode == '' || inputCountry == ''">Checkout</button>
                                 </ng-container>
                                 <ng-template #emptyCart>
-                                    <button (click)="addOrder()" class="btn btn-primary mt-3" type="submit"
+                                    <button (click)="makePayment(totalPrice)" class="btn btn-primary mt-3" type="submit"
                                         disabled>Checkout</button>
                                 </ng-template>
                             </div>
@@ -188,8 +152,7 @@
                         <img class="card-img-top" style="border-radius: 15px; width: 100px; height: 58px;"
                             [src]="product.image" alt="Card image cap">
                     </div>
-                    <div class="col-md-6 text-dark text-center mt-3 d-flex flex-nowrap"> 
-                        <p style="margin-right: 1em; font-weight: bolder;">({{  product.quantity  }}) </p>
+                    <div class="col-md-6 text-dark text-center mt-3">
                         <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
                     </div>
                 </div>
