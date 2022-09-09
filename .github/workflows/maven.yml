@@ -31,6 +31,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: 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  # Needed to get PR information, if any
-          SONAR_TOKEN: 234baca666febd1c1a43d8bc2d172645cb3c79fc
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TaylorJ1208_AugCapstoneProject
