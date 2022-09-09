@@ -24,7 +24,7 @@ export class UserAccountDetailsComponent implements OnInit {
     roles: []
   };
 
-  /*address: Address = {
+  currentAddress: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -32,14 +32,32 @@ export class UserAccountDetailsComponent implements OnInit {
     zipcode: '',
     country: '',
     apartmentNumber: '',
-    userId: 0
-  } */
+    user: this.user
+  }
+  addresses?: Address[];
   
   ngOnInit(): void {}
   constructor(private userService: UserService, private router: Router,
     private addressService: AddressService) { 
-    this.userService.getUserById(18).subscribe(x => this.user = x);
-    //this.addressService.getAddressById(1).subscribe(x => this.address = x);
+    this.userService.getUserById(26).subscribe(x => this.user = x);
+    this.currentAddress = this.retrieveCorrectAddress();
+  }
+
+  retrieveCorrectAddress(): Address {
+    this.addressService.getAllAddresses()
+      .subscribe({
+        next: (data) => {
+          this.addresses = data;
+          this.addresses.forEach((address) => {
+            if(address.user.userId == 26) {
+              this.currentAddress = address;
+            }
+          })
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+      return this.currentAddress;
   }
 
   deleteUser(userId: number) : void {

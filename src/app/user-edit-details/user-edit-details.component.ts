@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { Address } from '../Models/address';
 import { AddressService } from '../services/address-service/address.service';
+import { Address } from '../Models/address';
 
 @Component({
   selector: 'app-user-edit-details',
@@ -22,9 +22,10 @@ export class UserEditDetailsComponent implements OnInit {
     ssn: '',
     contact: '',
     roles: []
-  };
-
- /* address: Address = {
+  }
+  addresses?: Address[];
+  
+  currentAddress: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -32,8 +33,8 @@ export class UserEditDetailsComponent implements OnInit {
     zipcode: '',
     country: '',
     apartmentNumber: '',
-    userId: 0
-  } */
+    user: this.user
+  };
 
 
   confirmPw:string = '';
@@ -46,9 +47,26 @@ export class UserEditDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
-    const addressId = this.route.snapshot.params["addressId"]
     this.userService.getUserById(userId).subscribe(x => this.user = x);
-   // this.addressService.getAddressById(addressId).subscribe(x => this.address=x);
+    this.currentAddress = this.retrieveCorrectAddress();
+   
+  }
+
+  retrieveCorrectAddress(): Address {
+    this.addressService.getAllAddresses()
+      .subscribe({
+        next: (data) => {
+          this.addresses = data;
+          this.addresses.forEach((address) => {
+            if(address.user.userId == this.route.snapshot.params["userId"]) {
+              this.currentAddress = address;
+            }
+          })
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+      return this.currentAddress;
   }
 
  
@@ -69,7 +87,7 @@ export class UserEditDetailsComponent implements OnInit {
       this.userService.updateUser(data)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            console.log(data);
           },
           error: (e) => console.error(e)
         });
@@ -86,7 +104,7 @@ export class UserEditDetailsComponent implements OnInit {
     this.confirmPw = (<HTMLInputElement>document.getElementById("confirmPassword")).value;
       if(this.user.password.length != 0 && this.confirmPw.length != 0) {
         if(this.user.password === this.confirmPw) {
-          console.log(this.user.password === this.confirmPw);
+          console.log("Passwords match: ", this.user.password === this.confirmPw);
           return true;
         } 
       }

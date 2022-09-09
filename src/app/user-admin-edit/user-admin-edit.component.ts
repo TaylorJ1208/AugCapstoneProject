@@ -25,7 +25,7 @@ export class UserAdminEditComponent implements OnInit {
      roles: []
    };
 
-  /* address: Address = {
+   currentAddress: Address = {
     addressId: 0,
     city: '',
     state: '',
@@ -33,21 +33,38 @@ export class UserAdminEditComponent implements OnInit {
     zipcode: '',
     country: '',
     apartmentNumber: '',
-    userId: 0
-  } */
+    user: this.user
+  };
 
-
+  addresses?: Address[];
 
   confirmPw:string = '';
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
-    private addressService: AddressService) { 
-      
+    private addressService: AddressService) {     
   }
   
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
     this.userService.getUserById(userId).subscribe(x => this.user = x);
-   // this.addressService.getAddressById(1).subscribe(x => this.address = x);
+    this.currentAddress = this.retrieveCorrectAddress();
+  }
+
+
+  retrieveCorrectAddress(): Address {
+    this.addressService.getAllAddresses()
+      .subscribe({
+        next: (data) => {
+          this.addresses = data;
+          this.addresses.forEach((address) => {
+            if(address.user.userId == this.route.snapshot.params["userId"]) {
+              this.currentAddress = address;
+            }
+          })
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+      return this.currentAddress;
   }
 
   updateUser() : void {

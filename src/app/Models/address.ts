@@ -8,5 +8,5 @@ export interface Address {
     zipcode: string;
     country: string;
     apartmentNumber: string;
-    userId: number;
+    user: User;
 }
