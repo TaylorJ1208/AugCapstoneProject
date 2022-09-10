@@ -78,7 +78,6 @@ export class UserAdminEditComponent implements OnInit {
       ssn: this.user.ssn,
       contact: this.user.contact,
     };
-    console.log("this.user.userid" + this.user.userId);
     const addressData = {
       addressId: this.currentAddress.addressId,
       city: this.currentAddress.city,

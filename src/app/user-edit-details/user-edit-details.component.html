@@ -68,63 +68,58 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Address</label>
                     <div class="col-lg-5">
-                        <input class="form-control" type="text" id="street"
+                        <input placeholder="Street"class="form-control" type="text" id="street"
                         required
                         name="street"
                         [(ngModel)]="currentAddress.street" 
                         #street = "ngModel"/>
-
                         <div [hidden]="street.valid || street.pristine"
-                            class="alert alert-danger">
-                            Street is required
+                        class="alert alert-danger">
+                        Street is required
                         </div>
                     </div>
                 
                     <div class="col-lg-4">
-                        <input class="form-control" type="text" id="state"
+                        <input placeholder="City" class="form-control" type="text" id="city"
                         required
                         name="state"
-                        [(ngModel)]="currentAddress.state" 
-                        #state = "ngModel"/>
-
-                        <div [hidden]="state.valid || state.pristine"
-                            class="alert alert-danger">
-                            State is required
+                        [(ngModel)]="currentAddress.city" 
+                        #city = "ngModel"/>
+                        <div [hidden]="city.valid || city.pristine"
+                        class="alert alert-danger">
+                        City is required
                         </div>
                     </div>
                 </div>
           
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
-                    <div class="col-lg-3">
-                        <input class="form-control" type="text" id="city"
+                    <div class="col-lg-2">
+                        <input placeholder="State" class="form-control" type="text" id="state"
                         required
                         name="city"
-                        [(ngModel)]="currentAddress.city" 
-                        #city = "ngModel"/>
-
-                        <div [hidden]="city.valid || city.pristine"
-                            class="alert alert-danger">
-                            City is required
+                        [(ngModel)]="currentAddress.state" 
+                        #state = "ngModel"  maxlength="2" minlength="2"/>
+                        <div [hidden]="state.valid || state.pristine"
+                        class="alert alert-danger">
+                        Two Character State Code is required
                         </div>
-
                     </div>
 
-                    <div class="col-lg-3">
-                        <input class="form-control" type="text" id="country" placeholder="country"
+                    <div class="col-lg-2">
+                        <input placeholder="Country" class="form-control" type="text" id="country"
                         required
                         name="country"
                         [(ngModel)]="currentAddress.country" 
                         #country = "ngModel"/>
-
                         <div [hidden]="country.valid || country.pristine"
-                            class="alert alert-danger">
-                            Country is required
+                        class="alert alert-danger">
+                        Country is required
                         </div>
-                    </div>
+                    </div>   
 
-                    <div class="col-lg-3">
-                        <input class="form-control" type="text" id="zipcode"
+                    <div class="col-lg-2">
+                        <input placeholder = "Zipcode" class="form-control" type="text" id="zipcode"
                         required
                         name="zipcode"
                         [(ngModel)]="currentAddress.zipcode" 
@@ -132,13 +127,20 @@
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                         maxlength="5"
                         minlength="5"/>
-
-                        <div [hidden]="zipcode.valid || zipcode.pristine"
-                            class="alert alert-danger">
-                            Zipcode is required
+                        <div [hidden]="city.valid || city.pristine"
+                        class="alert alert-danger">
+                        City is required
                         </div>
                     </div>
-                </div>
+
+                    <div class="col-lg-3">
+                        <input placeholder = "Apt # (Optional)" class="form-control" type="text" id="apartmentNumber"
+                        name="apartmentNumber"
+                        [(ngModel)]="currentAddress.apartmentNumber" 
+                        #zipcode = "ngModel"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                        </div>
+                    </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" for="userName">Username</label>
@@ -233,7 +235,8 @@
                         || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
                         || contact.errors?.['required']  || ssn.errors?.['required'] ||ssn.errors?.['minlength']
                         || password.errors?.['required'] || contact.errors?.['minlength'] ||zipcode.errors?.['minlength']
-                        || street.errors?.['required'] || zipcode.errors?.['required'] || city.errors?.['required'] || country.errors?.['required'] "
+                        || street.errors?.['required'] || state.errors?.['maxlength'] || state.errors?.['minlength']
+                        || zipcode.errors?.['required'] || city.errors?.['required'] || country.errors?.['required']"
                         (click) = "updateUser()" value="Save Changes" />
                     </div>
                 </div>
