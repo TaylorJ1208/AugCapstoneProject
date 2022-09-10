@@ -68,7 +68,7 @@ export class UserAdminEditComponent implements OnInit {
   }
 
   updateUser() : void {
-    const data = {
+    const userData = {
       userId: this.user.userId,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -78,15 +78,43 @@ export class UserAdminEditComponent implements OnInit {
       ssn: this.user.ssn,
       contact: this.user.contact,
     };
+    console.log("this.user.userid" + this.user.userId);
+    const addressData = {
+      addressId: this.currentAddress.addressId,
+      city: this.currentAddress.city,
+      street: this.currentAddress.street,
+      state: this.currentAddress.state,
+      zipcode: this.currentAddress.zipcode,
+      country: this.currentAddress.country,
+      apartmentNumber: this.currentAddress.apartmentNumber,
+      user: this.user
+    };
 
   if(confirm("Are you sure you would like to update this account?")) {
-      this.userService.updateUser(data)
+      this.userService.updateUser(userData)
         .subscribe({
           next: (res) => {
             console.log(res);
           },
           error: (e) => console.error(e)
         });
+        if(addressData.addressId != 0) {
+          this.addressService.updateAddress(addressData).subscribe({
+            next: (res) => {
+              console.log(res);
+            },
+            error: (e) => console.error(e)
+          });
+        }
+        else if(addressData.addressId == 0) {
+          this.addressService.addAddress(addressData).subscribe({
+            next: (res) => {
+              console.log(res);
+            },
+            error: (e) => console.error(e)
+          });
+        }
+
         alert("Account Updated!");
         this.router.navigate(["user/admin/details"]);
       }

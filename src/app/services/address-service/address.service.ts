@@ -17,4 +17,12 @@ constructor(private http: HttpClient) { }
   getAllAddresses(): Observable<Address[]> {
     return this.http.get<Address[]>('http://localhost:8081/address')
   }
+
+  updateAddress(data: any): Observable<any> {
+    return this.http.put("http://localhost:8081/address/update", data);
+  }
+
+  addAddress(data: any): Observable<any> {
+    return this.http.post("http://localhost:8081/address/add", data);
+  }
 }
