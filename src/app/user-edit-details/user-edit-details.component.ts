@@ -36,7 +36,6 @@ export class UserEditDetailsComponent implements OnInit {
     user: this.user
   };
 
-
   confirmPw:string = '';
   showPw: boolean = false;
   showConfirm: boolean = false;
@@ -68,37 +67,6 @@ export class UserEditDetailsComponent implements OnInit {
       });
       return this.currentAddress;
   }
-
-/*
-  if(confirm("Are you sure you would like to update this account?")) {
-      this.userService.updateUser(userData)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-          },
-          error: (e) => console.error(e)
-        });
-        if(addressData.addressId != 0) {
-          this.addressService.updateAddress(addressData).subscribe({
-            next: (res) => {
-              console.log(res);
-            },
-            error: (e) => console.error(e)
-          });
-        }
-        else if(addressData.addressId == 0) {
-          this.addressService.addAddress(addressData).subscribe({
-            next: (res) => {
-              console.log(res);
-            },
-            error: (e) => console.error(e)
-          });
-        }
-
-        alert("Account Updated!");
-        this.router.navigate(["user/admin/details"]);
-      }
-    } */
  
   updateUser() : boolean {
     const userData = {

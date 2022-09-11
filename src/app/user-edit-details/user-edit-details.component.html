@@ -96,14 +96,9 @@
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-2">
                         <input placeholder="State" class="form-control" type="text" id="state"
-                        required
                         name="city"
                         [(ngModel)]="currentAddress.state" 
                         #state = "ngModel"  maxlength="2" minlength="2"/>
-                        <div [hidden]="state.valid || state.pristine"
-                        class="alert alert-danger">
-                        Two Character State Code is required
-                        </div>
                     </div>
 
                     <div class="col-lg-2">
@@ -137,8 +132,7 @@
                         <input placeholder = "Apt # (Optional)" class="form-control" type="text" id="apartmentNumber"
                         name="apartmentNumber"
                         [(ngModel)]="currentAddress.apartmentNumber" 
-                        #zipcode = "ngModel"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                        #zipcode = "ngModel"/>
                         </div>
                     </div>
 
@@ -235,7 +229,7 @@
                         || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
                         || contact.errors?.['required']  || ssn.errors?.['required'] ||ssn.errors?.['minlength']
                         || password.errors?.['required'] || contact.errors?.['minlength'] ||zipcode.errors?.['minlength']
-                        || street.errors?.['required'] || state.errors?.['maxlength'] || state.errors?.['minlength']
+                        || state.errors?.['maxlength'] || state.errors?.['minlength']
                         || zipcode.errors?.['required'] || city.errors?.['required'] || country.errors?.['required']"
                         (click) = "updateUser()" value="Save Changes" />
                     </div>
