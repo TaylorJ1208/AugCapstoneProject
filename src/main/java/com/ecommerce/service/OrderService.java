@@ -30,6 +30,11 @@ public class OrderService {
 	@Autowired
 	private UserCartService service;
 
+	public OrderService(OrdersRepo repo2, UserCartRepo uRepo) {
+		this.ordersRepo = repo2;
+		this.repo = uRepo;
+	}
+
 	public List<Orders> getAllOrders() {
 		return ordersRepo.findAll();
 	}

@@ -1,8 +1,7 @@
 package com.ecommerce.service;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +33,7 @@ class ProductCategoryServiceTest {
 	
 	@BeforeEach
 	void setUp(){
-		service = new ProductCategoryService();
+		service = new ProductCategoryService(repo);
 		p = new ProductCategory(1,"laptop",products);
 	}
 
@@ -56,7 +55,7 @@ class ProductCategoryServiceTest {
 	@Test
 	void testAddCategory() {
 		when(repo.save(p)).thenReturn(p);
-		assertEquals(1, repo.count());
+		assertThat(service.addCategory(p)).isEqualTo(p);
 	}
 
 	@Test

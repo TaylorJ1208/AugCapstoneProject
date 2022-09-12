@@ -17,6 +17,10 @@ public class UserCartService {
 	@Autowired
 	private UserCartRepo repo;
 	
+	public UserCartService(UserCartRepo repo2) {
+		this.repo = repo2;
+	}
+
 	public List<UserCart> getAllCartItems() {
 		return repo.findAll();
 	}

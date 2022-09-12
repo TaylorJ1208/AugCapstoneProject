@@ -16,6 +16,10 @@ public class AddressService {
 	@Autowired
 	private AddressRepo addressRepo;
 	
+	public AddressService(AddressRepo repo) {
+		this.addressRepo = repo;
+	}
+
 	public List<Address> getAllAddresses() {
 		return addressRepo.findAll();
 	}
@@ -25,8 +29,8 @@ public class AddressService {
 				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Address not found with id : "+id) );
 	}
 	
-	public void addAddress(Address address) {
-		addressRepo.save(address);
+	public Address addAddress(Address address) {
+		return addressRepo.save(address);
 	}
 	
 	public Address updateAddress(Address address) {

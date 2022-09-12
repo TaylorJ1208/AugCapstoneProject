@@ -16,6 +16,10 @@ public class RoleService {
 	@Autowired
 	private RoleRepo roleRepo;
 	
+	public RoleService(RoleRepo repo) {
+		this.roleRepo = repo;
+	}
+
 	public List<Role> getAllRoles() {
 		return roleRepo.findAll();
 	}
@@ -25,8 +29,8 @@ public class RoleService {
 				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Role not found with id : "+id) );
 	}
 	
-	public void addRole(Role role) {
-		roleRepo.save(role);
+	public Role addRole(Role role) {
+		return roleRepo.save(role);
 	}
 	
 	public Role updateRole(Role role) {

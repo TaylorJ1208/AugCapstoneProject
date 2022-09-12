@@ -20,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.ecommerce.controller.OrdersController;
+import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.User;
@@ -37,6 +38,9 @@ class OrdersTest {
 	@MockBean
 	private UserService userService;
 	
+	@MockBean
+	private EmailService emailService;
+	
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -45,8 +49,7 @@ class OrdersTest {
 		// Instantiate necessary objects
 		List<Product> products = new ArrayList<>();
 		User user = new User();
-		 long millis=System.currentTimeMillis();  
-		java.sql.Date date = new java.sql.Date(millis);
+		java.sql.Date date = new java.sql.Date(1500);
 		Orders order = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",
 				products);
 		

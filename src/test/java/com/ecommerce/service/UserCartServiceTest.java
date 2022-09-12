@@ -60,7 +60,7 @@ class UserCartServiceTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new UserCartService();
+		service = new UserCartService(repo);
 		u = new UserCart(userCartId,user,product,10);
 	}
 

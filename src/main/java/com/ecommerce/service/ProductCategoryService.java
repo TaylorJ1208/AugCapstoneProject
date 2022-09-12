@@ -16,6 +16,10 @@ public class ProductCategoryService {
 	@Autowired
 	private ProductCategoryRepo categoryRepo;
 	
+	public ProductCategoryService(ProductCategoryRepo repo) {
+		this.categoryRepo = repo;
+	}
+
 	public List<ProductCategory> getAllCategory() {
 		return categoryRepo.findAll();
 	}
@@ -25,8 +29,8 @@ public class ProductCategoryService {
 				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Product category not found with id : "+id) );
 	}
 	
-	public void addCategory(ProductCategory category) {
-		categoryRepo.save(category);
+	public ProductCategory addCategory(ProductCategory category) {
+		return categoryRepo.save(category);
 	}
 	
 	public ProductCategory updateCategory(ProductCategory category) {

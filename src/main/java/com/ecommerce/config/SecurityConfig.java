@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+		http.csrf().disable();
 		//	Implementing Okta oauth2 security
 		//	Only use this method for Spring Securtiy
 	}

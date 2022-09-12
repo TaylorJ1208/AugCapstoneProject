@@ -57,8 +57,7 @@ public class User {
 			joinColumns= {@JoinColumn(name="userId")},
 			inverseJoinColumns= {@JoinColumn(name="roleId")})
 	private Set<Role> roles;
-	@OneToMany(mappedBy="user", cascade = {CascadeType.MERGE,
-	CascadeType.REMOVE})
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Address> addresses;
 	@OneToMany(mappedBy="user")

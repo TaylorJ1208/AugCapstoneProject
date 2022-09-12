@@ -1,7 +1,6 @@
 package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -47,7 +46,7 @@ class UserServiceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new UserService();
+		service = new UserService(repo, rRepo);
 		u = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 	}
 

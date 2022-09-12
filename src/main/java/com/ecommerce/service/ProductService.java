@@ -16,6 +16,10 @@ public class ProductService {
 	@Autowired
 	private ProductRepo productRepo;
 	
+	public ProductService(ProductRepo repo) {
+		this.productRepo = repo;
+	}
+
 	public List<Product> getAllProducts() {
 		return productRepo.findAll();
 	}
@@ -25,8 +29,8 @@ public class ProductService {
 				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found with id : "+id) );
 	}
 	
-	public void addProduct(Product product) {
-		productRepo.save(product);
+	public Product addProduct(Product product) {
+		return productRepo.save(product);
 	}
 
 	public Product updateProduct(Product product) {

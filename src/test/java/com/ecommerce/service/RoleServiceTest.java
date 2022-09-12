@@ -2,7 +2,6 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +39,7 @@ class RoleServiceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		service = new RoleService();
+		service = new RoleService(repo);
 		r = new Role(id,"USER",u);
 	}
 
@@ -63,7 +62,7 @@ class RoleServiceTest {
 	@Test
 	void testAddRole() {
 		when(repo.save(r)).thenReturn(r);
-		assertEquals(1, repo.count());
+		assertThat(service.addRole(r)).isEqualTo(r);
 	}
 
 	@Test

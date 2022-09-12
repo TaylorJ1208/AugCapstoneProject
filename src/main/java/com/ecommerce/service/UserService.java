@@ -26,6 +26,11 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private RoleRepo roleRepo;
 	
+	public UserService(UserRepo repo, RoleRepo rRepo) {
+		this.userRepo = repo;
+		this.roleRepo = rRepo;
+	}
+
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}

@@ -2,7 +2,6 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,6 +25,7 @@ class AddressServiceTest {
 	
 	@BeforeEach
 	void setUp() {
+		service = new AddressService(repo);
 		a = new Address(1,"Cary","NC","Lucent Str","27606","USA","104", null);
 		
 	}
@@ -45,27 +45,11 @@ class AddressServiceTest {
 //		compare to results when outer method is invoked.
 		assertThat(service.getAddressById(b.getAddressId())).isEqualTo(b);
 	}
-
-//	
-//	@Test
-//	void testAddAddress2() {
-////		call the service to get trace.
-//		service.addAddress(a);
-//		
-////		create the capture to capture the return parameter object from repo method.
-//		ArgumentCaptor<Address> addressCaptor = ArgumentCaptor.forClass(Address.class);
-////		capture the parament from repo
-//		verify(repo).save(addressCaptor.capture());
-////		get the object from captor 
-//		Address capturedAddress = addressCaptor.getValue();
-////		compare
-//		assertThat(capturedAddress).isEqualTo(a);
-//	}
 	
 	@Test
 	void testAddAddress() {
 		when(repo.save(a)).thenReturn(a);
-		assertEquals(1, repo.count());
+		assertThat(service.addAddress(a)).isEqualTo(a);
 	}
 	
 	
