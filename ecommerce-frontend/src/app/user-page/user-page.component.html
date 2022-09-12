@@ -1,0 +1,53 @@
+<div class="d-flex container">
+<div class=" m-1 bg-white border">
+    <div class="d-flex flex-column">
+        <button routerLink="/home" class="b m-3 btn btn-pill" style="width: 13em;">
+            <i class="fa-regular fa-user fa-5x m-2"></i>
+            <!-- Change to get name in local storage {{ localstorage }} -->
+            <h5 class=" text-info ">USER</h5>
+        </button>
+        <div class="m-3 d-flex flex-column justify-content-start bg-white m-0 p-0" style="width: 10em;">
+            <ul class="nav">
+
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/home" class="btn border-0 body-hover p-3 w-100">Home</a>
+                </li>
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/accountDetails" class="btn border-0 body-hover p-3 w-100">Account Details</a>
+                </li>
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/admin/details" class="btn border-0 body-hover p-3 w-100">Admin Details</a>
+                </li>
+                <!-- Check in local storage if logged-in user has role of ADMIN -->
+                <li *ngIf="true" class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/admin/store-purchases" class="btn border-0 body-hover p-3 w-100">Store
+                        Purchases</a>
+                </li>
+                <li class="w-100" style="margin-bottom: 1em;">
+                    <a routerLinkActive="active" routerLink="/user/purchases" class="btn border-0 body-hover p-3 w-100">Purchases</a>
+                </li>
+                <li class="w-100 dropend" style="margin-bottom: 1em;">
+                    <a id="updateCatalogDD" class="btn border-0 body-hover p-3 w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Update Catalog</a>
+                    <ul class="dropdown-menu" aria-labelledby="updateCatalogDD">
+                        <li><a routerLinkActive="active" routerLink="/catalog/update-categories" class="btn border-0 body-hover p-3 w-100 dropdown-item">Add/Edit/Delete Categories</a></li>
+                        <li><a routerLinkActive="active" routerLink="/catalog/update-products" class="btn border-0 body-hover p-3 w-100 dropdown-item">Add/Edit/Delete Products</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div *ngIf="url == '/user/admin/store-purchases'" style="margin-left: 1em;">
+    <app-store-purchases></app-store-purchases>
+  </div>
+  <div *ngIf="url == '/user/purchases'" style="margin-left: 1em;">
+    <app-user-purchases></app-user-purchases>
+  </div>
+  <div *ngIf="url == '/catalog/update-products'" style="margin-left: 1em;">
+    <app-update-catalog></app-update-catalog>
+  </div>
+
+  <div *ngIf="url == '/catalog/update-categories'" style="margin-left: 1em;">
+    <app-update-catalog></app-update-catalog>
+  </div>
+</div>

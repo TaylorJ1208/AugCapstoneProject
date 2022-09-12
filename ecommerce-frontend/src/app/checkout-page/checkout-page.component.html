@@ -1,0 +1,175 @@
+<div class="container-fluid text-center m-3">
+    <h1>Checkout</h1>
+</div>
+<div class="px-4">
+    <div class="d-flex flex-row">
+        <div class="accordion accordion-flush mt-3 col-md-8" id="accordionFlush">
+            <div class="accordion-item border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed shadow-sm" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <div>
+                            <i class="fas fa-plus-square pe-2"></i><b>Shipping & Billing Address</b>
+                        </div>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse shadow-sm show"
+                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="form-group col-md-9 pe-3">
+                                <label for="inputName">Full Name</label>
+                                <input type="text" class="form-control" id="inputName" placeholder=""
+                                    [(ngModel)]="inputName" (input)="changedName($event)" name="fullName" />
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="form-group col-md-8 pe-3">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="123 Main St"
+                                        [(ngModel)]="inputAddress" (input)="changedAddress($event)" name="address" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputAptNo">Apt No.</label>
+                                    <input type="text" class="form-control" id="inputAptNo" placeholder=""
+                                        [(ngModel)]="inputAptNo" (input)="changedAptNo($event)" name="aptNo" />
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="form-group col-md-4 pe-3">
+                                    <label for="inputCity">City</label>
+                                    <input type="email" class="form-control" id="inputCity" [(ngModel)]="inputCity"
+                                        (input)="changedCity($event)" name="city" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">State</label>
+                                    <input type="text" class="form-control" id="inputState" [(ngModel)]="inputState"
+                                        (input)="changedState($event)" name="state" />
+                                </div>
+                                <div class="form-group col-md-4 ps-3">
+                                    <label for="inputZipcode">Zip</label>
+                                    <input type="text" class="form-control" id="inputZipcode" [(ngModel)]="inputZipcode"
+                                        (input)="changedZipcode($event)" name="zipcode" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCountry">Country</label>
+                                    <input type="text" class="form-control" style="margin-bottom: 20px;"
+                                        id="inputCountry" [(ngModel)]="inputCountry" (input)="changedCountry($event)"
+                                        name="country" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item border">
+                <h2 class="accordion-header shadow-sm" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <i class="fas fa-plus-square pe-2"></i><b>Checkout</b>
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse shadow-sm"
+                    aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlush">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="text-center mb-4">
+                                <h6>Please ensure the information you provided below is correct before checking out.
+                                </h6>
+                            </div>
+                            <div class="d-flex flex-row flex-fix justify-content-center text-nowrap">
+                                <div class="d-flex flex-column justify-content-centertext-start">
+                                    <p class="mb-0">Shipping Address</p>
+                                    <hr class="my-1" style="width: 123px;">
+                                    <p>{{inputName}}</p>
+                                    <ng-container *ngIf="inputAptNo === ''; else notNull">
+                                        <p>{{inputAddress}}</p>
+                                    </ng-container>
+                                    <ng-template #notNull>
+                                        <p>{{inputAddress}}, {{inputAptNo}}</p>
+                                    </ng-template>
+                                    <ng-container *ngIf="inputCity === ''; else cityNotNull">
+                                        <p>{{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-container>
+                                    <ng-template #cityNotNull>
+                                        <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-template>
+                                </div>
+                                <div class="d-flex flex-column justify-content-center text-start"
+                                    style="margin-left: 115px; margin-right: 85px;">
+                                    <p class="mb-0">Billing Address</p>
+                                    <hr class="my-1" style="width: 105px;">
+                                    <p>{{inputName}}</p>
+                                    <ng-container *ngIf="inputAptNo === ''; else notNull1">
+                                        <p>{{inputAddress}}</p>
+                                    </ng-container>
+                                    <ng-template #notNull1>
+                                        <p>{{inputAddress}}, {{inputAptNo}}</p>
+                                    </ng-template>
+                                    <ng-container *ngIf="inputCity === ''; else cityNotNull1">
+                                        <p>{{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-container>
+                                    <ng-template #cityNotNull1>
+                                        <p>{{inputCity}}, {{inputState}} {{inputZipcode}}</p>
+                                        <p>{{inputCountry}}</p>
+                                    </ng-template>
+                                </div>
+                                <div class="d-flex flex-column text-start">
+                                    <p class="mb-0">Payment Information</p>
+                                    <hr class="my-1" style="width: 150px;">
+                                    <p>{{inputName}}</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row container-fluid justify-content-center ps-0 pe-4">
+                                <ng-container *ngIf="cartItems.length != 0; else emptyCart">
+                                    <button (click)="makePayment(totalPrice)" class="btn btn-primary mt-3"
+                                        type="submit" [disabled]="inputName == '' || inputAddress == '' || inputState == ''
+                                        || inputCity == '' || inputZipcode == '' || inputCountry == ''">Checkout</button>
+                                </ng-container>
+                                <ng-template #emptyCart>
+                                    <button (click)="makePayment(totalPrice)" class="btn btn-primary mt-3" type="submit"
+                                        disabled>Checkout</button>
+                                </ng-template>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card text-white bg-white mb-3 ms-3 mt-3" style="height: fit-content; min-height: 424px;">
+            <div class="card-header text-dark text-center">Cart</div>
+            <div class="card-body" style="width: 350px;">
+                <div class="d-flex flex-row" *ngFor="let product of cartItems; let i = index">
+                    <div class="col-md-1 text-dark text-center mt-3">
+                        <p>{{i+1}}</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img class="card-img-top" style="border-radius: 15px; width: 100px; height: 58px;"
+                            [src]="product.image" alt="Card image cap">
+                    </div>
+                    <div class="col-md-6 text-dark text-center mt-3">
+                        <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
+                    </div>
+                </div>
+                <ng-container *ngIf="cartItems.length == 0; else notEmpty">
+                    <div class="text-center">
+                        <p class="card-text text-dark p-1 text-center">Your cart is empty.</p>
+                    </div>
+                </ng-container>
+                <ng-template #notEmpty>
+                    <div class="text-center">
+                        <hr style="background-color: black;">
+                        <p class="card-text text-dark p-1 text-center"
+                            style="position: absolute; bottom: 0; margin-left: 155px;">Total Price: {{ (totalPrice) |
+                            currency: 'USD' }}</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

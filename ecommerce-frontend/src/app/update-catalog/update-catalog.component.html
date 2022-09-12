@@ -1,0 +1,512 @@
+<div *ngIf="showProductMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+    <div *ngIf="!editProductMode && !addProductMode" class="main bg-white">
+
+        <div class="container m-2">
+
+
+            <button class="btn btn-info btn-lg btn-block" (click)="showAddProductMode(); newAdd()">Add New Product</button>
+
+        </div>
+
+        <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+
+            <div class="card m-2" style="width: 15em;" *ngFor="let product of products">
+                <img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
+                    [src]="product.image" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h5 class="card-subtitle">${{ product.price }}</h5><br>
+                    <p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
+                    <p class="card-text btn-info text-center" style="text-overflow: ellipses;">{{ product.quantity }}
+                        available</p>
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-center"
+                    style="margin-bottom: 5em; margin-top: 0; padding-top: 0;">
+                    <button class="btn btn-info m-2" style="float: right;" [hidden]="!(product.quantity <= 0)"
+                        disabled>Out of
+                        Stock</button>
+
+                    <button class="btn btn-white body-hover m-2" (click)="getProduct(product.productId)" style="float: right;"
+                        [hidden]="false">Edit Product</button>
+                    <button class="btn btn-danger m-2" (click)="deletePopupProductId = product.productId"
+                        style="float: right;" [hidden]="false">Delete Product</button>
+                </div>
+
+
+                <!--Delete Pop-up window-->
+                <div class="overlay" *ngIf="deletePopupProductId == product.productId">
+                    <div class="popup">
+                        <p>The product <span style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.name}}</span> will be
+                            deleted permanently!</p>
+                        <a class="btn btn-danger btn-block close"
+                            (click)="deleteProduct(deletePopupProductId);">Delete</a>
+                        <a class="btn btn-outline-danger btn-block close" (click)="deletePopupProductId = 0">Cancel</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div *ngIf="editProductMode" class="col-md-8 offset-md-3 text-center">
+
+
+        <div class="card card-outline-secondary">
+            <div class="card-body">
+                <h3 class="text-center">Edit Product</h3>
+                <hr>
+                <form class="form" role="form" autocomplete="off">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="productid" class="form-label">Product Id</label>
+                            <input type="number" class="form-control" id="productid" required name="productid"
+                                placeholder="Product Id" readonly [(ngModel)]="currentProduct.productId" />
+                        </div>
+                        <div class="col-md-6">
+
+                            <label for="categoryid" class="form-label">Choose Category</label>
+
+                            <select [(ngModel)]="currentProduct.category.categoryId" #upcategory="ngModel"
+                                class="form-select" id="categoryid" required name="categoryid">
+                                <option selected value="">Select Category</option>
+                                <option style="text-transform:uppercase;" *ngFor="let category of categories"
+                                    [value]="category.categoryId">{{category.category}}</option>
+                            </select>
+
+                            <div *ngIf="(upcategory.dirty || upcategory.touched)">
+                                <div *ngIf="upcategory.errors?.['required']" class="alert alert-danger">
+                                    Category is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productname" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productname" required name="productname"
+                            placeholder="Product Name" [(ngModel)]="currentProduct.name" #upname="ngModel" />
+
+                        <div *ngIf="(upname.dirty || upname.touched)">
+                            <div *ngIf="upname.errors?.['required']" class="alert alert-danger">
+                                Name is required.
+                            </div>
+                        </div>
+
+                        <div *ngFor="let product of products">
+                            <div *ngIf="(upname.dirty || upname.touched)">
+                                <div *ngIf="(product.name == upname.value)" class="alert alert-danger">
+                                    Product name already exists.
+                                </div>
+                            </div>
+                            </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea type="text" class="form-control" id="description" required name="description"
+                            placeholder="Description" [(ngModel)]="currentProduct.description"
+                            #updesc="ngModel"></textarea>
+                        <div *ngIf="(updesc.dirty || updesc.touched)">
+                            <div *ngIf="updesc.errors?.['required']" class="alert alert-danger">
+                                Description is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+
+                                <input type="number" class="form-control text-right" id="price" required min=0.1
+                                    name="price" placeholder="Price" [(ngModel)]="currentProduct.price"
+                                    #upprice="ngModel" />
+
+                                <div *ngIf="upprice.invalid && (upprice.dirty || upprice.touched)">
+                                    <div *ngIf="upprice.errors?.['required'] || upprice.errors?.['min']"
+                                        class="alert alert-danger">
+                                        Required.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="weight" class="form-label">Weight</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="weight" required min=0.1 name="weight"
+                                    placeholder="Weight" [(ngModel)]="currentProduct.weight" #upweight="ngModel" />
+                                <div class="input-group-prepend"><span class="input-group-text">lbs</span></div>
+
+                            </div>
+                            <div *ngIf="upweight.invalid && (upweight.dirty || upweight.touched)">
+                                <div *ngIf="upweight.errors?.['required'] || upweight.errors?.['min']"
+                                    class="alert alert-danger">
+                                    Required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="stockavailable" class="form-label">Stock Available</label>
+                            <input type="number" class="form-control" id="stockavailable" required name="stockavailable"
+                                placeholder="Stock Available" [(ngModel)]="currentProduct.quantity"
+                                #upstock="ngModel" />
+                            <div *ngIf="upstock.invalid && (upstock.dirty || upstock.touched)">
+                                <div *ngIf="upstock.errors?.['required']" class="alert alert-danger">
+                                    Stock is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="imageuri" class="form-label">Image URL</label>-->
+                        <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
+                            placeholder="Image URL" [(ngModel)]="currentProduct.image" #upimage="ngModel"></textarea>
+                        <div *ngIf="upimage.invalid && (upimage.dirty || upimage.touched)">
+                            <div *ngIf="upimage.errors?.['required']" class="alert alert-danger">
+                                Image URL is required.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                <img src="{{currentProduct.image}}" id="productimage" class="card-img-top"
+                                    style="border-radius: 15px; height: auto;" alt="Card image cap">
+                            </div>
+                            <button onclick="openWidget()" id="upload_widget"
+                                class="submit btn btn-info btn-lg btn-block">Change Image</button>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+
+                            <button class="btn btn-default btn-lg btn-block btn-white body-hover"
+                                (click)="hideEditProductMode()">Cancel</button>
+
+                        </div>
+                        <div class="col-md-6">
+                            <button
+                                [disabled]="(upname.errors?.['required'] || updesc.errors?.['required'] || upcategory.errors?.['required']
+                            || upprice.errors?.['required'] || upprice.errors?.['min'] || upweight.errors?.['required'] 
+                            || upweight.errors?.['min'] || upstock.errors?.['required'] || upimage.errors?.['required'])"
+                                (click)="updateProduct(); closeAlert('productUpdated')"
+                                class="btn btn-success btn-lg btn-block">Submit</button>
+                        </div>
+                    </div>
+
+                </form>
+                <div *ngIf="productUpdated" id="alert" class="overlay alert-dismissible fade show"
+                    role="alert">
+                    <div class="popup">
+                    Product updated successfully!
+                    <button #btnCloseProductUpdatedAlert type="button" class="close" data-dismiss="alert"
+                        aria-label="Close" (click)="newUpdate()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="addProductMode" class="col-md-8 offset-md-3 text-center">
+
+
+        <div class="card card-outline-secondary">
+            <div class="card-body">
+                <h3 class="text-center">Add Product</h3>
+                <hr>
+                <form class="form" role="form" autocomplete="off">
+
+                    <div class="form-group">
+                        <label for="categoryid" class="form-label">Choose Category</label>
+
+                        <select [(ngModel)]="currentProduct.category.categoryId" #pcategory="ngModel"
+                            class="form-select" id="categoryid" required name="categoryid">
+                            <option selected value="">Select Category</option>
+                            <option style="text-transform:uppercase ;" *ngFor="let category of categories"
+                                [value]="category.categoryId">{{category.category}}</option>
+                        </select>
+
+                        <div *ngIf="pcategory.invalid && (pcategory.dirty || pcategory.touched)">
+                            <div *ngIf="pcategory.errors?.['required']" class="alert alert-danger">
+                                Category is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productname" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productname" required name="productname"
+                            placeholder="Product Name" [(ngModel)]="currentProduct.name" #pname="ngModel" />
+                        <div *ngIf="pname.invalid && (pname.dirty || pname.touched)">
+                            <div *ngIf="pname.errors?.['required']" class="alert alert-danger">
+                                Product name is required.
+                            </div>
+                        </div>
+
+                        <div *ngFor="let product of products">
+                        <div *ngIf="(pname.dirty || pname.touched)">
+                            <div *ngIf="(product.name == pname.value)" class="alert alert-danger">
+                                Product name already exists.
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea type="text" class="form-control" id="description" required name="description"
+                            placeholder="Description" [(ngModel)]="currentProduct.description"
+                            #pdesc="ngModel"></textarea>
+
+                        <div *ngIf="pdesc.invalid && (pdesc.dirty || pdesc.touched)">
+                            <div *ngIf="pdesc.errors?.['required']" class="alert alert-danger">
+                                Product description is required.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+
+                                <input type="number" class="form-control text-right" id="price" required min=0.1
+                                    name="price" placeholder="Price" [(ngModel)]="currentProduct.price"
+                                    #pprice="ngModel" />
+                                <div *ngIf="pprice.invalid && (pprice.dirty || pprice.touched)">
+                                    <div *ngIf="pprice.errors?.['min'] || pprice.errors?.['required']"
+                                        class="alert alert-danger">
+                                        Required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="weight" class="form-label">Weight</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="weight" required min=0.1 name="weight"
+                                    placeholder="Weight" [(ngModel)]="currentProduct.weight" #pweight="ngModel" />
+
+                                <div class="input-group-prepend"><span class="input-group-text">lbs</span></div>
+
+                            </div>
+                            <div *ngIf="pweight.invalid && (pweight.dirty || pweight.touched)">
+                                <div *ngIf="pweight.errors?.['min'] || pweight.errors?.['required']"
+                                    class="alert alert-danger">
+                                    Required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="stockavailable" class="form-label">Stock Available</label>
+                            <input type="number" class="form-control" id="stockavailable" required name="stockavailable"
+                                placeholder="Stock Available" [(ngModel)]="currentProduct.quantity" #pstock="ngModel" />
+
+                            <div *ngIf="pstock.invalid && (pstock.dirty || pstock.touched)">
+                                <div *ngIf="pstock.errors?.['required']" class="alert alert-danger">
+                                    Required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="imageuri" class="form-label">Image URL</label>-->
+                        <textarea hidden #imageuri type="text" class="form-control" id="imageuri" required
+                            name="imageuri" minlength=1 placeholder="Image URL" [(ngModel)]="currentProduct.image"
+                            #pimage="ngModel"></textarea>
+                        <div *ngIf="pimage.invalid && (pimage.dirty || pimage.touched)">
+                            <div *ngIf="pimage.errors?.['required'] || pimage.errors?.['minlength']"
+                                class="alert alert-danger">
+                                Image is required.
+                            </div>
+                        </div>
+                    </div>
+                    <!--   <form id="imageuploadform" method="post" enctype="multipart/form-data">
+                    <input type="file" name="files[]" multiple>
+                    <input onclick="uploadImage()" type="submit" value="Upload Files" name="submit">
+                    <img id="productimage" class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
+                alt="Card image cap">
+                  </form>-->
+
+
+
+
+                    <div class="form-group">
+                        <div>
+                            <img #pimg hidden="true" id="productimage" class="card-img-top"
+                                style="border-radius: 15px; height: auto;" alt="Card image cap">
+                        </div>
+                        <button onclick="openWidget()" (click)='currentProduct.image ="abc" ' id="upload_widget"
+                            class="submit btn btn-info btn-lg btn-block">Upload Image</button>
+                    </div>
+
+
+
+
+
+                    <hr>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+
+                            <button class="btn btn-white body-hover btn-lg btn-block"
+                                (click)="hideAddProductMode()">Cancel</button>
+
+                        </div>
+                        <div class="col-md-6">
+                            <button [disabled]="(pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
+                                || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
+                                || pweight.errors?.['min'] || pstock.errors?.['required'] || currentProduct.image=='')" type="submit"
+                                (click)="addProduct(); closeAlert('productAdded');"
+                                class="btn btn-success btn-lg btn-block">Submit</button>
+                        </div>
+                    </div>
+
+                    <!--Required Pop-up window in Add Product-->
+                    <!--  <div>
+         <div class="overlay" *ngIf="(pname.invalid || pdesc.invalid || pcategory.invalid || pprice.invalid || pweight.invalid ||pstock.invalid || pimage.invalid)
+         && addProductValidationPopup == true">
+            <div *ngIf="pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
+                        || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
+                        || pweight.errors?.['min'] || pstock.errors?.['required'] || pimage.errors?.['required']" class = "popup">
+                <p>Please fill out all the <span style="text-transform:uppercase; color:red">fields.</span></p>
+                <a class="btn btn-outline-danger btn-block close"  (click)="addProductValidationPopup=false">Cancel</a>
+            </div>
+        </div>
+        </div>-->
+
+
+                </form>
+                <div *ngIf="productAdded" id="productAddedAlert" class="overlay alert-dismissible fade show"
+                    role="productAddedAlert">
+                    <div class="popup">
+                    Product Added successfully!
+                    <button #btnCloseProductAddedAlert type="button" class="close" data-dismiss="productAddedAlert"
+                        aria-label="Close" (click)="newAdd(); pimg.hidden = true;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------------- CATEGORY UPDATE ------------------>
+
+
+<div *ngIf="showCategoryMode" style="margin-top: 1em;">
+    <div *ngIf="!addCategoryMode" class="main bg-white">
+
+        <div class="container m-2">
+
+
+            <button class="btn btn-info btn-lg btn-block" (click)="showAddCategoryMode();">Add New Category</button>
+
+        </div>
+
+        <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+
+            <div class="card m-2" style="width: 18em;" *ngFor="let category of categories">
+
+                <div class="card-body text-center">
+                    <!--  <h4 class="card-title">Category ID: {{ category.categoryId }}</h4>-->
+                    <h2 style="text-transform:uppercase" class="card-subtitle">{{ category.category }}</h2><br>
+
+                    <input *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false" type="text"
+                        class="form-control text-center" id="categoryname" required name="categoryname"
+                        placeholder="Category Name" [(ngModel)]="currentCategory.category" />
+                    <button *ngIf="editCategoryModeId != category.categoryId " class="btn btn-light body-hover btn-block"
+                        (click)="getCategory(category.categoryId)">Edit category name</button>
+                    <button *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false"
+                        class="btn btn-info btn-block" (click)="updateCategory()">Save category name</button>
+
+                    <button class="btn btn-danger btn-block" (click)="deletePopupCategoryId=category.categoryId"
+                        [hidden]="false">Delete Category</button>
+
+                </div>
+
+                <!--Delete Pop-up window-->
+                <div class="overlay" *ngIf="deletePopupCategoryId == category.categoryId">
+                    <div class="popup">
+                        <p>You have selected to delete the <span
+                                style="text-transform:uppercase; color: black; font-weight: bolder;">{{category.category}}</span> category!</p>
+                        <p><small class="text-danger">Deleting a category will delete all the products in it.</small>
+                        </p>
+                        <a class="btn btn-danger btn-block close"
+                            (click)="deleteCategory(deletePopupCategoryId);">Delete</a>
+                        <a class="btn btn-outline-danger btn-block close" (click)="deletePopupCategoryId = 0">Cancel</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div *ngIf="addCategoryMode" class="main bg-light">
+
+        <div class="container m-2">
+
+        </div>
+
+        <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+
+            <div class="card m-2" style="width: 18em;">
+
+                <div class="card-body text-center">
+                    <h2 style="text-transform:uppercase" class="card-subtitle">New Category</h2><br>
+
+                    <form class="form" role="form" autocomplete="off">
+
+                        <div class="form-group">
+                            <!--<label for="categoryname" class="form-label">Category Name</label>-->
+                            <input type="text" class="form-control text-center" id="categoryname" required
+                                name="categoryname" placeholder="Category Name" [(ngModel)]="currentCategory.category"
+                                #cname="ngModel" />
+                            <div *ngIf="cname.invalid && (cname.dirty || cname.touched)">
+                                <div *ngIf="cname.errors?.['required']" class="alert alert-danger">
+                                    Category name is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <button [disabled]="cname.errors?.['required']"
+                            (click)="addCategory(); closeAlert('categoryAdded')"
+                            class="btn btn-info btn-lg btn-block">Submit</button>
+                        <button class="btn btn-default btn-lg btn-block" (click)="hideAddCategoryMode()">Cancel</button>
+                    </form>
+                    <div *ngIf="categoryAdded" id="categoryAddedAlert"
+                        class="alert alert-success alert-dismissible fade show" role="categoryAddedAlert">
+                        Category Added!
+                        <button #btnCloseCategoryAddedAlert type="button" class="close"
+                            data-dismiss="categoryAddedAlert" aria-label="Close" (click)="newAdd()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

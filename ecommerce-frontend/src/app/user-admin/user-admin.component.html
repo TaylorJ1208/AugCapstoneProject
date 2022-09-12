@@ -1,0 +1,36 @@
+<div class="table-responsive justify-content-center">
+  <table class="table table-hover">
+      <caption>Users List</caption>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Username</th>
+          <!-- <th scope="col">Address</th> -->
+          <th scope="col">Edit User</th> 
+          <th scope="col">Delete User</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users, let i = index">
+          <th scope="row">{{user.userId}}</th>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.contact}}</td>
+          <td>{{user.userName}}</td>
+          <!-- <td>{{address.street}} {{address.state}}, {{address.city}}, {{address.zipcode}}, {{address.country}}</td> -->
+          <td>
+              <button class="btn btn-block btn-primary data-inline=true" (click)="editUser(user.userId)">Edit</button>
+          </td>
+          <td>
+              <button class="btn btn-block btn-danger data-inline=true" (click)="deleteUser(user.userId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn-success" routerLinkActive="active" routerLink="/user/details" style="float:left">Back To Admin Home</button>
+    </div>
