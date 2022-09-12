@@ -29,7 +29,7 @@ import com.ecommerce.service.UserService;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(OrdersController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class OrdersTest {
+public class OrdersTest {
 
 	@MockBean
 	private OrderService orderService;
@@ -41,7 +41,7 @@ class OrdersTest {
 	private MockMvc mockMvc;
 	
 	@Test
-	void testFindAllOrders() throws Exception {
+	public void testFindAllOrders() throws Exception {
 		// Instantiate necessary objects
 		List<Product> products = new ArrayList<>();
 		User user = new User();

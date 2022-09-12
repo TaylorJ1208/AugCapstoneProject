@@ -33,7 +33,7 @@ public class ProductCategoryController {
 		return categoryService.getAllCategory();
 	}
 	
-	@PostMapping("/admin/add")
+	@PostMapping("/add")
 	public void addcategory(@RequestBody  ProductCategory category) {
 		categoryService.addCategory(category);
 	}

@@ -33,7 +33,7 @@ import com.ecommerce.service.UserService;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class UserTest {
+public class UserTest {
 	
 	@MockBean
 	private UserService userService;
@@ -51,18 +51,18 @@ class UserTest {
 	private MockMvc mockMvc;
 	
 	@Test
-	void testFindAllUsers() throws Exception {
+	public void testFindAllUsers() throws Exception {
 		// Instantiate necessary objects
 		List<Orders> orders = new ArrayList<>();
 		Set<Role> roles = new HashSet<>();
 		List<Address> addresses = new ArrayList<>();
 		
-		User user = new User(1L, "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
-				orders, roles, addresses, null);
+//		User user = new User(1L, "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
+//				orders, roles, addresses, null);
 		
 		// List to compare
 		List<User> users = new ArrayList<>();
-		users.add(user);
+		//users.add(user);
 		
 		Mockito.when( userService.getAllUsers()).thenReturn(users);
 		mockMvc.perform(get("/user/admin"))

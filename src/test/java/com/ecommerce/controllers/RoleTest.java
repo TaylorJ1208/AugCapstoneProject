@@ -27,7 +27,7 @@ import com.ecommerce.service.UserService;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(RoleController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class RoleTest {
+public class RoleTest {
 
 	@MockBean
 	private RoleService roleService;
@@ -39,7 +39,7 @@ class RoleTest {
 	private MockMvc mockMvc;
 	
 	@Test
-	void testFindAllRoles() throws Exception {
+	public void testFindAllRoles() throws Exception {
 		// Instantiate necessary objects
 		List<User> users = new ArrayList<>();
 		

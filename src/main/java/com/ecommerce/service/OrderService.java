@@ -1,6 +1,5 @@
 package com.ecommerce.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,6 @@ public class OrderService {
 	public void addOrder(Orders order) {
 		// Gets all items in cart
 		List<UserCart> userCart = repo.findAll();
-		BigDecimal total = new BigDecimal(0);
 		// Loops through all items
 		for (UserCart u : userCart) {
 			// If UserCart userId == Order userId THEN add to order and delete from cart
@@ -51,11 +49,6 @@ public class OrderService {
 				service.deleteUserCart(u.getUserCartId());
 			}
 		}
-		
-		for(Product p : order.getProducts()) {
-			total = total.add(p.getPrice());
-		}
-		order.setAmount(total);
 		ordersRepo.save(order);
 	}
 

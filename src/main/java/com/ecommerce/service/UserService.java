@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found with id : "+userId));
 		Role role = roleRepo.findById(roleId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Role not found with id : "+roleId));
-		user.getRoles().add(role);
+		user.getRoles().add(role); // THIS RETURNS NULL FOR ME
 		role.getUsers().add(user);
 		userRepo.save(user);
 		roleRepo.save(role);

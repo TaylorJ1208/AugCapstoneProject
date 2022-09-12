@@ -24,10 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userService);
 	}
 	
-	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		//	Implementing Okta oauth2 security
-		//	Only use this method for Spring Securtiy
+		http.csrf().disable();//csrf->cross site request forgery
+	    http.authorizeRequests().antMatchers("/user/customer/**", "catalog/customer/**","orders/customer", "/cart/**").permitAll().and().authorizeRequests()
+	            .antMatchers("/user/admin/**", "/catalog/admin/**", "/orders/admin/**", "cart/admin/**").hasAuthority("ROLE_ADMIN").and().httpBasic().and().formLogin();
 	}
 	
 	
