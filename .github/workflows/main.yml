@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'AugCapstoneProject/**'
+    paths: 'AugCapstoneProject/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
