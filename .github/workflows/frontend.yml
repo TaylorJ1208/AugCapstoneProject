@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'ecommerce-frontend/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -19,4 +21,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          path: 'ecommerce-frontend/**'
+          projectBaseDir: './ecommerce-frontend/**'
