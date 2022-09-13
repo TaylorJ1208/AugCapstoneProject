@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'ecommerce-frontend/**'
+      - 'AugCapstoneProject/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
