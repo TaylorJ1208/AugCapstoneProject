@@ -25,6 +25,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { CartStatusComponent } from './cart-status/cart-status.component';
 import { UpdateCatalogComponent } from './update-catalog/update-catalog.component';
+import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
@@ -53,7 +54,8 @@ const oktaConfig = Object.assign({
     CheckoutPageComponent,
     CartDetailsComponent,
     CartStatusComponent,
-    UpdateCatalogComponent
+    UpdateCatalogComponent,
+    InventoryPageComponent
   ],
   imports: [
     BrowserModule,

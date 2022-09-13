@@ -9,4 +9,5 @@ export interface Product {
     categoryId: number;
     rating: number;
     category: string;
+    vendorId: number;
 }

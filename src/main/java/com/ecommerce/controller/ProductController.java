@@ -39,17 +39,17 @@ public class ProductController {
         return productService.getProductByName(name);
     }
 
-    @PostMapping("/admin/add")
+    @PostMapping("/customer/add")
     public void addProduct(@RequestBody Product product) {
         productService.addProduct(product);
     }
 
-    @PutMapping("/admin/update")
+    @PutMapping("/customer/update")
     public void updateProduct(@RequestBody Product product) {
         productService.updateProduct(product);
     }
 
-    @DeleteMapping("admin/delete/{id}")
+    @DeleteMapping("customer/delete/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
     }

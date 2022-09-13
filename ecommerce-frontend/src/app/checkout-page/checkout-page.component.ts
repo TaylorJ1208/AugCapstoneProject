@@ -184,7 +184,8 @@ export class CheckoutPageComponent implements OnInit {
         image: element.image,
         categoryId: element.categoryId,
         rating: element.rating,
-        category: element.category
+        category: element.category,
+        vendorId: element.vendorId
       }
       this.finalCart.push(data);
     });

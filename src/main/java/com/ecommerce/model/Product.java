@@ -62,5 +62,9 @@ public class Product {
 	@OneToMany(mappedBy="product")
 	@JsonIgnore
 	private List<UserCart> userCart;
-	
+	/*
+	 * @ManyToOne()
+	 * 
+	 * @JoinColumn(nullable=false, name="vendorId") private Vendors vendors;
+	 */
 }

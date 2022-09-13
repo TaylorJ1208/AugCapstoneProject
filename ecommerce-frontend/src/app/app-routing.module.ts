@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
+import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 
 const routes: Routes = [
   { path: "result", component: ResultPageComponent },
@@ -29,6 +30,8 @@ const routes: Routes = [
   { path: "user/admin/details", component: UserAdminComponent},
   { path: `user/admin/edit/:userId`, component: UserAdminEditComponent},
   { path: `user/editDetails/:userId`, component: UserEditDetailsComponent},
+  {path: `user/admin/update-vendors`, component: UserPageComponent},
+  {path:`user/admin/request-stock`, component: UserPageComponent},
   { path: "**", redirectTo: "login" }];
 
 @NgModule({

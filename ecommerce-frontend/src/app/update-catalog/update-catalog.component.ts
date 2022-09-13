@@ -87,6 +87,9 @@ export class UpdateCatalogComponent implements OnInit {
         quantity: this.currentProduct.quantity,
         image: this.currentProduct.image,
         rating: 3,
+        vendors:{
+          vendorId:this.currentProduct.vendorId
+        },
         category: {
           categoryId: this.currentProduct.category.categoryId,
           category: this.currentProduct.category.category
@@ -129,6 +132,9 @@ export class UpdateCatalogComponent implements OnInit {
       quantity: this.currentProduct.quantity,
       image: this.currentProduct.image,
       rating: this.currentProduct.rating,
+      vendors: {
+        vendorId:this.currentProduct.vendorId
+      },
       category: {
         categoryId: this.currentProduct.category.categoryId,
         category: this.currentProduct.category.category
@@ -164,6 +170,9 @@ newAdd():void{
     category:{
       categoryId: 0,
       category: ""
+    },
+    vendors:{
+      vendorId:0
     }
   };
 

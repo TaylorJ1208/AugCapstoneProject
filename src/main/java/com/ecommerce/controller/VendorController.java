@@ -16,49 +16,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.email.EmailService;
-import com.ecommerce.model.Orders;
-import com.ecommerce.service.OrderService;
+import com.ecommerce.model.Vendors;
+import com.ecommerce.service.VendorsService;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/orders")
-public class OrdersController {
-
+@RequestMapping("/vendors")
+public class VendorController {
+	
 	@Autowired
-	private OrderService orderService;
+	private VendorsService vendorService;
 	
 	@Autowired
 	private EmailService emailService;
 	
-	@GetMapping("/admin/{id}")
-	public Orders getorder(@PathVariable Long id) {
-		return orderService.getOrderById(id);
+	@GetMapping("/{id}")
+	public Vendors getVendor(@PathVariable Long id) {
+		return vendorService.getVendorsById(id);
 	}
 	
-	@GetMapping("/admin")
-	public List<Orders> getorders() {
-		return orderService.getAllOrders();
+	@GetMapping()
+	public List<Vendors> getAllVendors() {
+		return vendorService.getAllVendors();
 	}
 	
 	@PostMapping("/add")
-	public void addorder(@RequestBody Orders order) throws MessagingException {
-		orderService.addOrder(order);
-		emailService.sendReceipt(order);
-	}
-	
-	@PostMapping("/{orderId}/product/{productId}")
-	public void addProductToOrder(@PathVariable Long orderId, @PathVariable Long productId) throws Exception {
-		orderService.addProductToOrder(orderId, productId);
+	public void addVendor(@RequestBody Vendors vendor) {
+		vendorService.addVendor(vendor);
 	}
 	
 	@PutMapping("/update")
-	public void updateorder(@RequestBody Orders order) {
-		orderService.updateOrder(order);
+	public void updatecategory(@RequestBody  Vendors vendor) {
+		vendorService.updateVendor(vendor);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public void deleteorder(@PathVariable Long id) {
-		orderService.deleteOrder(id);
+	public void deleteVendor(@PathVariable Long id) {
+		vendorService.deleteVendor(id);
+	}
+	
+	@PostMapping("/restock/{amount}")
+	public void requestVendorRestock(@RequestBody Vendors vendor, @PathVariable int amount) throws MessagingException {
+		emailService.sendVendorEmail(vendor, amount);
 	}
 }
