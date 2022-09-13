@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'ecommerce-frontend/'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
