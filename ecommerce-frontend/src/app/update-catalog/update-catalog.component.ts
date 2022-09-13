@@ -4,6 +4,8 @@ import { Product } from '../Models/product';
 import { Category } from '../Models/categories';
 import { ProductService } from '../services/product-service/product.service';
 import { CategoryService } from '../services/category-service/category.service';
+import { VendorService } from '../services/vendor-service/vendor.service';
+import { Vendor } from '../Models/vendor';
 
 @Component({
   selector: 'app-update-catalog',
@@ -13,6 +15,7 @@ import { CategoryService } from '../services/category-service/category.service';
 export class UpdateCatalogComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
+  vendors:Vendor[]=[];
 
   showProductMode = false;
   editProductMode = false;
@@ -24,6 +27,7 @@ export class UpdateCatalogComponent implements OnInit {
 
   currentProduct:any;
   currentCategory:any;
+  currentVendor:any;
 
   productUpdated = false;
   productAdded = false;
@@ -35,12 +39,14 @@ export class UpdateCatalogComponent implements OnInit {
   constructor(
     private productService:ProductService,
     private categoryService:CategoryService,
-    private router: Router
+    private router: Router,
+    private vendorService:VendorService
     ) { }
 
   ngOnInit(): void {
     this.getProducts();
     this.getCategories();
+    this.getVendors();
     this.showMode();
   }
 
@@ -86,7 +92,7 @@ export class UpdateCatalogComponent implements OnInit {
         weight: this.currentProduct.weight,
         quantity: this.currentProduct.quantity,
         image: this.currentProduct.image,
-        rating: 3,
+        rating: 0,
         vendors:{
           vendorId:this.currentProduct.vendorId
         },
@@ -112,6 +118,7 @@ export class UpdateCatalogComponent implements OnInit {
         .subscribe({
           next: (data) => {
             this.currentProduct = data;
+            this.currentProduct.vendorId = data.vendors.vendorId;
             console.log(data);
             console.log("category id is:"+this.currentProduct.category.categoryId);
             console.log("rating is "+this.currentProduct.rating);
@@ -293,6 +300,16 @@ deleteCategory(id:any):void{
   error:(e)=>console.error(e)
   })
   this.ngOnInit();
+}
+
+getVendors(){
+  this.vendorService.getAllVendors()
+  .subscribe({next: (data: Vendor[]) => {
+    console.log(data);
+    this.vendors = data;
+  },
+  error: (e) => console.error(e)
+});
 }
 
 }

@@ -108,9 +108,10 @@
 
 
 <div *ngIf="requestStockMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
-    <div class="main bg-light">
+    <div class="main bg-light text-center">
     
         <div class="container m-2">
+            <h2>Request Stock</h2>
         <!--    <button class="btn btn-info btn-lg btn-block" (click)="addVendorMode = true; newAdd()">Add New Vendor</button>
         -->
         </div>
@@ -118,24 +119,27 @@
     
         <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
 
-            <table class="table table-hover">
+            <table class="table table-striped table-bordered text-center">
+                <thead class="align-top">
                 <tr>
-                    <th>Product Id</th>
+                    <th>Product ID</th>
                     <th>Name</th>
                     <th>Price</th>
-                    <th>Stock</th>
+                    <th>Stock Remaining</th>
                     <th>Vendor</th>
-                    <th>Request</th>
+                    <th>Request Stock</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr *ngFor="let product of products" class="table-light">
                     <td>{{product.productId}}</td>
                     <td>{{product.name}}</td>
-                    <td>{{product.price}}</td>
+                    <td>${{product.price}}</td>
                     <td>{{product.quantity}}</td>
                     <td>{{product.vendors.name}}</td>
                     <td>
                         <button class="btn btn-danger btn-block" style="background-color: #f93154;"
-                            (click)="requestPopupProductId = product.productId;">Request Stock</button>
+                            (click)="requestPopupProductId = product.productId;">Request</button>
                     </td>
                     <div class="overlay" *ngIf="requestPopupProductId == product.productId">
                         <div class="popup">
@@ -161,6 +165,7 @@
                     </div>
                 </div>
                 </tr>
+            </tbody>
             </table>
             
         </div>
