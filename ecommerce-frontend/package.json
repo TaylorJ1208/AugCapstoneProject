@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner"
   },
   "private": true,
   "dependencies": {
