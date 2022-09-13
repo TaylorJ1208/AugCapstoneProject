@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "spring.jpa.format-sql",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.format-sql'"
+  },
+  {
+    "name": "spring.datasource.connection-test-query",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.connection-test-query'"
+  },
+  {
+    "name": "spring.datasource.test-while-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.test-while-idle'"
+  },
+  {
+    "name": "spring.datasource.test-on-borrow",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.test-on-borrow'"
+  },
+  {
+    "name": "spring.datasource.validation-interval",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validation-interval'"
+  },
+  {
+    "name": "spring.datasource.log-validation-errors",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.log-validation-errors'"
+  },
+  {
+    "name": "spring.datasource.validation-query",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validation-query'"
+  }
+]}
