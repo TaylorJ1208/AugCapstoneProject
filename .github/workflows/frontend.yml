@@ -23,6 +23,9 @@ jobs:
 
     - name: Node install dependencies
       run: npm install
+      
+    - name: Run Sonar
+      run: npm run sonar
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
@@ -30,4 +33,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with: 
-        projectBaseDir: ./ecommerce-frontend/src/app
+        projectBaseDir: ./ecommerce-frontend/
