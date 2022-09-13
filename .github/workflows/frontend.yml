@@ -22,3 +22,5 @@ jobs:
           run: |
             cd ecommerce-frontend
             npm install -Dsonar.projectKey=TaylorJ1208_AugCapstoneProject -Dsonar.organization=taylorj1208-1
+            with:
+              projectBaseDir: './ecommerce-frontend/'
