@@ -17,6 +17,8 @@ import com.ecommerce.email.EmailService;
 import com.ecommerce.model.User;
 import com.ecommerce.service.RoleService;
 import com.ecommerce.service.UserService;
+import com.microsoft.applicationinsights.TelemetryClient;
+import com.microsoft.applicationinsights.telemetry.MetricTelemetry;
 import com.taylor.common.UserDefault;
 
 @RestController
@@ -31,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+   	TelemetryClient telemetryClient;
 	
 	@Autowired
 	private RoleService roleService;
@@ -42,11 +47,22 @@ public class UserController {
 	
 	@GetMapping("/admin")
 	public List<User> getUsers() {
-		return userService.getAllUsers();
+		telemetryClient.trackEvent("/user/admin Request Triggered");
+		long startTime = System.nanoTime();
+		List<User> users = userService.getAllUsers();
+		long endTime = System.nanoTime();
+    
+		MetricTelemetry benchmark = new MetricTelemetry();
+		benchmark.setName("Get All User Query (ms)");
+		double timeInNano = endTime - startTime;
+ 		benchmark.setValue(timeInNano/1e6);
+		telemetryClient.trackMetric(benchmark);
+		return users;
 	}
 	
 	@PostMapping("/customer/register")
 	public void addUser(@RequestBody User user) throws Exception {
+		telemetryClient.trackEvent("/user/customer/register Request Triggered");
 		String encryptPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptPassword);
 		userService.addUser(user);
@@ -56,18 +72,21 @@ public class UserController {
 	
 	@PostMapping("/admin/{userId}/role/{roleId}")
 	public void addRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) throws Exception {
+		telemetryClient.trackEvent("/user/admin/role Request Triggered");
 		userService.addRoleToUser(userId, roleId);
 	}
 	
 	@PutMapping("/customer/update")
 	public void updateUser(@RequestBody User user) {
 		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		telemetryClient.trackEvent("/user/customer/update Request Triggered");
 		user.setPassword(encryptPassword);
 		userService.updateUser(user);
 	}
 	
 	@DeleteMapping("/customer/delete/{id}")
 	public void deleteUser(@PathVariable Long id) {
+		telemetryClient.trackEvent("/user/customer/delete Request Triggered");
 		userService.deleteUserById(id);
 	}
 
