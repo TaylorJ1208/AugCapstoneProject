@@ -1,0 +1,211 @@
+<div class="container py-2 justify-content-center">
+    <div class="row my-2 justify-content-center">
+        <div class="col-lg-8">
+            <h2> <strong> Account Update Form </strong> </h2>
+        </div>
+
+        <div class="col-lg-8 order-lg-1 personal-info">
+            <form role="form">
+                
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="userId">User Id</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" readonly="readonly"
+                            id="userId"
+                            name="userId"
+                            [(ngModel)]="user.userId"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="firstName">First name</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" id="firstName"
+                            required
+                            name="firstName"
+                            [(ngModel)]="user.firstName"
+                            #firstName="ngModel" />
+                            <div [hidden]="firstName.valid || firstName.pristine"
+                                class="alert alert-danger">
+                                First Name is required
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="lastName"> Last name</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" id="lastName"
+                        required
+                        name="lastName"
+                        [(ngModel)]="user.lastName"
+                        #lastName = "ngModel" />
+                        <div [hidden]="lastName.valid || lastName.pristine"
+                            class="alert alert-danger">
+                            Last Name is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="email">Email</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="email" id="email"
+                        required
+                        name="email" ngModel [email]="true"
+                       
+                        [(ngModel)]="user.email" 
+                        #email = "ngModel"/>
+
+                        <div [hidden]="email.valid || email.pristine"
+                            class="alert alert-danger">
+                            Valid Email is required
+                        </div>
+
+                       
+
+
+                    </div>
+                </div>
+                
+            <!--    <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" id="street"
+                        required
+                        name="street"
+                        [(ngModel)]="address.street" 
+                        #street = "ngModel"/>
+                        <div [hidden]="street.valid || street.pristine"
+                            class="alert alert-danger">
+                            Street is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-3">
+                        <input class="form-control" type="text" id="city"
+                        required
+                        name="city"
+                        [(ngModel)]="address.city" 
+                        #city = "ngModel"/>
+                        <div [hidden]="city.valid || city.pristine"
+                            class="alert alert-danger">
+                            City is required
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="form-control" type="text" id="country"
+                        required
+                        name="country"
+                        [(ngModel)]="address.country" 
+                        #country = "ngModel"/>
+                        <div [hidden]="country.valid || country.pristine"
+                            class="alert alert-danger">
+                            Country is required
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="form-control" type="text" id="zipcode"
+                        required
+                        name="zipcode"
+                        [(ngModel)]="address.zipcode" 
+                        #zipcode = "ngModel"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        maxlength="5"
+                        minlength="5"/>
+                        <div [hidden]="zipcode.valid || zipcode.pristine"
+                            class="alert alert-danger">
+                            Zipcode is required
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="userName">Username</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" id="userName"
+                        required
+                        name="userName"
+                        [(ngModel)]="user.userName"
+                        #userName = "ngModel" />
+                        <div [hidden]="userName.valid || userName.pristine"
+                            class="alert alert-danger">
+                            Username is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="contact">Contact</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text"
+                        required
+                        id="contact"
+                        name="contact"
+                        [(ngModel)]="user.contact" 
+                        #contact = "ngModel"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        maxlength="11"
+                        minlength="10"/>
+                        <div [hidden]="contact.valid || contact.pristine"
+                            class="alert alert-danger">
+                            Valid 10-11 digit contact is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="ssn">SSN</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="password"
+                        required
+                        id="ssn"
+                        name="ssn"
+                        [(ngModel)]="user.ssn" 
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        maxlength="4"
+                        minlength="4"
+                        #ssn = "ngModel"/>
+                        <div [hidden]="ssn.valid || ssn.pristine"
+                            class="alert alert-danger">
+                            Valid 4 digit SSN is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" for="password">Password</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="password"
+                        required
+                        id="password"
+                        name="password"
+                        [(ngModel)]="user.password"
+                        #password = "ngModel"/>
+                        <div [hidden]="password.valid || password.pristine"
+                            class="alert alert-danger">
+                            Password is required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-lg-9 ml-auto text-right">
+                        <input type="button" class="btn btn-outline-secondary" routerLinkActive="active" routerLink="/user/admin/details" value="Cancel"/>
+                        <router-outlet></router-outlet>
+                        <input type="submit" class="btn btn-primary" 
+                        [disabled]="firstName.errors?.['required'] || lastName.errors?.['required']
+                        || email.errors?.['required'] ||  email.errors?.['email'] || userName.errors?.['required']
+                        || contact.errors?.['required']  || ssn.errors?.['required'] ||ssn.errors?.['minlength']
+                        || password.errors?.['required'] || contact.errors?.['minlength']"
+                        (click) = "updateUser()" value="Save Changes" />
+                        <!-- ||zipcode.errors?.['minlength']
+                        || street.errors?.['required'] || zipcode.errors?.['required'] || city.errors?.['required'] || country.errors?.['required'] "-->
+                    </div>
+                </div>
+            </form>
+        </div>   
+    </div>
+</div>

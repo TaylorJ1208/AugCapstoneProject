@@ -1,0 +1,16 @@
+html {
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+}
+
+.display {
+    display: flex;
+    flex-direction: row;
+    flex: nowrap;
+}
+
+
+

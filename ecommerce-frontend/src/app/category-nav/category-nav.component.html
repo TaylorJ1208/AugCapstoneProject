@@ -1,0 +1,41 @@
+<div class="navbar-light">
+    <ul class="nav d-flex justify-content-center">
+        <li class="nav-item">
+            <a routerLink="/home" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;">Home</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;" [value]="'Hot Sales'" (click)="filterCategory($event)">Hot Sales</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;" [value]="'Laptops'" (click)="filterCategory($event)">Laptops</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;" [value]="'Desktops'" (click)="filterCategory($event)">Desktops</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Keyboards'" (click)="filterCategory($event)">Keyboards</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Mouses'" (click)="filterCategory($event)">Mouses</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Headphones'" (click)="filterCategory($event)">Headphones</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Smartphones'" (click)="filterCategory($event)">Smartphones</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Tablets'" (click)="filterCategory($event)">Tablets</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Phone Chargers'" (click)="filterCategory($event)">Phone Chargers</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Phone Cases'" (click)="filterCategory($event)">Phone Cases</button></a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/result" class="nav-item"><button class="body-hover nav-item p-3 text-primary" style="font-weight: bold;"[value]="'Other'" (click)="filterCategory($event)">Other</button></a>
+        </li>
+
+    </ul>
+</div>
