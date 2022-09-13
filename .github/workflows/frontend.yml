@@ -1,10 +1,8 @@
-name: SonarCloud Scan Frontend
+name: Build
 on:
   push:
     branches:
       - main
-    paths:
-      - 'ecommerce-frontend/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
