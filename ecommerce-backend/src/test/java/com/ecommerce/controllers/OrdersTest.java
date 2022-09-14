@@ -1,5 +1,6 @@
 package com.ecommerce.controllers;
 
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +32,7 @@ import com.ecommerce.service.UserService;
 @WebMvcTest(OrdersController.class)
 @AutoConfigureMockMvc(addFilters = false)
 class OrdersTest {
-
+	
 	@MockBean
 	private OrderService orderService;
 	
@@ -44,13 +45,15 @@ class OrdersTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
+	
 	@Test
 	void testFindAllOrders() throws Exception {
 		// Instantiate necessary objects
-		List<Product> products = new ArrayList<>();
+		Orders order = new Orders();
 		User user = new User();
+		List<Product> products = new ArrayList<>();
 		java.sql.Date date = new java.sql.Date(1500);
-		Orders order = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",
+		order = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",
 				products);
 		
 		// List to compare
@@ -62,5 +65,24 @@ class OrdersTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].amount", Matchers.is(15)));
+	}
+	
+	@Test
+	void testupdateOrder() throws Exception {
+		List<Product> products = new ArrayList<>();
+		User user = new User();
+		Orders newOrder = new Orders();
+		newOrder.toString();
+		newOrder.setOrderId(1L);
+		newOrder.setAmount(new BigDecimal(10));
+		newOrder.setBillingAddress("3008 Ashland Grove Dr.");
+		newOrder.setOrderDate(new java.sql.Date(1500));
+		newOrder.setOrderId(1L);
+		newOrder.setProducts(products);
+		newOrder.setUser(user);
+		newOrder.setShippingAddress("3008 Ashland Grove Dr.");
+		newOrder.toString();
+		Mockito.when(orderService.updateOrder(newOrder)).thenReturn(newOrder);
+		assertTrue(newOrder.equals(orderService.updateOrder(newOrder)));
 	}
 }

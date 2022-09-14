@@ -1,15 +1,11 @@
 package com.ecommerce.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +22,6 @@ import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.model.UserCart;
 import com.ecommerce.model.UserCartId;
-import com.ecommerce.repo.RoleRepo;
 import com.ecommerce.repo.UserCartRepo;
 
 @ExtendWith(MockitoExtension.class)

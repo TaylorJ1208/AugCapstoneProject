@@ -1,5 +1,6 @@
 package com.ecommerce.controllers;
 
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.ecommerce.controller.RoleController;
+import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.service.RoleService;
@@ -55,4 +57,17 @@ class RoleTest {
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].role", Matchers.is("ROLE_ADMIN")));
 	}
+	
+	@Test
+	void testupdateCategory() throws Exception {
+		Role newRole = new Role();
+		List<User> users = new ArrayList<>();
+		newRole.setRoleId(1L);
+		newRole.setRole("ROLE_TEST");
+		newRole.setUsers(users);
+		newRole.toString();
+		Mockito.when(roleService.updateRole(newRole)).thenReturn(newRole);
+		assertTrue(newRole.equals(roleService.updateRole(newRole)));
+	}
+	
 }

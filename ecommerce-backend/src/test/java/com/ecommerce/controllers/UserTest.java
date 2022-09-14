@@ -1,5 +1,6 @@
 package com.ecommerce.controllers;
 
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,6 +25,7 @@ import com.ecommerce.controller.UserController;
 import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
+import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.service.OrderService;
@@ -69,6 +71,29 @@ class UserTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].firstName", Matchers.is("Taylor")));
+	}
+	
+	@Test
+	void testupdateCategory() throws Exception {
+		List<Orders> orders = new ArrayList<>();
+		Set<Role> roles = new HashSet<>();
+		List<Address> addresses = new ArrayList<>();
+		User newUser = new User();
+		newUser.setUserId(1L);
+		newUser.setAddresses(addresses);
+		newUser.setContact("919-339-3801");
+		newUser.setEmail("test@example.com");
+		newUser.setFirstName("Test");
+		newUser.setLastName("Test");
+		newUser.setOrders(orders);
+		newUser.setPassword("test password");
+		newUser.setRoles(roles);
+		newUser.setSsn("0000");
+		newUser.setUserCart(null);
+		newUser.setUserName("test username");
+		newUser.toString();
+		Mockito.when(userService.updateUser(newUser)).thenReturn(newUser);
+		assertTrue(newUser.equals(userService.updateUser(newUser)));
 	}
 
 }

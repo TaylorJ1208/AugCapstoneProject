@@ -1,8 +1,6 @@
 package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,20 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.User;
-import com.ecommerce.model.UserCart;
-import com.ecommerce.repo.AddressRepo;
 import com.ecommerce.repo.OrdersRepo;
-import com.ecommerce.repo.ProductRepo;
 import com.ecommerce.repo.UserCartRepo;
 
 @ExtendWith(MockitoExtension.class)

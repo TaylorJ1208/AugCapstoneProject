@@ -1,5 +1,6 @@
 package com.ecommerce.controllers;
 
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,6 +63,28 @@ class ProductTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].name", Matchers.is("Shoes")));
+	}
+	
+	@Test
+	void testupdateCategory() throws Exception {
+		Product newProduct = new Product();
+		List<Product> products = new ArrayList<>();
+		ProductCategory category = new ProductCategory(1L, "misc", products);
+		List<Orders> orders = new ArrayList<>();
+		newProduct.setProductId(1L);
+		newProduct.setCategory(category);
+		newProduct.setDescription("Testing product");
+		newProduct.setImage("http");
+		newProduct.setName("test product");
+		newProduct.setOrders(orders);
+		newProduct.setPrice(new BigDecimal(500));
+		newProduct.setQuantity(15);
+		newProduct.setRating(3);
+		newProduct.setUserCart(null);
+		newProduct.setWeight(new BigDecimal(5.5));
+		newProduct.toString();
+		Mockito.when(productService.updateProduct(newProduct)).thenReturn(newProduct);
+		assertTrue(newProduct.equals(productService.updateProduct(newProduct)));
 	}
 
 }

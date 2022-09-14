@@ -1,6 +1,9 @@
 package com.ecommerce.controllers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -8,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,6 +34,9 @@ import com.ecommerce.service.UserService;
 @AutoConfigureMockMvc(addFilters = false)
 class ProductCategoryTest {
 	
+	@Mock
+	ProductCategory category;
+	
 	@MockBean
 	private ProductCategoryService service;
 	
@@ -38,13 +46,16 @@ class ProductCategoryTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
+	private List<Product> products;
+	
+	@BeforeEach
+	void setup() {
+		category = new ProductCategory(1L, "Supplies", products);
+		products = new ArrayList<>();
+	}
+	
 	@Test
 	void testFindAllCategories() throws Exception {
-		// Instantiate necessary objects
-		List<Product> products = new ArrayList<>();
-		
-		ProductCategory category = new ProductCategory(1L, "Supplies", products);
-		
 		// List to compare
 		List<ProductCategory> categories = new ArrayList<>();
 		categories.add(category);
@@ -54,6 +65,17 @@ class ProductCategoryTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].category", Matchers.is("Supplies")));
+	}
+	
+	@Test
+	void testupdateCategory() throws Exception {
+		ProductCategory newCategory = new ProductCategory();
+		newCategory.setCategoryId(1L);
+		newCategory.setCategory("Test");
+		newCategory.setProducts(products);
+		newCategory.toString();
+		Mockito.when(service.updateCategory(newCategory)).thenReturn(newCategory);
+		assertTrue(newCategory.equals(service.updateCategory(newCategory)));
 	}
 	
 }
