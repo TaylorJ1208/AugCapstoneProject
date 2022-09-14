@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -84,11 +86,12 @@ class UserCartServiceTest {
 		UserCart u1 = new UserCart(userCartId,user,product,10);
 		UserCart u2 = new UserCart(userCartId,user,product,15);
 		UserCart u3 = new UserCart(userCartId,user,product,10);
-		assertTrue(u1.equals(u3));
-		assertFalse(u1.equals(u2));
-		assertFalse(u1 == u3);
+		boolean equals = u1.equals(u3);
+		assertEquals(true, equals);
+		assertNotEquals(false, equals);
+		assertNotSame(u1, u3);
 		u1 = u3;
-		assertTrue(u1 == u3);
+		assertSame(u1, u3);
 	}
 	
 	@Test

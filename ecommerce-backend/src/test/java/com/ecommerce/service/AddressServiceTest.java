@@ -2,9 +2,9 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -79,11 +79,12 @@ class AddressServiceTest {
 		Address a1 = new Address(1,"Cary","NC","Lucent Str","27606","USA","104", null);
 		Address a2 = new Address(1,"wrong city","NC","Lucent Str","27606","USA","104", null);
 		Address a3 = new Address(1,"Cary","NC","Lucent Str","27606","USA","104", null);
-		assertTrue(a1.equals(a3));
-		assertFalse(a1.equals(a2));
-		assertFalse(a1 == a3);
+		boolean equals = a1.equals(a3);
+		assertEquals(true, equals);
+		assertNotEquals(false, equals);
+		assertNotSame(a1, a3);
 		a1 = a3;
-		assertTrue(a1 == a3);
+		assertSame(a1, a3);
 	}
 	
 	@Test

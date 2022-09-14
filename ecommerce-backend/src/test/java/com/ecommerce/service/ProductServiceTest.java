@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
@@ -99,11 +99,12 @@ class ProductServiceTest {
 		Product p1 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
 		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
 		Product p3 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
-		assertTrue(p1.equals(p3));
-		assertFalse(p1.equals(p2));
-		assertFalse(p1 == p3);
+		boolean equals = p1.equals(p3);
+		assertEquals(true, equals);
+		assertNotEquals(false, equals);
+		assertNotSame(p1, p3);
 		p1 = p3;
-		assertTrue(p1 == p3);
+		assertSame(p1, p3);
 	}
 	
 	@Test

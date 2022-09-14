@@ -2,9 +2,9 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -99,11 +99,12 @@ class OrderServiceTest {
 		Orders o1 = new Orders(1L,amount,date,true,u,a,a,p);
 		Orders o2 = new Orders(1L,amount,date,false,u,a,a,p);
 		Orders o3 = new Orders(1L,amount,date,true,u,a,a,p);
-		assertTrue(o1.equals(o3));
-		assertFalse(o1.equals(o2));
-		assertFalse(o1 == o3);
+		boolean equals = o1.equals(o3);
+		assertEquals(true, equals);
+		assertNotEquals(false, equals);
+		assertNotSame(o1, o3);
 		o1 = o3;
-		assertTrue(o1 == o3);
+		assertSame(o1, o3);
 	}
 	
 	@Test

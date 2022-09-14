@@ -3,9 +3,9 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -84,11 +84,12 @@ class ProductCategoryServiceTest {
 		ProductCategory p1 = new ProductCategory(1,"laptop",products);
 		ProductCategory p2 = new ProductCategory(1,"wrong category",products);
 		ProductCategory p3 = new ProductCategory(1,"laptop",products);
-		assertTrue(p1.equals(p3));
-		assertFalse(p1.equals(p2));
-		assertFalse(p1 == p3);
+		boolean equals = p1.equals(p3);
+		assertEquals(true, equals);
+		assertNotEquals(false, equals);
+		assertNotSame(p1, p3);
 		p1 = p3;
-		assertTrue(p1 == p3);
+		assertSame(p1, p3);
 	}
 	
 	@Test

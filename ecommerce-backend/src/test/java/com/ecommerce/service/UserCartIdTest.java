@@ -13,7 +13,7 @@ import com.ecommerce.model.UserCartId;
 import com.taylor.common.UserDefault;
 
 @ExtendWith(MockitoExtension.class)
-public class UserCartIdTest {
+class UserCartIdTest {
 	
 	@Mock
 	UserCartId id;
@@ -30,7 +30,7 @@ public class UserCartIdTest {
 	void testGetterMethods() {
 		assertEquals(id.getUserId().longValue(), 1L);
 		assertEquals(id.getProductId().longValue(), 2L);
-		assertNotEquals(id.toString(), id);
+		assertEquals(id.toString(), id.toString());
 	}
 	
 	@Test
@@ -39,20 +39,19 @@ public class UserCartIdTest {
 		userCartId.setProductId(1L);
 		userCartId.setUserId(2L);
 		boolean equalIds = userCartId.equals(id);
-		assertEquals(equalIds, false);
+		assertEquals(false, equalIds);
 		userCartId = id;
 		equalIds = userCartId.equals(id);
-		assertEquals(equalIds, true);
+		assertEquals(true, equalIds);
 	}
 	
 	@Test
 	void testDefaultRole() {
-		UserDefault defaultRole = new UserDefault();
-		assertNotEquals(defaultRole.toString(), defaultRole);
+		assertEquals(defaultRole.toString(), defaultRole.toString());
 		assertEquals(defaultRole.hashCode(), defaultRole.hashCode());
-		UserDefault defaultRole2 = new UserDefault();
-		boolean equals = defaultRole.equals(defaultRole2);
-		assertEquals(equals, true);
+
+		boolean equals = defaultRole.equals(defaultRole);
+		assertEquals(true, equals);
 	}
 
 }
