@@ -28,8 +28,8 @@ class UserCartIdTest {
 	
 	@Test
 	void testGetterMethods() {
-		assertEquals(id.getUserId().longValue(), 1L);
-		assertEquals(id.getProductId().longValue(), 2L);
+		assertEquals(1L, id.getUserId().longValue());
+		assertEquals(2L, id.getProductId().longValue());
 		assertEquals(id.toString(), id.toString());
 	}
 	

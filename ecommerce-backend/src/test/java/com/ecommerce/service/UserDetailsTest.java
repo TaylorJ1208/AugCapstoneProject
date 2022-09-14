@@ -48,8 +48,8 @@ class UserDetailsTest {
 	
 	@Test
 	void testGetterMethods() {
-		assertEquals(userDetails.getUsername(), "username");
-		assertEquals(userDetails.getPassword(), "password");
+		assertEquals("username", userDetails.getUsername());
+		assertEquals("password", userDetails.getPassword());
 		assertFalse(userDetails.getAuthorities().isEmpty());
 		assertTrue(userDetails.isAccountNonExpired());
 		assertTrue(userDetails.isAccountNonLocked());
