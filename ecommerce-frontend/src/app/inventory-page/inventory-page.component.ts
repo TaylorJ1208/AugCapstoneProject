@@ -169,6 +169,14 @@ export class InventoryPageComponent implements OnInit {
     
   }
 
+
+  sendRabbitMQMessage(product:any){
+    this.vendorService.sendRabbitMQMessage(product.productId)
+    .subscribe({next:(m)=>{
+      console.log("rabbit message sent.");
+    }})
+  }
+
   requestStock(product:any){
 
     console.log("Requesting "+this.requestQuantity +" units of "+product.name + " from vendor '"+product.vendors.name+" '.");

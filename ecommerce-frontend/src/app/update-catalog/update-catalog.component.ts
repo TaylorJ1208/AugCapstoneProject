@@ -229,6 +229,7 @@ closeAlert(i:any){
 
 
 //  Edit/Add/Delete Category
+//  Edit/Add/Delete Category
 getCategories():void{
   this.categoryService.getCategories()
   .subscribe({ next: (data: Category[]) => {
@@ -246,6 +247,7 @@ getCategory(id: any): void {
       next: (data) => {
         this.currentCategory = data;
         console.log(data);
+        console.log("category id is:"+this.currentCategory.categoryId);
       },
       error: (e) => console.error(e)
     });
@@ -260,7 +262,10 @@ console.log(data);
 
   this.categoryService.updateCategory(data)
   .subscribe({next:m=>{
+    console.log(m);
+    this.categoryUpdated = true;
     this.editCategoryModeId = 0;
+    console.log(this.categoryUpdated);
     this.ngOnInit();
   },
 error:e=>console.error(e)
@@ -285,6 +290,9 @@ console.log(data);
 
   this.categoryService.addCategory(data)
   .subscribe({next:m=>{
+    console.log(m);
+    this.categoryAdded = true;
+    console.log(this.categoryAdded);
     this.ngOnInit();
   },
 error:e=>console.error(e)
@@ -294,6 +302,7 @@ error:e=>console.error(e)
 deleteCategory(id:any):void{
   this.categoryService.deleteCategory(id)
   .subscribe({next:m=>{
+    console.log(m);
     console.log("category deleted");
     this.ngOnInit();
   },

@@ -35,6 +35,11 @@ export class VendorService {
     return this.http.post(`http://localhost:8081/vendors/restock/${productId}/${amount}`, data);
   } */
 
+  sendRabbitMQMessage(id:number):Observable<any>{
+    console.log("sending rabbitMQ message for product id "+id);
+    return this.http.get<any[]>(`http://localhost:8081/restock/remind/${id}`);
+  }
+
   requestStock(venderemail:any, amount:any, data:any):Observable<any>{
     return this.http.post(`http://localhost:8081/vendors/restock/${venderemail}/${amount}`, data);
   }

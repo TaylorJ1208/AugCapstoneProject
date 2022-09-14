@@ -11,6 +11,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
 import { StripeService } from '../services/stripe-service/stripe-service';
 import { UserService } from '../services/user-service/user.service';
+import { VendorService } from '../services/vendor-service/vendor.service';
 
 @Component({
   selector: 'app-checkout-page',
@@ -49,7 +50,7 @@ export class CheckoutPageComponent implements OnInit {
     description: ''
   };
 
-  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService) {
+  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService, private vendorService:VendorService) {
     this.oktaAuthService.$authenticationState.subscribe(
       (isAuth: any) => this.isAuthenticated = isAuth
     );
@@ -218,10 +219,28 @@ export class CheckoutPageComponent implements OnInit {
       .subscribe({
         next: (m: any) => {
           console.log(m);
+          this.sendLowStockMessage();
           this.ngOnInit()
         },
         error: (e: any) => console.error(e)
       });
+  }
+
+  sendLowStockMessage(){
+    const allProducts:any=[];
+    this.productService.getAllProducts()
+    .subscribe({next:(data)=>{
+      data.forEach(product=>{
+        if(product.quantity < 5){
+          console.log("product is low");
+          console.log(product);
+          this.vendorService.sendRabbitMQMessage(product.productId)
+          .subscribe({next:(m)=>{
+            console.log("rabbit message sent.");
+          }})
+        }
+      })
+    }})
   }
 
   addressChanged(): string {
