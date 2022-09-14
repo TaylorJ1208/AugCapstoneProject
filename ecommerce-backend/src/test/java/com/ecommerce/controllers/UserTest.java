@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,7 +26,6 @@ import com.ecommerce.controller.UserController;
 import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
-import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.service.OrderService;
@@ -93,7 +93,8 @@ class UserTest {
 		newUser.setUserName("test username");
 		newUser.toString();
 		Mockito.when(userService.updateUser(newUser)).thenReturn(newUser);
-		assertTrue(newUser.equals(userService.updateUser(newUser)));
+		assertEquals(newUser, userService.updateUser(newUser));
+		verify(userService).updateUser(newUser);
 	}
 
 }

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class EmailTest {
+class EmailTest {
 	
 	@MockBean
 	EmailService emailService;
@@ -39,10 +39,10 @@ public class EmailTest {
 	
 	@Test
 	void testEmailGet() {
-		assertEquals(emailConfig.getHost(), "localhost:test");
-		assertEquals(emailConfig.getPassword(), "test");
-		assertEquals(emailConfig.getPort(), 8080);
-		assertEquals(emailConfig.getUsername(), "test user");
+		assertEquals("localhost:test", emailConfig.getHost());
+		assertEquals( "test", emailConfig.getPassword());
+		assertEquals(8080, emailConfig.getPort());
+		assertEquals("test user", emailConfig.getUsername());
 	}
 	
 	

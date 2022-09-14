@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,7 +21,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.ecommerce.controller.RoleController;
-import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.service.RoleService;
@@ -67,7 +67,8 @@ class RoleTest {
 		newRole.setUsers(users);
 		newRole.toString();
 		Mockito.when(roleService.updateRole(newRole)).thenReturn(newRole);
-		assertTrue(newRole.equals(roleService.updateRole(newRole)));
+		assertEquals(newRole, roleService.updateRole(newRole));
+		verify(roleService).updateRole(newRole);
 	}
 	
 }

@@ -3,6 +3,7 @@ import { Product } from '../Models/product';
 import { ProductService } from '../services/product-service/product.service';
 import { CartService } from '../services/cart-service/cart.service';
 import { CartItem } from '../Models/cart-item';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-home-page',
@@ -12,9 +13,10 @@ import { CartItem } from '../Models/cart-item';
 export class HomePageComponent implements OnInit {
   products: Product[] = [];
   imageUrl: string = "https://res.cloudinary.com/drukcz14j/image/upload/v1661201584/ecommerce/iPhone-13-PNG-Cutout_wydwdd.png";
-  constructor(private cartService: CartService, private productService: ProductService) { }
+  constructor(private cartService: CartService, private productService: ProductService, private oktaAuthService: OktaAuthService) { }
 
   ngOnInit(): void {
+    console.log(this.oktaAuthService.getUser());
     this.getProducts();
   }
 

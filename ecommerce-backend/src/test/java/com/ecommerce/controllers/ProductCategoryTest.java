@@ -1,9 +1,8 @@
 package com.ecommerce.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,7 +74,8 @@ class ProductCategoryTest {
 		newCategory.setProducts(products);
 		newCategory.toString();
 		Mockito.when(service.updateCategory(newCategory)).thenReturn(newCategory);
-		assertTrue(newCategory.equals(service.updateCategory(newCategory)));
+		assertEquals(newCategory, service.updateCategory(newCategory));
+		verify(service).updateCategory(newCategory);
 	}
 	
 }

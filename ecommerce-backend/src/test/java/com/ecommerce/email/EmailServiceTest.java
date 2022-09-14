@@ -24,7 +24,7 @@ import com.ecommerce.model.User;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class EmailServiceTest {
+class EmailServiceTest {
 	
 	@MockBean
 	private EmailService emailService;
