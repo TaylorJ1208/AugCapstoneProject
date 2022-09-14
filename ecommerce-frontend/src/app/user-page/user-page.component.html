@@ -38,6 +38,7 @@
                     <ul class="dropdown-menu" aria-labelledby="invMgmtDD">
                         <li><a routerLinkActive="active" routerLink="/user/admin/update-vendors" class="btn border-0 body-hover p-3 w-100 dropdown-item">Add/Edit/Delete Vendors</a></li>
                         <li><a routerLinkActive="active" routerLink="/user/admin/request-stock" class="btn border-0 body-hover p-3 w-100 dropdown-item">Request Stock</a></li>
+                        <li><a routerLinkActive="active" routerLink="/user/admin/track-requests" class="btn border-0 body-hover p-3 w-100 dropdown-item">Track Requests</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,6 +64,9 @@
   </div>
 
   <div *ngIf="url == '/user/admin/request-stock'" style="margin-left: 1em;">
+    <app-inventory-page></app-inventory-page>
+  </div>
+  <div *ngIf="url == '/user/admin/track-requests'" style="margin-left: 1em;">
     <app-inventory-page></app-inventory-page>
   </div>
 </div>

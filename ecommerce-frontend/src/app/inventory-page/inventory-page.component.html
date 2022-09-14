@@ -144,7 +144,9 @@
                     <div class="overlay" *ngIf="requestPopupProductId == product.productId">
                         <div class="popup">
                             <p>Please enter the quantity of product <span
-                                    style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.name}}</span> you would like to send request for.</p>
+                                    style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.name}}</span> you would like to request from vendor 
+                                    <span
+                                    style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.vendors.name}}</span>.</p>
                         <input type="text" class="form-control text-center" id="rquantity" required
                                     name="rquantity" placeholder="Quantity" [(ngModel)]="requestQuantity"
                                     #rquantity="ngModel" />
@@ -170,5 +172,65 @@
             
         </div>
     </div>
+    </div>
+
+    <!--Track Requests-->
+    <div *ngIf="showTrackRequestsMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+        <div class="main bg-light text-center">
+        
+            <div class="container m-2">
+                <h2>Sent Requests</h2>
+            <!--    <button class="btn btn-info btn-lg btn-block" (click)="addVendorMode = true; newAdd()">Add New Vendor</button>
+            -->
+            </div>
+        
+        
+            <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+    
+                <table class="table table-striped table-bordered text-center">
+                    <thead class="align-top">
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Product ID</th>
+                        <th>Product</th>
+                        <th>Stock Available</th>
+                        <th>Quantity Requested</th>
+                        <th>Vendor</th>
+                        <th>Date Sent</th>
+                        <th>Change Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let request of vendorRequests">
+                        <td>{{request.id}}</td>
+                        <td>{{request.product.productId}}</td>
+                        <td>{{request.product.name}}</td>
+                        <td>{{request.product.quantity}}</td>
+                        <td>{{request.quantityrequested}}</td>
+                        <td>{{request.vendor.name}}</td>
+                        <td>{{request.requestdate}}</td>
+                        <!--<td>{{request.status}}</td>-->
+                        <td>
+                            <select [(ngModel)]="request.status" #rstatus="ngModel"
+                             required (change)="updateRequestStatus(request.id, request.status);">
+                                <option style="text-transform:uppercase;" value="Sent">Sent</option>
+                                <option style="text-transform:uppercase;" value="Received">Received</option>
+                            </select>
+    
+                            <div *ngIf="rstatus.invalid && (rstatus.dirty || rstatus.touched)">
+                                <div *ngIf="rstatus.errors?.['required']" class="alert alert-danger">
+                                    Status is required.
+                                </div>
+                            </div>
+
+                        </td>
+                        <td><button class="btn btn-danger btn-block" style="background-color: #f93154;"
+                            (click)="requestDeletePopupId = request.id; deleteRequest(request.id);">Delete</button></td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     
