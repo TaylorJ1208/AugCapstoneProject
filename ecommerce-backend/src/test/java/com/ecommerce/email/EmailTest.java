@@ -1,7 +1,7 @@
 package com.ecommerce.email;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class EmailTest {
 	@Test
 	void testEmailEqual() {
 		EmailConfig config = new EmailConfig("local", 8081, "test2", "test user2");
-		assertTrue(!emailConfig.equals(config));
+		assertNotEquals(emailConfig, config);
 	}
 	
 	@Test
