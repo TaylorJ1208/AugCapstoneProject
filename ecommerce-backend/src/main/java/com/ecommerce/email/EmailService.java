@@ -61,6 +61,7 @@ public class EmailService {
 			totalItems++;
 			productTotal = productTotal.add(p.getPrice());
 			productString += p.getName() + "  "; 
+			p.setQuantity(p.getQuantity() - 1);
 		}
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
