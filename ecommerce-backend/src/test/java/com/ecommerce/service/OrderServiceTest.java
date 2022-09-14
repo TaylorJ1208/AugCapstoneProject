@@ -1,6 +1,10 @@
 package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,8 +32,10 @@ class OrderServiceTest {
 	private OrdersRepo repo;
 	@Mock	
 	private UserCartRepo uRepo;
+	@Mock
 	private OrderService service;
-	private Orders o;
+	@Mock
+	private Orders order;
 
 	
 	long millis=System.currentTimeMillis();  
@@ -42,7 +48,7 @@ class OrderServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		service = new OrderService(repo, uRepo);
-		o = new Orders(1,amount,date,true,u,a,a,p);
+		order = new Orders(1L,amount,date,true,u,a,a,p);
 	}
 
 	@Test
@@ -64,37 +70,48 @@ class OrderServiceTest {
 	@Test
 	void testUpdateOrder() {
 		String new_address = "New Address";
-		o.setBillingAddress(new_address);
-		o.setShippingAddress(new_address);
-		when(repo.save(o)).thenReturn(o);
-		when(repo.findById(o.getOrderId())).thenReturn(Optional.of(o));
-		assertThat(service.updateOrder(o)).isEqualTo(o);
-		verify(repo).findById(o.getOrderId());
+		order.setBillingAddress(new_address);
+		order.setShippingAddress(new_address);
+		when(repo.save(order)).thenReturn(order);
+		when(repo.findById(order.getOrderId())).thenReturn(Optional.of(order));
+		assertThat(service.updateOrder(order)).isEqualTo(order);
+		verify(repo).findById(order.getOrderId());
 	}
 
 	@Test
 	void testDeleteOrder() {
 		long id = 1;
 		service.deleteOrder(id);
-		verify(repo).deleteById(id);	}
-
-//	@Test
-//	@Disabled
-//	void testAddProductToOrder() {
-//		
-//		Product new_p = new Product (2,"sample");
-//		when(repo.findById(o.getOrderId())).thenReturn(Optional.of(o));
-//		
-//	}
-//	
-//	@Test
-//	@Disabled
-//	void testAddOrder() {
-////		doNothing().when(uRepo).findAll();
-//		when(repo.save(o)).thenReturn(o);
-//		
-//		assertThat(service.addOrder(o)).isEqualTo(o);
-//	}
+		verify(repo).deleteById(id);	
+		
+	}
+	
+	@Test
+	void testAddOrder() {
+		when(repo.save(order)).thenReturn(order);
+		
+		service.addOrder(order);
+		verify(repo).save(order);
+	}
+	
+	@Test
+	void testOrderEquals() {
+		Orders o1 = new Orders(1L,amount,date,true,u,a,a,p);
+		Orders o2 = new Orders(1L,amount,date,false,u,a,a,p);
+		Orders o3 = new Orders(1L,amount,date,true,u,a,a,p);
+		assertTrue(o1.equals(o3));
+		assertFalse(o1.equals(o2));
+		assertFalse(o1 == o3);
+		o1 = o3;
+		assertTrue(o1 == o3);
+	}
+	
+	@Test
+	void testOrderHashCode() {
+		Orders o2 = new Orders(1L,amount,date,false,u,a,a,p);
+		assertEquals(order.hashCode(), order.hashCode());
+		assertNotEquals(order.hashCode(), o2.hashCode());
+	}
 
 
 }

@@ -79,6 +79,7 @@ class AddressTest {
 		newAddress.setCountry("USA");
 		newAddress.setApartmentNumber(null);
 		newAddress.setUser(user);
+		newAddress.setState("NC");
 		newAddress.toString();
 		Mockito.when(addressService.updateAddress(newAddress)).thenReturn(newAddress);
 		assertEquals(newAddress, addressService.updateAddress(newAddress));

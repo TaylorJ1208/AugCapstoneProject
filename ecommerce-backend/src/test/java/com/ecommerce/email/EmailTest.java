@@ -35,6 +35,12 @@ class EmailTest {
 	void testEmailEqual() {
 		EmailConfig config = new EmailConfig("local", 8081, "test2", "test user2");
 		assertNotEquals(emailConfig, config);
+		EmailConfig config2 = new EmailConfig("wrong local", 8081, "test2", "test user2");
+		boolean equals = config.equals(config2);
+		assertEquals(equals, false);
+		config = config2;
+		equals = config.equals(config2);
+		assertEquals(equals, true);
 	}
 	
 	@Test

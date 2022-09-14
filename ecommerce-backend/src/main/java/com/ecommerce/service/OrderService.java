@@ -44,7 +44,7 @@ public class OrderService {
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with id : " + id));
 	}
 
-	public void addOrder(Orders order) {
+	public Orders addOrder(Orders order) {
 		// Gets all items in cart
 		List<UserCart> userCart = repo.findAll();
 		BigDecimal total = new BigDecimal(0);
@@ -61,7 +61,8 @@ public class OrderService {
 			total = total.add(p.getPrice());
 		}
 		order.setAmount(total);
-		ordersRepo.save(order);
+		return ordersRepo.save(order);
+		
 	}
 
 	public Orders updateOrder(Orders order) {

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,6 +31,7 @@ import com.ecommerce.model.Product;
 import com.ecommerce.model.User;
 import com.ecommerce.service.OrderService;
 import com.ecommerce.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(OrdersController.class)
@@ -46,6 +49,8 @@ class OrdersTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	private static ObjectMapper mapper = new ObjectMapper();
 	
 	
 	@Test
@@ -70,6 +75,28 @@ class OrdersTest {
 	}
 	
 	@Test
+	void testAddOrder() throws Exception {
+		Orders order = new Orders();
+		User user = new User();
+		List<Product> products = new ArrayList<>();
+		java.sql.Date date = new java.sql.Date(1500);
+		order = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",
+				products);
+		
+		// List to compare
+		List<Orders> orders = new ArrayList<>();
+		orders.add(order);
+		
+		Mockito.when( orderService.addOrder(order)).thenReturn(order);
+		String json = mapper.writeValueAsString(order);
+		mockMvc.perform(post("/orders/add").contentType(MediaType.APPLICATION_JSON)
+					.characterEncoding("utf-8")
+					.content(json)
+					.accept(MediaType.APPLICATION_JSON))
+					.andExpect(status().isOk());
+	}
+	
+	@Test
 	void testupdateOrder() throws Exception {
 		List<Product> products = new ArrayList<>();
 		User user = new User();
@@ -82,6 +109,7 @@ class OrdersTest {
 		newOrder.setOrderId(1L);
 		newOrder.setProducts(products);
 		newOrder.setUser(user);
+		newOrder.setStatus(false);
 		newOrder.setShippingAddress("3008 Ashland Grove Dr.");
 		newOrder.toString();
 		Mockito.when(orderService.updateOrder(newOrder)).thenReturn(newOrder);

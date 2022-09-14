@@ -10,8 +10,10 @@ import java.util.Set;
 
 import javax.mail.MessagingException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,6 +23,8 @@ import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
+import com.ecommerce.model.UserCart;
+import com.ecommerce.service.ProductService;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -28,6 +32,14 @@ class EmailServiceTest {
 	
 	@MockBean
 	private EmailService emailService;
+	
+	@Mock
+	private Orders order;
+	
+	List<Orders> o = new ArrayList<>();
+	Set<Role> r = new HashSet<>();
+	List<Address> a = new ArrayList<>();
+	List<UserCart> userCart = new ArrayList<>();
 	
 	@Test
 	void testEmailSend() throws MessagingException {
@@ -43,15 +55,14 @@ class EmailServiceTest {
 	
 	@Test
 	void testEmailReceipt() throws MessagingException {
-		Orders order = new Orders();
-		User user = new User();
+		User user = new User(1L,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		List<Product> products = new ArrayList<>();
 		java.sql.Date date = new java.sql.Date(1500);
-		order = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",
+		Orders orders = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",
 				products);
 		
-		emailService.sendReceipt(order);
-		verify(emailService).sendReceipt(order);
+		emailService.sendReceipt(orders);
+		verify(emailService).sendReceipt(orders);
 	}
 
 }

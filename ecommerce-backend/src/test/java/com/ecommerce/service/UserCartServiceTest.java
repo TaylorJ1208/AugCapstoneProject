@@ -1,11 +1,18 @@
 package com.ecommerce.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -72,15 +79,47 @@ class UserCartServiceTest {
 		verify(repo).save(u);
 	}
 
-//	@Test
-//	void testUpdateUserCart() {
-//		when(repo.findById(u.getUserCartId())).thenReturn(Optional.of(u));
-//		assertThat(service.updateUserCart(u)).isEqualTo(u);
-//	}
-//
-//	@Test
-//	void testDeleteUserCart() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	void testUserCartEquals() {
+		UserCart u1 = new UserCart(userCartId,user,product,10);
+		UserCart u2 = new UserCart(userCartId,user,product,15);
+		UserCart u3 = new UserCart(userCartId,user,product,10);
+		assertTrue(u1.equals(u3));
+		assertFalse(u1.equals(u2));
+		assertFalse(u1 == u3);
+		u1 = u3;
+		assertTrue(u1 == u3);
+	}
+	
+	@Test
+	void testUserCartHashCode() {
+		assertNotEquals(u.toString(), u);
+		UserCart u2 = new UserCart(userCartId,user,product,15);
+		assertEquals(u.hashCode(), u.hashCode());
+		assertNotEquals(u.hashCode(), u2.hashCode());
+	}
+	
+	@Test
+	void testSetterMethods() {
+		UserCart u1 = new UserCart(userCartId,user,product,10);
+		UserCart u2 = new UserCart();
+		u2.setProduct(product);
+		u2.setQuantity(15);
+		u2.setUser(user);
+		u2.setUserCartId(userCartId);
+		assertNotEquals(u1, u2);
+	}
+	
+	@Test
+	void testGetUserCartById() {
+		when(repo.findById(u.getUserCartId())).thenReturn(Optional.of(u));
+		assertThat(service.getUserCartById(u.getUserCartId().getProductId(), u.getUserCartId().getUserId())).isEqualTo(u);
+	}
+	
+	@Test
+	void testDeleteUserCartById() {
+		service.deleteUserCart(userCartId);
+		verify(repo).deleteById(userCartId);
+	}
 
 }

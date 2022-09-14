@@ -1,6 +1,10 @@
 package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,8 +38,14 @@ class UserServiceTest {
 	@Mock	
 	private RoleRepo rRepo;
 	
+	@Mock
 	private UserService service;
+	
+	@Mock
 	private User u;
+	
+	@Mock
+	private User newUser;
 	
 	long id= 1;
 	List<Orders> o = new ArrayList<>();
@@ -59,7 +69,7 @@ class UserServiceTest {
 	void testGetUserById() {
 //		long id= 2;
 //		Role b = new Role(id,"USER",u);
-		 
+		
 		when(repo.findById(u.getUserId())).thenReturn(Optional.of(u));
 		assertThat(service.getUserById(u.getUserId())).isEqualTo(u);
 	}
@@ -108,10 +118,35 @@ class UserServiceTest {
 	}
 
 	@Test
-	void testDeleteRoleFromUser() {
+	void testUserByIdFromUser() {
 		service.deleteUserById(u.getUserId());
 		verify(repo).deleteById(u.getUserId());
 	}
-
+	
+	
+	@Test
+	void testUserEquals() {
+		User u1 = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		User u2 = new User(id,"wrongname","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		User u3 = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		assertTrue(u1.equals(u3));
+		assertFalse(u1.equals(u2));
+		assertFalse(u1 == u3);
+		u1 = u3;
+		assertTrue(u1 == u3);
+	}
+	
+	@Test
+	void testUserHashCode() {
+		User u2 = new User(id,"wrongname","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		assertEquals(u.hashCode(), u.hashCode());
+		assertNotEquals(u.hashCode(), u2.hashCode());
+	}
+	
+	@Test
+	void testDeleteRoleFromUser() {
+		service.deleteRoleFromUser(u.getUserId(), 1L);
+		verify(repo).deleteById(u.getUserId());;
+	}
 
 }
