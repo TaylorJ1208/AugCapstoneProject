@@ -118,13 +118,7 @@
                                         <p>{{inputCountry}}</p>
                                     </ng-template>
                                 </div>
-                                <div class="d-flex flex-column text-start">
-                                    <p class="mb-0">Payment Information</p>
-                                    <hr class="my-1" style="width: 150px;">
-                                    <p>{{inputName}}</p>
-                                </div>
                             </div>
-
                             <div class="d-flex flex-row container-fluid justify-content-center ps-0 pe-4">
                                 <ng-container *ngIf="cartItems.length != 0; else emptyCart">
                                     <button (click)="makePayment(totalPrice)" class="btn btn-primary mt-3"

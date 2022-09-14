@@ -24,10 +24,6 @@ export class CheckoutPageComponent implements OnInit {
   inputState: string = "";
   inputZipcode: string = "";
   inputCountry: string = "";
-  inputCardNum: string = "";
-  inputExpDate: string = "";
-  inputCVV: string = "";
-  inputOwner: string = "";
   currentAddress: string = "";
   cartItems: any;
   test: any;
@@ -135,6 +131,7 @@ export class CheckoutPageComponent implements OnInit {
     this.token$.next(token);
     if(this.isAuthenticated) {
          paymentStripe();
+         //this.addOrder();
     }
     console.log("TOKEN = " + this.token$.getValue());
   }
@@ -193,7 +190,7 @@ export class CheckoutPageComponent implements OnInit {
     let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
 
     const data = {
-      orderId: 6,
+      orderId: 7,
       amount: this.total,
       orderDate: dateString,
       status: true,
@@ -256,23 +253,6 @@ export class CheckoutPageComponent implements OnInit {
 
   changedZipcode(event: any) {
     this.inputZipcode = event.target.value;
-  }
-
-  changedOwner(event: any) {
-    this.inputOwner = event.target.value;
-  }
-
-  changedCardNum(event: any) {
-    this.inputCardNum = event.target.value;
-  }
-
-  changedExpDate(event: any) {
-    this.inputExpDate = event.target.value;
-  }
-
-  changedCVV(event: any) {
-    this.inputCVV = event.target.value;
-  }
-  
+  } 
 }
 
