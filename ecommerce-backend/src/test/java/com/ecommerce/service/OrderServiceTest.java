@@ -10,8 +10,10 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +21,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
+import com.ecommerce.model.ProductCategory;
+import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
+import com.ecommerce.model.UserCart;
+import com.ecommerce.model.UserCartId;
 import com.ecommerce.repo.OrdersRepo;
 import com.ecommerce.repo.UserCartRepo;
 
@@ -32,15 +39,27 @@ class OrderServiceTest {
 	private OrdersRepo repo;
 	@Mock	
 	private UserCartRepo uRepo;
+	
 	@Mock
 	private OrderService service;
+	
+	@Mock
+	private UserCartService uService;
+	
 	@Mock
 	private Orders order;
-
 	
+	@Mock
+	private Product product;
+	
+	long userId = 1L;
+	long productId = 1L;
+
+	UserCartId userCartId = new UserCartId(userId,productId);
+
 	long millis=System.currentTimeMillis();  
 	java.sql.Date date = new java.sql.Date(millis);
-	User u = new User();
+	User user = new User();
 	String a = "sample address";
 	BigDecimal amount = new BigDecimal(10000);
 	List<Product> p = new ArrayList<>();
@@ -48,7 +67,8 @@ class OrderServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		service = new OrderService(repo, uRepo);
-		order = new Orders(1L,amount,date,true,u,a,a,p);
+		uService = new UserCartService(uRepo);
+		order = new Orders(1L,amount,date,true,user,a,a,p);
 	}
 
 	@Test
@@ -59,7 +79,7 @@ class OrderServiceTest {
 
 	@Test
 	void testGetOrderById() {
-		Orders o1 = new Orders(2,amount,date,true,u,a,a,p);
+		Orders o1 = new Orders(2,amount,date,true,user,a,a,p);
 
 		when(repo.findById(o1.getOrderId())).thenReturn(Optional.of(o1));
 
@@ -96,9 +116,9 @@ class OrderServiceTest {
 	
 	@Test
 	void testOrderEquals() {
-		Orders o1 = new Orders(1L,amount,date,true,u,a,a,p);
-		Orders o2 = new Orders(1L,amount,date,false,u,a,a,p);
-		Orders o3 = new Orders(1L,amount,date,true,u,a,a,p);
+		Orders o1 = new Orders(1L,amount,date,true,user,a,a,p);
+		Orders o2 = new Orders(1L,amount,date,false,user,a,a,p);
+		Orders o3 = new Orders(1L,amount,date,true,user,a,a,p);
 		boolean equals = o1.equals(o3);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -109,7 +129,7 @@ class OrderServiceTest {
 	
 	@Test
 	void testOrderHashCode() {
-		Orders o2 = new Orders(1L,amount,date,false,u,a,a,p);
+		Orders o2 = new Orders(1L,amount,date,false,user,a,a,p);
 		assertEquals(order.hashCode(), order.hashCode());
 		assertNotEquals(order.hashCode(), o2.hashCode());
 	}

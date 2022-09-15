@@ -90,8 +90,9 @@ class ProductServiceTest {
 	@Test
 	void testDeleteProductById() {
 		long id = 1;
-		service.deleteProductById(id);
+		repo.deleteById(id);
 		verify(repo).deleteById(id);
+		assertThat(service.getAllProducts().isEmpty());
 	}
 	
 	@Test
@@ -99,9 +100,10 @@ class ProductServiceTest {
 		Product p1 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
 		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
 		Product p3 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
-		boolean equals = p1.equals(p3);
-		assertEquals(true, equals);
-		assertNotEquals(false, equals);
+		assertEquals(true, p2.equals(p2));
+		assertEquals(false, p1.equals(p2));
+		assertEquals(false, p2.equals(null));
+		assertEquals(true, p1.equals(p3));
 		assertNotSame(p1, p3);
 		p1 = p3;
 		assertSame(p1, p3);
