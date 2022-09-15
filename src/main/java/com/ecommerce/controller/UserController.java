@@ -42,7 +42,17 @@ public class UserController {
 	
 	@GetMapping("/customer/{id}")
 	public User getUser(@PathVariable Long id) {
-		return userService.getUserById(id);
+		telemetryClient.trackEvent("/user/custumer/id Request Triggered");
+		long startTime = System.nanoTime();
+		User user = userService.getUserById(id);
+		long endTime = System.nanoTime();
+    
+		MetricTelemetry benchmark = new MetricTelemetry();
+		benchmark.setName("Get All User By ID Query (ms)");
+		double timeInNano = endTime - startTime;
+ 		benchmark.setValue(timeInNano/1e6);
+		telemetryClient.trackMetric(benchmark);
+		return user;
 	}
 	
 	@GetMapping("/admin")
@@ -89,5 +99,4 @@ public class UserController {
 		telemetryClient.trackEvent("/user/customer/delete Request Triggered");
 		userService.deleteUserById(id);
 	}
-
 }
