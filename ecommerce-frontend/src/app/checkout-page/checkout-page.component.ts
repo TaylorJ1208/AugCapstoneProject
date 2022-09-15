@@ -31,7 +31,7 @@ export class CheckoutPageComponent implements OnInit {
   inputCVV: string = "";
   inputOwner: string = "";
   currentAddress: string = "";
-  cartItems: any;
+  cartItems: any[]=[];
   test: any;
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -96,7 +96,7 @@ export class CheckoutPageComponent implements OnInit {
 
     //get a handle to the cart items
     this.cartItems = this.cartService.cartItems;
-
+    console.log(this.cartItems);
     // subscribe to the cart totalPrice
     this.cartService.totalPrice.subscribe(
       (data:any) => this.totalPrice = data
@@ -139,6 +139,7 @@ export class CheckoutPageComponent implements OnInit {
          paymentStripe();
     }
     console.log("TOKEN = " + this.token$.getValue());
+    this.addOrder();
   }
 
   const paymentStripe = () => {
@@ -219,20 +220,56 @@ export class CheckoutPageComponent implements OnInit {
       .subscribe({
         next: (m: any) => {
           console.log(m);
-          this.sendLowStockMessage();
+          //this.sendLowStockMessage();
+          this.productStockDecrement();
           this.ngOnInit()
         },
         error: (e: any) => console.error(e)
       });
   }
 
-  sendLowStockMessage(){
+  productStockDecrement(){
+    this.cartItems.forEach(item=>{
+      var product:any;
+      this.productService.getProductById(item.productId)
+      .subscribe({next:(data)=>{
+        product = data;
+        product.quantity = product.quantity - item.quantity;
+        console.log(product);
+
+        this.productService.updateProduct(product)
+      .subscribe({next:(m)=>{
+        console.log(m);
+
+        this.sendLowStockMessage(product.productId);
+      }});
+      }});
+      
+    })
+  }
+
+  sendLowStockMessage(id:any){
+    var product:any=[];
+    this.productService.getProductById(id)
+    .subscribe({next:(data)=>{
+      if(data.quantity < 5){
+        console.log("product below got low in stock:");
+        console.log(data);
+        this.vendorService.sendRabbitMQMessage(data.productId)
+        .subscribe({next:(m)=>{
+          console.log("rabbit message sent.");
+        }})
+      }
+    }});
+  }
+
+/*   sendLowStockMessage(){
     const allProducts:any=[];
     this.productService.getAllProducts()
     .subscribe({next:(data)=>{
       data.forEach(product=>{
         if(product.quantity < 5){
-          console.log("product is low");
+          console.log("product is low in stock");
           console.log(product);
           this.vendorService.sendRabbitMQMessage(product.productId)
           .subscribe({next:(m)=>{
@@ -241,7 +278,7 @@ export class CheckoutPageComponent implements OnInit {
         }
       })
     }})
-  }
+  } */
 
   addressChanged(): string {
     if (this.inputAptNo != "") {
