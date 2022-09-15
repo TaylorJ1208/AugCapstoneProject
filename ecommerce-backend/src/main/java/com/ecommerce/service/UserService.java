@@ -31,6 +31,10 @@ public class UserService implements UserDetailsService {
 		this.roleRepo = rRepo;
 	}
 
+	public UserService(UserRepo userRepo2) {
+		this.userRepo = userRepo2;
+	}
+
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}

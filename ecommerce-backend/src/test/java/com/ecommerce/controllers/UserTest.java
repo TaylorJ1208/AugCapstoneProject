@@ -3,15 +3,18 @@ package com.ecommerce.controllers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -19,18 +22,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.ecommerce.controller.UserController;
 import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
+import com.ecommerce.model.Product;
+import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
+import com.ecommerce.model.UserCart;
+import com.ecommerce.model.UserCartId;
+import com.ecommerce.repo.RoleRepo;
+import com.ecommerce.repo.UserRepo;
 import com.ecommerce.service.OrderService;
+import com.ecommerce.service.ProductService;
 import com.ecommerce.service.RoleService;
 import com.ecommerce.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
@@ -52,6 +65,52 @@ class UserTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
+	@MockBean
+	private UserRepo userRepo;
+	
+	@MockBean
+	private RoleRepo roleRepo;
+	
+	public static String asJsonString(final Object obj) {
+	    try {
+	        final ObjectMapper mapper = new ObjectMapper();
+	        final String jsonContent = mapper.writeValueAsString(obj);
+	        return jsonContent;
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}  
+	
+	long id= 1L;
+	List<Orders> o = new ArrayList<>();
+	Set<Role> r = new HashSet<>();
+	List<Address> a = new ArrayList<>();
+	List<UserCart> userCart = new ArrayList<>();
+	List<Product> products = new ArrayList<>();
+	
+	@MockBean
+	ProductCategory pc;
+	
+	@MockBean
+	UserCartId userCartId;
+	
+	@MockBean
+	Product product;
+	
+	@MockBean
+	User user;
+	
+	@BeforeEach
+	void setUp() throws Exception {
+		
+		userService = new UserService(userRepo, roleRepo);
+		user = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		pc = new ProductCategory(id, "category", products);
+		product = new Product(id,"Lenovo Laptop","Legion 5 latop",
+				new BigDecimal(15),new BigDecimal(15), 3,"sample URL",3,o,pc,userCart);
+		userCartId = new UserCartId(user.getUserId(), product.getProductId());
+	}
+	
 	@Test
 	void testFindAllUsers() throws Exception {
 		// Instantiate necessary objects
@@ -68,33 +127,34 @@ class UserTest {
 		
 		Mockito.when( userService.getAllUsers()).thenReturn(users);
 		mockMvc.perform(get("/user/admin"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$", Matchers.hasSize(1)))
-				.andExpect(jsonPath("$[0].firstName", Matchers.is("Taylor")));
+				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void testupdateCategory() throws Exception {
-		List<Orders> orders = new ArrayList<>();
-		Set<Role> roles = new HashSet<>();
-		List<Address> addresses = new ArrayList<>();
-		User newUser = new User();
-		newUser.setUserId(1L);
-		newUser.setAddresses(addresses);
-		newUser.setContact("919-339-3801");
-		newUser.setEmail("test@example.com");
-		newUser.setFirstName("Test");
-		newUser.setLastName("Test");
-		newUser.setOrders(orders);
-		newUser.setPassword("test password");
-		newUser.setRoles(roles);
-		newUser.setSsn("0000");
-		newUser.setUserCart(null);
-		newUser.setUserName("test username");
-		newUser.toString();
-		Mockito.when(userService.updateUser(newUser)).thenReturn(newUser);
-		assertEquals(newUser, userService.updateUser(newUser));
-		verify(userService).updateUser(newUser);
+	void testUpdateUser() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.put("/user/customer/update")
+				.content(asJsonString(user))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	void testGetUserById() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/user/customer/" + user.getUserId())
+				.content(asJsonString(user))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	void testAddRoleToUser() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/user/admin/" + user.getUserId() + "/role/" + 1L)
+				.content(asJsonString(user))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
 	}
 
 }

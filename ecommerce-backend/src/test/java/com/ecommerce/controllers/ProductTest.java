@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.ecommerce.controller.ProductController;
 import com.ecommerce.model.Orders;
@@ -40,6 +42,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProductController.class)
 @AutoConfigureMockMvc(addFilters = false)
+
+
 class ProductTest {
 	
 	@MockBean
@@ -53,6 +57,16 @@ class ProductTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	public static String asJsonString(final Object obj) {
+	    try {
+	        final ObjectMapper mapper = new ObjectMapper();
+	        final String jsonContent = mapper.writeValueAsString(obj);
+	        return jsonContent;
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}  
 	
 	ObjectMapper mapper = new ObjectMapper();
 	Product p;
@@ -89,32 +103,42 @@ class ProductTest {
 				.andExpect(status().isOk());
 	}
 	
-//	@Test
-//	void testUpdateProduct() throws Exception {
-//		Product newProduct = new Product();
-//		List<Product> products = new ArrayList<>();
-//		ProductCategory category = new ProductCategory(1L, "misc", products);
-//		List<Orders> orders = new ArrayList<>();
-//		newProduct.setProductId(1L);
-//		newProduct.setCategory(category);
-//		newProduct.setDescription("Testing product");
-//		newProduct.setImage("http");
-//		newProduct.setName("test product");
-//		newProduct.setOrders(orders);
-//		newProduct.setPrice(new BigDecimal(500));
-//		newProduct.setQuantity(15);
-//		newProduct.setRating(3);
-//		newProduct.setUserCart(null);
-//		newProduct.setWeight(new BigDecimal(5.5));
-//		newProduct.toString();
-//		Mockito.when(productService.updateProduct(newProduct)).thenReturn(newProduct);
-//		String json = mapper.writeValueAsString(newProduct);
-//		mockMvc.perform(put("/catalog/admin/update").contentType(MediaType.APPLICATION_JSON)
-//				.content(json)
-//				.accept(MediaType.APPLICATION_JSON))
-//		.andExpect(status().isOk());
-//		assertEquals(newProduct, productService.updateProduct(newProduct));
-//		verify(productRepo).deleteById(newProduct.getProductId());
-//	}
+	@Test
+	void testUpdateProduct() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.put("/catalog/admin/update")
+
+				.content(asJsonString(p))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	void testDeleteProduct() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.delete("/catalog/admin/delete/" + p.getProductId())
+
+				.content(asJsonString(p))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	void testGetProductByName() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/catalog/customer/product/" + p.getName())
+				.content(asJsonString(p))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	void testGetProductById() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/catalog/customer/" + p.getProductId())
+				.content(asJsonString(p))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
+	}
 
 }

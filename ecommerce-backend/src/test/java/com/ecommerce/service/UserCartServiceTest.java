@@ -9,6 +9,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
@@ -45,7 +49,7 @@ class UserCartServiceTest {
 	long userId = 1;
 	long productId = 1;
 
-	UserCartId userCartId = new UserCartId(userId,productId);
+	
 	
 	long id = 1;
 	private BigDecimal price= new BigDecimal(10000);
@@ -55,6 +59,7 @@ class UserCartServiceTest {
 	List<Orders> o = new ArrayList<>();
 	ProductCategory pc = new ProductCategory();
 	List<UserCart> userCart = new ArrayList<>();
+	UserCartId userCartId = new UserCartId(userId,productId);
 	Product product = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,userCart);
 	
 	

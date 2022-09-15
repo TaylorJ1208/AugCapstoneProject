@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
  
 import com.ecommerce.model.Product;
@@ -40,13 +41,13 @@ public class ProductController {
     }
 
     @PostMapping("/admin/add")
-    public void addProduct(@RequestBody Product product) {
-        productService.addProduct(product);
+    public Product addProduct(@RequestBody Product product) {
+        return productService.addProduct(product);
     }
 
     @PutMapping("/admin/update")
-    public void updateProduct(@RequestBody Product product) {
-        productService.updateProduct(product);
+    public Product updateProduct(@RequestBody Product product) {
+        return productService.updateProduct(product);
     }
 
     @DeleteMapping("admin/delete/{id}")
