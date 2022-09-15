@@ -1,0 +1,7 @@
+<a routerLink="user/cart" routerLinkActive="active">
+    <button class="btn btn-rounded d-flex align-items-center" style="margin-right: 0.5em; margin-left: 0.1em;">
+        <p class=" m-0 text-success" style="padding-right: 1em;">{{ totalPrice | currency: 'USD' }}</p>
+        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+        <p class=" m-0 text-success" style="padding-left: 1em;">{{ totalQuantity }}</p>
+    </button>
+</a>

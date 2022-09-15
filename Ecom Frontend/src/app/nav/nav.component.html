@@ -1,0 +1,38 @@
+<div class="fixed-top nav navbar navbar-light bg-light p-0 m-0 flex-nowrap">
+    <div class="container-fluid p-0 b">
+        <ul class="nav d-flex flex-nowrap">
+            <li class="nav-item">
+                <a routerLinkActive="active" routerLink="home" class="navbar-brand h-100 bg-white"
+                    style="padding-right: 1em; padding-left: 1em;"><span class="text-info">Ecom</span>merce</a>
+            </li>
+        </ul>
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+            <button routerLink="home" style="margin-right: 2em;">
+                <i class="fa-solid fa-house fa-xl"></i>
+            </button>
+            <button class="btn btn-primary w-100 m-0 p-0 d-flex align-items-center h-100"
+                style="background-color: cornsilk;">
+
+                <!-- <select class="form-select h-100 w-25 bg-light" style="font-size:13.5px;">
+                    <option value="DEFAULT" selected hidden>Search by category</option>
+                    <option *ngFor="let category of categories;">{{  category.category  }}</option>
+                </select> -->
+
+                <input class="form-control" type="text" [(ngModel)]="searchString" (keyup.enter)="searchProducts()"
+                    (keyup.enter)="routeToResult()" name="categories" placeholder="See what you'll find">
+            </button>
+
+            <button routerLink="user/details" class="btn btn-rounded" style="margin-right: 0.5em; margin-left: 0.1em;">
+                <i class="fa-regular fa-user fa-xl"></i>
+            </button>
+            <app-cart-status></app-cart-status>
+            <button class="btn btn-rounded" (click)="signOut()" style="margin-right: 0.5em; margin-left: 0.1em;">
+                <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+            </button>
+
+
+
+        </div>
+
+    </div>
+</div>

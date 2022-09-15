@@ -1,0 +1,103 @@
+<div class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+  <table class="table bg-white table-hover">
+    <thead class="table-info">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" style="width: 15em;">User</th>
+        <th scope="col" style="width: 10em;">Amount</th>
+        <th scope="col" style="width: 30em;">Order Date</th>
+        <th scope="col" style="width: 12em;">Status</th>
+        <th scope="col" style="width: 15em;">Billing Address</th>
+        <th scope="col" style="width: 15em;">Shipping Address</th>
+        <th scope="col" style="width: 5em;">Products</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders; let i = index" style="font-weight: bold;">
+        <th scope="row">{{ i+1 }}</th>
+
+        <td>{{ order.user.userName }}</td>
+        <td>${{ order.amount }}</td>
+        <td>{{ order.orderDate }}</td>
+        <td (dblclick)="onEdit(order, 'status')" (keypress)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'status'">
+            <div class="col-9">
+              <select style="width: 10em; position: absolute;" [(ngModel)]="order.status" class="form-control"
+                [ngStyle]="{'color': order.status == true ? 'green' : 'red'}">
+                <option [ngStyle]="{'color': status == true ? 'green' : 'red'}" *ngFor="let status of statuses"
+                  [ngValue]="status">{{ status ? "Shipped" : "In Transit" }}</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'status'" [ngStyle]="{'color': order.status ? 'green' : 'red' }">
+            {{ order.status ? "Shipped" : "In Transit" }}
+          </div>
+        </td>
+        <td (dblclick)="onEdit(order, 'billingAddress')" (keyup.enter)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'billingAddress'">
+            <div class="col-9">
+              <input style="width: 10em; position: absolute;" type="text" [(ngModel)]="order.billingAddress" class="form-control" />
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'billingAddress'">
+            {{ order.billingAddress }}
+          </div>
+        </td>
+        <td (dblclick)="onEdit(order, 'shippingAddress')" (keyup.enter)="close(order)">
+          <div class="row" *ngIf="order.editFieldName == 'shippingAddress'">
+            <div class="col-9">
+              <input style="width: 10em; position: absolute;" type="text" [(ngModel)]="order.shippingAddress" class="form-control" />
+            </div>
+          </div>
+          <div *ngIf="order.editFieldName !== 'shippingAddress'">
+            {{ order.shippingAddress }}
+          </div>
+        </td>
+        <td class="">
+          <div class="d-flex">
+            <button class="btn bg-light" type="button" (click)="viewOrderItems(items)">Products ({{ orders[i].products.length }})</button>
+            <button class="btn btn-danger btn-rounded" (click)="verifyDeleteOrder(verifyDelete)"
+              style="margin-left: 5em;">
+              <i class="fa-solid fa-trash-can fa-md"></i>
+            </button>
+            <!-- Delete Order Modal -->
+            <ng-template #verifyDelete let-modal>
+              <div class="modal-body">
+                <p>Are you sure you want to delete this order?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="deleteOrder(order)"
+                  (click)="modal.close('Close click')">Delete</button>
+                <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Cancel</button>
+              </div>
+            </ng-template>
+            <!-- View Order Items Modal -->
+            <ng-template #items let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title">Purchases</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+              </div>
+              <div class="modal-body justify-content-center d-flex">
+                <div class="card m-2" style="width: 18em;" *ngFor="let product of orderItems(order)">
+                  <img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
+                      [src]="product.image" alt="Card image cap">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ product.name }}</h5>
+                      <h5 class="card-subtitle">${{ product.price }}</h5><br>
+                      <p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
+                  </div>
+                  <div class="d-flex flex-column justify-content-center align-items-center"
+                      style="margin-bottom: 5em; margin-top: 0; padding-top: 0;">
+                      <!-- Able to delete item from order? (click)="updateOrderItems(order, product)" -->
+                     <!-- <button class="btn btn-danger">Delete Item</button> -->
+                  </div>
+              </div>
+              </div>
+            </ng-template>
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
