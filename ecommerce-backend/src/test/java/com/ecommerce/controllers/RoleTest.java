@@ -1,18 +1,13 @@
 package com.ecommerce.controllers;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,11 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.ecommerce.controller.RoleController;
-import com.ecommerce.model.Product;
-import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
-import com.ecommerce.model.UserCartId;
 import com.ecommerce.repo.RoleRepo;
 import com.ecommerce.service.RoleService;
 import com.ecommerce.service.UserService;

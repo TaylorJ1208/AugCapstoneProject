@@ -9,11 +9,11 @@ console.log("got js");
   const files = document.querySelector("[type=file]").files;
   const formData = new FormData();
 
-  for (let i = 0; i < files.length; i++) {
+  for(let i = 0; i < files.length; i++) {
     let file = files[i];
     formData.append("file", file);
     formData.append("ml_default", "ml_default");
-
+  
     fetch(url, {
       method: "POST",
       body: formData
@@ -29,7 +29,7 @@ console.log("got js");
 
 
 
-var myWidget = cloudinary.createUploadWidget({
+let myWidget = cloudinary.createUploadWidget({
     cloudName: 'ajaybajwa', 
     uploadPreset: 'zfppobuq'}, (error, result) => { 
       if (!error && result && result.event === "success") { 

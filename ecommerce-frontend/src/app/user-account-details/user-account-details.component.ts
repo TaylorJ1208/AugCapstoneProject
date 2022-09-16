@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
-import { Address } from '../Models/address';
 import { AddressService } from '../services/address-service/address.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { AddressService } from '../services/address-service/address.service';
     styleUrls: ['./user-account-details.component.scss']
   })
 
-export class UserAccountDetailsComponent implements OnInit {
+export class UserAccountDetailsComponent {
   user: User = {
     userId: 0,
     firstName: '',
@@ -35,7 +34,7 @@ export class UserAccountDetailsComponent implements OnInit {
     userId: 0
   } */
   
-  ngOnInit(): void {}
+
   constructor(private userService: UserService, private router: Router,
     private addressService: AddressService) { 
     this.userService.getUserById(23).subscribe(x => this.user = x);

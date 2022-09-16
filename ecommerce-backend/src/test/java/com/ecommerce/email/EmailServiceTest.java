@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.mail.MessagingException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -24,7 +23,6 @@ import com.ecommerce.model.Product;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.model.UserCart;
-import com.ecommerce.service.ProductService;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)

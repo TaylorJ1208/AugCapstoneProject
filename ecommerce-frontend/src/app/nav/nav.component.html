@@ -8,26 +8,20 @@
         </ul>
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <button routerLink="home" style="margin-right: 2em;">
-                <i class="fa-solid fa-house fa-xl"></i>
+                <em class="fa-solid fa-house fa-xl"></em>
             </button>
             <button class="btn btn-primary w-100 m-0 p-0 d-flex align-items-center h-100"
                 style="background-color: cornsilk;">
-
-                <!-- <select class="form-select h-100 w-25 bg-light" style="font-size:13.5px;">
-                    <option value="DEFAULT" selected hidden>Search by category</option>
-                    <option *ngFor="let category of categories;">{{  category.category  }}</option>
-                </select> -->
-
                 <input class="form-control" type="text" [(ngModel)]="searchString" (keyup.enter)="searchProducts()"
                     (keyup.enter)="routeToResult()" name="categories" placeholder="See what you'll find">
             </button>
 
             <button routerLink="user/details" class="btn btn-rounded" style="margin-right: 0.5em; margin-left: 0.1em;">
-                <i class="fa-regular fa-user fa-xl"></i>
+                <em class="fa-regular fa-user fa-xl"></em>
             </button>
             <app-cart-status></app-cart-status>
             <button class="btn btn-rounded" (click)="signOut()" style="margin-right: 0.5em; margin-left: 0.1em;">
-                <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+                <em class="fa-solid fa-right-from-bracket fa-xl"></em>
             </button>
 
 

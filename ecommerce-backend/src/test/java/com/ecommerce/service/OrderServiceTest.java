@@ -10,10 +10,8 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +19,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
-import com.ecommerce.model.ProductCategory;
-import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
-import com.ecommerce.model.UserCart;
 import com.ecommerce.model.UserCartId;
 import com.ecommerce.repo.OrdersRepo;
 import com.ecommerce.repo.UserCartRepo;
@@ -117,7 +111,6 @@ class OrderServiceTest {
 	@Test
 	void testOrderEquals() {
 		Orders o1 = new Orders(1L,amount,date,true,user,a,a,p);
-		Orders o2 = new Orders(1L,amount,date,false,user,a,a,p);
 		Orders o3 = new Orders(1L,amount,date,true,user,a,a,p);
 		boolean equals = o1.equals(o3);
 		assertEquals(true, equals);

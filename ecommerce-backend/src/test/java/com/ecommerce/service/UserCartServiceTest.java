@@ -2,15 +2,11 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
@@ -89,7 +83,6 @@ class UserCartServiceTest {
 	@Test
 	void testUserCartEquals() {
 		UserCart u1 = new UserCart(userCartId,user,product,10);
-		UserCart u2 = new UserCart(userCartId,user,product,15);
 		UserCart u3 = new UserCart(userCartId,user,product,10);
 		boolean equals = u1.equals(u3);
 		assertEquals(true, equals);

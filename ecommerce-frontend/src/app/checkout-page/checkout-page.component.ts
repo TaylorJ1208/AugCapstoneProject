@@ -5,7 +5,6 @@ import { CartItem } from '../Models/cart-item';
 import { Charges } from '../Models/charges';
 import { Product } from '../Models/product';
 import { Role } from '../Models/role';
-import { User } from '../Models/user';
 import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';

@@ -1,7 +1,4 @@
 <div class="container d-flex m-2 bg-light justify-content-center">
-    <!-- <a routerLink="home" class="nav">home</a>
-        <p class="nav w-25">{{products.length}} result(s) found</p> -->
-
     <div class="container-fluid p-2 d-flex flex-nowrap justify-content-center">
         <div class="flex-nowrap">
             <label class="nav p-2 justify-content-center">{{ products.length }} result(s) found</label>
@@ -38,50 +35,41 @@
 
                     <li class="w-100">
                         <button class="btn border-0 body-hover p-3 w-100" [value]="1" (click)="filterRating($event)">
-                            <i class="fa-solid fa-star"></i>
+                            <em class="fa-solid fa-star"></em>
                         </button>
                     </li>
                     <li class="w-100">
                         <button class="btn border-0 body-hover p-3 w-100" [value]="2" (click)="filterRating($event)">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
                         </button>
                     </li>
                     <li class="w-100">
                         <button class="btn border-0 body-hover p-3 w-100" [value]="3" (click)="filterRating($event)">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
                         </button>
                     </li>
                     <li class="w-100">
                         <button class="btn border-0 body-hover p-3 w-100" [value]="4" (click)="filterRating($event)">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
                         </button>
                     </li>
                     <li class="w-100">
                         <button class="btn border-0 body-hover p-3 w-100" [value]="5" (click)="filterRating($event)">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
+                            <em class="fa-solid fa-star"></em>
                         </button>
                     </li>
                 </ul>
             </div>
-
-            <!-- <select class="form-select nav-item">
-                <option value="DEFAULT" selected hidden>Rating</option>
-                <option value="1">1 Star</option>
-                <option value="2">2 Star</option>
-                <option value="3">3 Star</option>
-                <option value="4">4 Star</option>
-                <option value="5">5 Star</option>
-            </select> -->
         </div>
         <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
             <div class="card m-2" style="width: 18em;" *ngFor="let product of products">
@@ -100,7 +88,8 @@
                     <button class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity <= 0)"
                         disabled>Out of
                         Stock</button>
-                    <button class="btn btn-primary m-2" (click)="addToCart(product)" style="float: right;" [hidden]="!(product.quantity > 0)">Add
+                    <button class="btn btn-primary m-2" (click)="addToCart(product)" style="float: right;"
+                        [hidden]="!(product.quantity > 0)">Add
                         To
                         Cart</button>
                 </div>

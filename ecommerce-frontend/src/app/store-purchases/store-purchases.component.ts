@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/orders';
 import { OrdersService } from '../services/orders-service/orders.service';
-import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from '../Models/product';

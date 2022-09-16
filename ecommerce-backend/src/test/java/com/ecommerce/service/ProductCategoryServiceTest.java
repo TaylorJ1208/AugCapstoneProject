@@ -82,7 +82,6 @@ class ProductCategoryServiceTest {
 	@Test
 	void testCategoryEquals() {
 		ProductCategory p1 = new ProductCategory(1,"laptop",products);
-		ProductCategory p2 = new ProductCategory(1,"wrong category",products);
 		ProductCategory p3 = new ProductCategory(1,"laptop",products);
 		boolean equals = p1.equals(p3);
 		assertEquals(true, equals);

@@ -1,5 +1,4 @@
 import { Role } from "./role";
-import { Address } from "./address";
 
 export interface User {
     userId: number;
@@ -11,8 +10,4 @@ export interface User {
     password: string;
     roles: Role[];
     ssn: string;
-    //TODO UNCOMMENT WHEN CLASSES ARE IMPLEMENTED
-    /*addresses: Address[];
-    userCart: Cart[]
-    */
 }

@@ -77,7 +77,6 @@ class AddressServiceTest {
 	@Test
 	void testAddressEquals() {
 		Address a1 = new Address(1,"Cary","NC","Lucent Str","27606","USA","104", null);
-		Address a2 = new Address(1,"wrong city","NC","Lucent Str","27606","USA","104", null);
 		Address a3 = new Address(1,"Cary","NC","Lucent Str","27606","USA","104", null);
 		boolean equals = a1.equals(a3);
 		assertEquals(true, equals);

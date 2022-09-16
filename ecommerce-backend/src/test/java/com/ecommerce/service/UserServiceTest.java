@@ -2,11 +2,9 @@ package com.ecommerce.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -129,7 +127,6 @@ class UserServiceTest {
 	@Test
 	void testUserEquals() {
 		User u1 = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
-		User u2 = new User(id,"wrongname","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		User u3 = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		boolean equals = u1.equals(u3);
 		assertEquals(true, equals);

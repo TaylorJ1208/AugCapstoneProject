@@ -8,7 +8,7 @@ import { UserEditDetailsComponent } from './user-edit-details/user-edit-details.
 import { UserAdminComponent } from './user-admin/user-admin.component';
 import { UserAdminEditComponent } from './user-admin-edit/user-admin-edit.component';
 import { LoginComponent } from './login/login.component';
-import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
+import { OktaCallbackComponent } from '@okta/okta-angular';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 

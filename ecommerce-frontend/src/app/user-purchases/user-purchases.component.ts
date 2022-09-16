@@ -28,8 +28,8 @@ import { OrdersService } from '../services/orders-service/orders.service';
     
   }
 
-  //todo: get current authenticated user and only return the 
-  //orders that belong to them
+  // get current authenticated user and only return the 
+  // orders that belong to them
 
   getOrderSearch(id:number) {
     this.ordersService.getAllOrders()
