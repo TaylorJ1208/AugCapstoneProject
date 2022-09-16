@@ -1,10 +1,12 @@
-<div *ngIf="showProductMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+<div *ngIf="showProductMode"
+    class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
     <div *ngIf="!editProductMode && !addProductMode" class="main bg-white">
 
         <div class="container m-2">
 
 
-            <button class="btn btn-info btn-lg btn-block" (click)="showAddProductMode(); newAdd()">Add New Product</button>
+            <button class="btn btn-info btn-lg btn-block" (click)="showAddProductMode(); newAdd()">Add New
+                Product</button>
 
         </div>
 
@@ -26,8 +28,8 @@
                         disabled>Out of
                         Stock</button>
 
-                    <button class="btn btn-white body-hover m-2" (click)="getProduct(product.productId)" style="float: right;"
-                        [hidden]="false">Edit Product</button>
+                    <button class="btn btn-white body-hover m-2" (click)="getProduct(product.productId)"
+                        style="float: right;" [hidden]="false">Edit Product</button>
                     <button class="btn btn-danger m-2" (click)="deletePopupProductId = product.productId"
                         style="float: right;" [hidden]="false">Delete Product</button>
                 </div>
@@ -36,7 +38,9 @@
                 <!--Delete Pop-up window-->
                 <div class="overlay" *ngIf="deletePopupProductId == product.productId">
                     <div class="popup">
-                        <p>The product <span style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.name}}</span> will be
+                        <p>The product <span
+                                style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.name}}</span>
+                            will be
                             deleted permanently!</p>
                         <a class="btn btn-danger btn-block close"
                             (click)="deleteProduct(deletePopupProductId);">Delete</a>
@@ -102,7 +106,7 @@
                                     Product name already exists.
                                 </div>
                             </div>
-                            </div>
+                        </div>
 
                     </div>
                     <div class="form-group">
@@ -164,7 +168,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <!--<label for="imageuri" class="form-label">Image URL</label>-->
                         <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
                             placeholder="Image URL" [(ngModel)]="currentProduct.image" #upimage="ngModel"></textarea>
                         <div *ngIf="upimage.invalid && (upimage.dirty || upimage.touched)">
@@ -202,15 +205,14 @@
                     </div>
 
                 </form>
-                <div *ngIf="productUpdated" id="alert" class="overlay alert-dismissible fade show"
-                    role="alert">
+                <div *ngIf="productUpdated" id="alert" class="overlay alert-dismissible fade show" role="alert">
                     <div class="popup">
-                    Product updated successfully!
-                    <button #btnCloseProductUpdatedAlert type="button" class="close" data-dismiss="alert"
-                        aria-label="Close" (click)="newUpdate()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                        Product updated successfully!
+                        <button #btnCloseProductUpdatedAlert type="button" class="close" data-dismiss="alert"
+                            aria-label="Close" (click)="newUpdate()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,11 +257,11 @@
                         </div>
 
                         <div *ngFor="let product of products">
-                        <div *ngIf="(pname.dirty || pname.touched)">
-                            <div *ngIf="(product.name == pname.value)" class="alert alert-danger">
-                                Product name already exists.
+                            <div *ngIf="(pname.dirty || pname.touched)">
+                                <div *ngIf="(product.name == pname.value)" class="alert alert-danger">
+                                    Product name already exists.
+                                </div>
                             </div>
-                        </div>
                         </div>
 
                     </div>
@@ -334,16 +336,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--   <form id="imageuploadform" method="post" enctype="multipart/form-data">
-                    <input type="file" name="files[]" multiple>
-                    <input onclick="uploadImage()" type="submit" value="Upload Files" name="submit">
-                    <img id="productimage" class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
-                alt="Card image cap">
-                  </form>-->
-
-
-
-
                     <div class="form-group">
                         <div>
                             <img #pimg hidden="true" id="productimage" class="card-img-top"
@@ -352,11 +344,6 @@
                         <button onclick="openWidget()" (click)='currentProduct.image ="abc" ' id="upload_widget"
                             class="submit btn btn-info btn-lg btn-block">Upload Image</button>
                     </div>
-
-
-
-
-
                     <hr>
                     <div class="form-group row">
                         <div class="col-md-6">
@@ -368,35 +355,20 @@
                         <div class="col-md-6">
                             <button [disabled]="(pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
                                 || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
-                                || pweight.errors?.['min'] || pstock.errors?.['required'] || currentProduct.image=='')" type="submit"
-                                (click)="addProduct(); closeAlert('productAdded');"
+                                || pweight.errors?.['min'] || pstock.errors?.['required'] || currentProduct.image=='')"
+                                type="submit" (click)="addProduct(); closeAlert('productAdded');"
                                 class="btn btn-success btn-lg btn-block">Submit</button>
                         </div>
                     </div>
-
-                    <!--Required Pop-up window in Add Product-->
-                    <!--  <div>
-         <div class="overlay" *ngIf="(pname.invalid || pdesc.invalid || pcategory.invalid || pprice.invalid || pweight.invalid ||pstock.invalid || pimage.invalid)
-         && addProductValidationPopup == true">
-            <div *ngIf="pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
-                        || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
-                        || pweight.errors?.['min'] || pstock.errors?.['required'] || pimage.errors?.['required']" class = "popup">
-                <p>Please fill out all the <span style="text-transform:uppercase; color:red">fields.</span></p>
-                <a class="btn btn-outline-danger btn-block close"  (click)="addProductValidationPopup=false">Cancel</a>
-            </div>
-        </div>
-        </div>-->
-
-
                 </form>
                 <div *ngIf="productAdded" id="productAddedAlert" class="overlay alert-dismissible fade show"
                     role="productAddedAlert">
                     <div class="popup">
-                    Product Added successfully!
-                    <button #btnCloseProductAddedAlert type="button" class="close" data-dismiss="productAddedAlert"
-                        aria-label="Close" (click)="newAdd(); pimg.hidden = true;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        Product Added successfully!
+                        <button #btnCloseProductAddedAlert type="button" class="close" data-dismiss="productAddedAlert"
+                            aria-label="Close" (click)="newAdd(); pimg.hidden = true;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -428,8 +400,9 @@
                     <input *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false" type="text"
                         class="form-control text-center" id="categoryname" required name="categoryname"
                         placeholder="Category Name" [(ngModel)]="currentCategory.category" />
-                    <button *ngIf="editCategoryModeId != category.categoryId " class="btn btn-light body-hover btn-block"
-                        (click)="getCategory(category.categoryId)">Edit category name</button>
+                    <button *ngIf="editCategoryModeId != category.categoryId "
+                        class="btn btn-light body-hover btn-block" (click)="getCategory(category.categoryId)">Edit
+                        category name</button>
                     <button *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false"
                         class="btn btn-info btn-block" (click)="updateCategory()">Save category name</button>
 
@@ -442,7 +415,8 @@
                 <div class="overlay" *ngIf="deletePopupCategoryId == category.categoryId">
                     <div class="popup">
                         <p>You have selected to delete the <span
-                                style="text-transform:uppercase; color: black; font-weight: bolder;">{{category.category}}</span> category!</p>
+                                style="text-transform:uppercase; color: black; font-weight: bolder;">{{category.category}}</span>
+                            category!</p>
                         <p><small class="text-danger">Deleting a category will delete all the products in it.</small>
                         </p>
                         <a class="btn btn-danger btn-block close"

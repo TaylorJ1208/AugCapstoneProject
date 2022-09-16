@@ -9,8 +9,8 @@ console.log("got js");
   const files = document.querySelector("[type=file]").files;
   const formData = new FormData();
 
-  for(let i = 0; i < files.length; i++) {
-    let file = files[i];
+  for(let f of files) {
+    let file = f;
     formData.append("file", file);
     formData.append("ml_default", "ml_default");
   

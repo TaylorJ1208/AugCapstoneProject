@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
-import { AddressService } from '../services/address-service/address.service';
 
 @Component({
     selector: 'app-user-account-details',
@@ -23,22 +22,8 @@ export class UserAccountDetailsComponent {
     roles: []
   };
 
-  /*address: Address = {
-    addressId: 0,
-    city: '',
-    state: '',
-    street: '',
-    zipcode: '',
-    country: '',
-    apartmentNumber: '',
-    userId: 0
-  } */
-  
-
-  constructor(private userService: UserService, private router: Router,
-    private addressService: AddressService) { 
+  constructor(private userService: UserService, private router: Router) { 
     this.userService.getUserById(23).subscribe(x => this.user = x);
-    //this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
   deleteUser(userId: number) : void {
