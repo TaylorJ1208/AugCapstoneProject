@@ -6,6 +6,7 @@ import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from '../Models/product';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
   selector: 'app-store-purchases',
@@ -18,7 +19,9 @@ export class StorePurchasesComponent implements OnInit {
   statuses: any = [true, false];
   cast = this.orders$.asObservable();
   constructor(private ordersService: OrdersService, private userService: UserService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private appInsightsService: AppInsightsService) { 
+        this.appInsightsService.logPageView('Purchases Page');
+    }
 
   ngOnInit(): void {
     this.getAllOrders();

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { AddressService } from '../services/address-service/address.service';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
   selector: 'app-user-edit-details',
@@ -41,7 +42,9 @@ export class UserEditDetailsComponent implements OnInit {
   visibleSSN: boolean = false;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
-    private addressService: AddressService) { }
+    private addressService: AddressService, private appInsightsService: AppInsightsService) { 
+      this.appInsightsService.logPageView('User Edit Page');
+    }
 
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
@@ -74,6 +77,7 @@ export class UserEditDetailsComponent implements OnInit {
         });
         alert("Account Updated!");
         this.router.navigate(["/user/accountDetails"]);
+        this.appInsightsService.logEvent("User Changed Info");
         return true;
       }
       alert("Passwords do not match");

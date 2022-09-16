@@ -25,6 +25,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { CartStatusComponent } from './cart-status/cart-status.component';
 import { UpdateCatalogComponent } from './update-catalog/update-catalog.component';
+import { AppInsightsService } from './services/appInsights-service/app-insights.service';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
@@ -63,7 +64,7 @@ const oktaConfig = Object.assign({
     NgbModule,
     OktaAuthModule
   ],
-  providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
+  providers: [AppInsightsService, {provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

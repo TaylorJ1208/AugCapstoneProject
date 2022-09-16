@@ -5,6 +5,7 @@ import { UserService } from '../services/user-service/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Address } from '../Models/address';
 import { AddressService } from '../services/address-service/address.service';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
   selector: 'app-user-admin-edit',
@@ -40,8 +41,8 @@ export class UserAdminEditComponent implements OnInit {
 
   confirmPw:string = '';
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
-    private addressService: AddressService) { 
-      
+    private addressService: AddressService, private appInsightsService: AppInsightsService) { 
+      this.appInsightsService.logPageView('User Admin Edit Page');
   }
   
   ngOnInit(): void {
@@ -71,6 +72,7 @@ export class UserAdminEditComponent implements OnInit {
           error: (e) => console.error(e)
         });
         alert("Account Updated!");
+        this.appInsightsService.logEvent('Admin Updated User Account')
         this.router.navigate(["user/admin/details"]);
       }
     }

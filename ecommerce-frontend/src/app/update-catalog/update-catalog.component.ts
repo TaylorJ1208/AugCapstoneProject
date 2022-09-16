@@ -4,6 +4,7 @@ import { Product } from '../Models/product';
 import { Category } from '../Models/categories';
 import { ProductService } from '../services/product-service/product.service';
 import { CategoryService } from '../services/category-service/category.service';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
   selector: 'app-update-catalog',
@@ -35,8 +36,10 @@ export class UpdateCatalogComponent implements OnInit {
   constructor(
     private productService:ProductService,
     private categoryService:CategoryService,
-    private router: Router
-    ) { }
+    private router: Router,
+    private appInsightsService: AppInsightsService) { 
+      this.appInsightsService.logPageView('Update Catalog Page'); 
+    }
 
   ngOnInit(): void {
     this.getProducts();
