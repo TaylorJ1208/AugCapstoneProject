@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 import { Router } from '@angular/router';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
   selector: 'app-user-page',
@@ -10,7 +11,10 @@ import { Router } from '@angular/router';
 export class UserPageComponent implements OnInit {
   username: any;
   url = this.router.url
-  constructor(private oktaAuthService: OktaAuthService, private router: Router) { }
+  constructor(private oktaAuthService: OktaAuthService, private router: Router,
+    private appInsightsService: AppInsightsService) { 
+      this.appInsightsService.logPageView('User Page');
+    }
 
   ngOnInit(): void {
     this.url = this.router.url;

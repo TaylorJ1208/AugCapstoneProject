@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { Router } from '@angular/router';
 import { Address } from '../Models/address';
 import { AddressService } from '../services/address-service/address.service';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
   selector: 'app-user-admin',
@@ -29,12 +30,13 @@ export class UserAdminComponent implements OnInit {
     userId: 0
   }
   
-  constructor(private userService: UserService, private router: Router, private addressService: AddressService) { }
+  constructor(private userService: UserService, private router: Router, private appInsightsService: AppInsightsService) { 
+      this.appInsightsService.logPageView('Admin User Details Page');
+   }
 
   ngOnInit(): void {
     this.retrieveUsers();
-    // this.addressService.getAddressById(1).subscribe(x => this.address = x);
-
+    
   }
 
   retrieveUsers(): void {
@@ -65,6 +67,7 @@ export class UserAdminComponent implements OnInit {
           error: (e) => console.log(e)
         });
       alert("Account Deleted!");
+      this.appInsightsService.logEvent("Admin Deleted User");  
       this.retrieveUsers();
     }
   }

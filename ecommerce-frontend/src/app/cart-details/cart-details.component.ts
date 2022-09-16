@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from '../Models/cart-item';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 import { CartService } from '../services/cart-service/cart.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class CartDetailsComponent implements OnInit {
 	cartItems: CartItem[] = [];
 	totalPrice: number = 0;
 	totalQuantity: number = 0;
-	constructor(private cartService: CartService) { }
+	constructor(private cartService: CartService, private appInsightsService: AppInsightsService) { 
+		this.appInsightsService.logPageView('Cart Details Page');
+	}
 
 	ngOnInit(): void {
 		this.listCartDetails();

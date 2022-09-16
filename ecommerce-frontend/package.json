@@ -21,6 +21,7 @@
     "@angular/router": "^14.1.0",
     "@cloudinary/angular": "^1.0.0-beta.14",
     "@cloudinary/angular-5.x": "^1.5.3",
+    "@microsoft/applicationinsights-web": "^2.8.7",
     "@ng-bootstrap/ng-bootstrap": "^13.0.0",
     "@okta/okta-angular": "^3.0.1",
     "@okta/okta-signin-widget": "^6.7.0",

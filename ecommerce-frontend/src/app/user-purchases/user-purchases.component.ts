@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/orders';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 
 @Component({
@@ -13,7 +14,9 @@ import { OrdersService } from '../services/orders-service/orders.service';
   orders$ = new BehaviorSubject<Orders[]>([]);
   orders: Orders[] = [];
   cast = this.orders$.asObservable();
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService, private appInsightsService: AppInsightsService) {
+      this.appInsightsService.logPageView('User Purchase Page');
+   }
   display="none";
 
   ngOnInit(): void {

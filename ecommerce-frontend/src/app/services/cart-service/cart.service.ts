@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CartItem } from 'src/app/Models/cart-item';
+import { AppInsightsService } from '../appInsights-service/app-insights.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,9 +14,10 @@ export class CartService {
 	totalPrice: Subject<number> = new Subject<number>();
 	totalQuantity: Subject<number> = new Subject<number>();
 
-	constructor() { }
+	constructor(private appInsightsService: AppInsightsService) { }
 
 	addToCart(theCartItem: CartItem) {
+		this.appInsightsService.logEvent("Add To Cart Attempt");
 		// check if we already have the item in our cart
 
 

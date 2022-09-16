@@ -4,6 +4,7 @@ import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 import { Address } from '../Models/address';
 import { AddressService } from '../services/address-service/address.service';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 
 @Component({
     selector: 'app-user-account-details',
@@ -37,8 +38,9 @@ export class UserAccountDetailsComponent implements OnInit {
   
   ngOnInit(): void {}
   constructor(private userService: UserService, private router: Router,
-    private addressService: AddressService) { 
-    this.userService.getUserById(23).subscribe(x => this.user = x);
+    private addressService: AddressService, private appInsightsService: AppInsightsService) {
+      this.appInsightsService.logPageView('User Account Details Page');
+      this.userService.getUserById(23).subscribe(x => this.user = x);
     //this.addressService.getAddressById(1).subscribe(x => this.address = x);
   }
 
@@ -52,6 +54,7 @@ export class UserAccountDetailsComponent implements OnInit {
         error: (e) => console.log(e)
       });
       alert("Account Deleted!");
+      this.appInsightsService.logEvent('User Deleted Their Account')
       this.router.navigate(['home']);
     }
   }

@@ -6,6 +6,7 @@ import { Charges } from '../Models/charges';
 import { Product } from '../Models/product';
 import { Role } from '../Models/role';
 import { User } from '../Models/user';
+import { AppInsightsService } from '../services/appInsights-service/app-insights.service';
 import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
@@ -49,13 +50,15 @@ export class CheckoutPageComponent implements OnInit {
     description: ''
   };
 
-  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService) {
+  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, 
+    private oktaAuthService: OktaAuthService, private stripeService: StripeService, 
+    private appInsightsService: AppInsightsService) {
     this.oktaAuthService.$authenticationState.subscribe(
       (isAuth: any) => this.isAuthenticated = isAuth
     );
+      this.appInsightsService.logPageView('Checkout Page');
   }
   
-
   @Input() amount: any;
   @Input() description: any;
 
@@ -221,6 +224,7 @@ export class CheckoutPageComponent implements OnInit {
         },
         error: (e: any) => console.error(e)
       });
+      this.appInsightsService.logEvent("Checked Out");
   }
 
   addressChanged(): string {
