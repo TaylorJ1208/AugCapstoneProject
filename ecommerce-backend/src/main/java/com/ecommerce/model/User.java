@@ -33,14 +33,16 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="userId")
-	private long userId; 
+	private long userId;
+	@Column(name="oktaId", unique = true)
+	private String oktaId;
 	@Column(nullable=false, length = 100)
 	private String firstName;
 	@Column(nullable=false, length = 100)
 	private String lastName;
 	@Column(nullable=false, unique=true, length = 255)
 	private String email;
-	@Column(nullable=false, length = 20)
+	@Column(nullable=false, length = 255)
 	private String userName;
 	@Column(nullable=false, length = 100)
 	private String password;

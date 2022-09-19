@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
@@ -29,6 +30,7 @@ import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.model.UserCart;
 import com.ecommerce.model.UserCartId;
+import com.ecommerce.model.Vendors;
 import com.ecommerce.repo.UserCartRepo;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +38,9 @@ class UserCartServiceTest {
 	
 	@Mock	
 	private UserCartRepo repo;
+	
+	@MockBean
+	Vendors vendors;
 	
 	private UserCartService service;
 	private UserCart u;
@@ -54,12 +59,12 @@ class UserCartServiceTest {
 	ProductCategory pc = new ProductCategory();
 	List<UserCart> userCart = new ArrayList<>();
 	UserCartId userCartId = new UserCartId(userId,productId);
-	Product product = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,userCart);
+	Product product = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,userCart, vendors);
 	
 	
 	Set<Role> r = new HashSet<>();
 	List<Address> a = new ArrayList<>();
-	User user = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+	User user = new User(id,"3","firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 	
 	@BeforeEach
 	void setUp() throws Exception {

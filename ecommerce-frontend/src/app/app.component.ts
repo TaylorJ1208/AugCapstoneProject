@@ -12,8 +12,10 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   constructor(public oktaAuth: OktaAuthService, public router: Router){
       // Subscribe to authentication state changes
-      this.oktaAuth.$authenticationState.subscribe(
-        (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+      this.oktaAuth.$authenticationState.subscribe((res) => {
+        console.log(res);
+      }
+
       );
   }
   title = 'ecommerce-frontend';

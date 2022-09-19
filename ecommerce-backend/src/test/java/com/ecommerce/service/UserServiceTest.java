@@ -56,7 +56,7 @@ class UserServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		service = new UserService(repo, rRepo);
-		u = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		u = new User(id,"3","firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 	}
 
 	@Test
@@ -126,8 +126,8 @@ class UserServiceTest {
 	
 	@Test
 	void testUserEquals() {
-		User u1 = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
-		User u3 = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		User u1 = new User(id,"3","firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		User u3 = new User(id,"3","firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		boolean equals = u1.equals(u3);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -138,7 +138,7 @@ class UserServiceTest {
 	
 	@Test
 	void testUserHashCode() {
-		User u2 = new User(id,"wrongname","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		User u2 = new User(id,"3","wrongname","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		assertEquals(u.hashCode(), u.hashCode());
 		assertNotEquals(u.hashCode(), u2.hashCode());
 	}

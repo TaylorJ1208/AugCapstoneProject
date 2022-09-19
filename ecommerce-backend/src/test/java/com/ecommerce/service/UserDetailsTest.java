@@ -40,7 +40,7 @@ class UserDetailsTest {
 	
 	@BeforeEach
 	void setup() {
-		user = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		user = new User(id,"3","firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		users.add(user);
 		r.add(new Role(1L, "ROLE_ADMIN", users));
 		userDetails = new UsersDetails(user);

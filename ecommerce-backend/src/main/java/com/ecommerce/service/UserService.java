@@ -77,5 +77,9 @@ public class UserService implements UserDetailsService {
         return user.map(UsersDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " Not Found"));
 	}
+
+	public User getUserOktaId(String id) {
+		return userRepo.findByOktaId(id);
+	}
 		
 }

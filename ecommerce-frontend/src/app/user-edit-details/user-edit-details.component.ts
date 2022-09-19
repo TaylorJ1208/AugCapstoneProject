@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 export class UserEditDetailsComponent implements OnInit {
   user: User = {
     //GET THE CURRENT USER DETAILS TO INIT USER
+    oktaId: "",
     userId: 0,
     firstName: '',
     lastName: '',

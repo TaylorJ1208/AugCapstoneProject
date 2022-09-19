@@ -29,4 +29,8 @@ export class UserService {
     getUserById(userId: number): Observable<User> {
         return this.http.get<User>("http://localhost:8081/user/customer/" + userId);
     }
+
+    getUserByOktaId(oktaId: string): Observable<any> {
+        return this.http.get<any>("http://localhost:8081/user/customer/okta/" + oktaId);
+    }
 }

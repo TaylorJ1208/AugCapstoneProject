@@ -26,6 +26,7 @@ import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.UserCart;
+import com.ecommerce.model.Vendors;
 import com.ecommerce.repo.ProductRepo;
 import com.ecommerce.service.ProductService;
 import com.ecommerce.service.UserService;
@@ -66,11 +67,12 @@ class ProductTest {
 	ProductCategory pc = new ProductCategory(1L, "misc", products);
 	List<Orders> o = new ArrayList<>();
 	List<UserCart> u = new ArrayList<>();
+	Vendors vendors;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		productService = new ProductService(productRepo);
-		p = new Product(1L,"Lenovo Laptop","Legion 5 latop",new BigDecimal(15),new BigDecimal(15), 15,"sample URL",3,o,pc,u);
+		p = new Product(1L,"Lenovo Laptop","Legion 5 latop",new BigDecimal(15),new BigDecimal(15), 15,"sample URL",3,o,pc,u, vendors);
 	}
 	
 	@Test
@@ -80,7 +82,7 @@ class ProductTest {
 		ProductCategory category = new ProductCategory();
 		
 		Product product = new Product(1L, "Shoes", "A pair of shoes", new BigDecimal(15.99),
-				new BigDecimal(15), 12L, "http", 2, order, category, null);
+				new BigDecimal(15), 12L, "http", 2, order, category, null, vendors);
 		
 		// List to compare
 		List<Product> products = new ArrayList<>();

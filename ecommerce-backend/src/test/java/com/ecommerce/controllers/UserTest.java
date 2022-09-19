@@ -32,6 +32,7 @@ import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.model.UserCart;
 import com.ecommerce.model.UserCartId;
+import com.ecommerce.model.Vendors;
 import com.ecommerce.repo.RoleRepo;
 import com.ecommerce.repo.UserRepo;
 import com.ecommerce.service.OrderService;
@@ -64,6 +65,9 @@ class UserTest {
 	
 	@MockBean
 	private RoleRepo roleRepo;
+	
+	@MockBean
+	Vendors vendors;
 	
 	public static String asJsonString(final Object obj) {
 	    try {
@@ -98,10 +102,10 @@ class UserTest {
 	void setUp() throws Exception {
 		
 		userService = new UserService(userRepo, roleRepo);
-		user = new User(id,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		user = new User(id,"3", "firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		pc = new ProductCategory(id, "category", products);
 		product = new Product(id,"Lenovo Laptop","Legion 5 latop",
-				new BigDecimal(15),new BigDecimal(15), 3,"sample URL",3,o,pc,userCart);
+				new BigDecimal(15),new BigDecimal(15), 3,"sample URL",3,o,pc,userCart, vendors);
 		userCartId = new UserCartId(user.getUserId(), product.getProductId());
 	}
 	
@@ -112,7 +116,7 @@ class UserTest {
 		Set<Role> roles = new HashSet<>();
 		List<Address> addresses = new ArrayList<>();
 		
-		User user = new User(1L, "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
+		User user = new User(1L, "3", "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
 				orders, roles, addresses, null);
 		
 		// List to compare

@@ -40,6 +40,11 @@ public class UserController {
 		return userService.getUserById(id);
 	}
 	
+	@GetMapping("/customer/okta/{id}")
+	public User getUser(@PathVariable String id) {
+		return userService.getUserOktaId(id);
+	}
+	
 	@GetMapping("/admin")
 	public List<User> getUsers() {
 		return userService.getAllUsers();

@@ -12,6 +12,7 @@ import { AddressService } from '../services/address-service/address.service';
 
 export class UserAdminEditComponent implements OnInit {
   user: User = {
+    oktaId: "",
      userId: 0,
      firstName: '',
      lastName: '',

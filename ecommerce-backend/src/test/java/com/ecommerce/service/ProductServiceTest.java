@@ -18,11 +18,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductCategory;
 import com.ecommerce.model.UserCart;
+import com.ecommerce.model.Vendors;
 import com.ecommerce.repo.ProductRepo;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +35,9 @@ class ProductServiceTest {
 	private ProductRepo repo;
 	private ProductService service;
 	private Product p;
+	
+	@MockBean
+	Vendors vendors;
 	
 	long id = 1;
 	private BigDecimal price= new BigDecimal(10000);
@@ -47,7 +52,7 @@ class ProductServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		service = new ProductService(repo);
-		p = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
+		p = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
 	}
 
 	@Test
@@ -95,9 +100,9 @@ class ProductServiceTest {
 	
 	@Test
 	void testProductEquals() {
-		Product p1 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
-		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
-		Product p3 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
+		Product p1 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
+		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
+		Product p3 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
 		assertEquals(true, p2.equals(p2));
 		assertEquals(false, p1.equals(p2));
 		assertEquals(false, p2.equals(null));
@@ -109,7 +114,7 @@ class ProductServiceTest {
 	
 	@Test
 	void testProductHashCode() {
-		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u);
+		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
 		assertEquals(p.hashCode(), p.hashCode());
 		assertNotEquals(p.hashCode(), p2.hashCode());
 	}

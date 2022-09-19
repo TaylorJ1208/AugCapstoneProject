@@ -5,6 +5,7 @@ import { CartItem } from '../Models/cart-item';
 import { Charges } from '../Models/charges';
 import { Product } from '../Models/product';
 import { Role } from '../Models/role';
+import { User } from '../Models/user';
 import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
@@ -41,6 +42,7 @@ export class CheckoutPageComponent implements OnInit {
   token$ = new BehaviorSubject<any>([]);
   isAuthenticated!:boolean;
   username!:string;
+  user: any;
   charge:Charges = {
     amount: 0,
     currency: 'USD',
@@ -191,23 +193,29 @@ export class CheckoutPageComponent implements OnInit {
     console.log(this.finalCart);
     let dateString = new Date('2022-08-30T00:00:00');
     let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
-
+    this.oktaAuthService.getUser().then((u) => {
+       this.userService.getUserByOktaId(u.sub).subscribe((data) => {
+        this.user = data;
+       })
+    })
+   
     const data = {
-      orderId: 6,
+      orderId: 0,
       amount: this.total,
       orderDate: dateString,
-      status: true,
+      status: false,
       billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
       user: {
-        userId: 1,
-        firstName: "Blaise",
-        lastName: "Harris",
-        email: "123@123.com",
-        userName: "blaise.harris",
-        contact: "111",
-        password: "$2a$10$8o97PrN4NBV9sc.ZgypcgeTBZQzxN4wGlI8siJd/ogoZIllg4sDxy",
-        ssn: "1111",
+        oktaId: this.user?.oktaId,
+        userId: this.user?.userId,
+        firstName: this.user?.firstName,
+        lastName: this.user?.lastName,
+        email: this.user?.email,
+        userName: this.user?.email,
+        contact: this.user?.contact,
+        password: this.user?.password,
+        ssn:this.user?.ssn,
         roles: role
       },
       products: this.finalCart

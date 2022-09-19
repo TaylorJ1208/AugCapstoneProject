@@ -11,6 +11,7 @@ import { UserService } from '../services/user-service/user.service';
 
 export class UserAccountDetailsComponent {
   user: User = {
+    oktaId: "",
     userId: 0,
     firstName: '',
     lastName: '',

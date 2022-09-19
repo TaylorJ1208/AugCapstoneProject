@@ -44,7 +44,7 @@ class EmailServiceTest {
 		List<Orders> orders = new ArrayList<>();
 		Set<Role> roles = new HashSet<>();
 		List<Address> addresses = new ArrayList<>();
-		User user = new User(1L, "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
+		User user = new User(1L, "3", "Taylor", "Joostema", "TaylorJ1208@yahoo.com", "tay", "123", "919", "8604",
 				orders, roles, addresses, null);
 		
 		emailService.sendEmail(user);
@@ -53,7 +53,7 @@ class EmailServiceTest {
 	
 	@Test
 	void testEmailReceipt() throws MessagingException {
-		User user = new User(1L,"firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
+		User user = new User(1L,"3","firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		List<Product> products = new ArrayList<>();
 		java.sql.Date date = new java.sql.Date(1500);
 		Orders orders = new Orders(1L, new BigDecimal(15.00), date, true, user, "913 Bridlemine Dr.", "913 Bridlemine Dr.",

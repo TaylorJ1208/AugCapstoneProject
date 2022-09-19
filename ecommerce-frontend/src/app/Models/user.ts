@@ -2,6 +2,7 @@ import { Role } from "./role";
 
 export interface User {
     userId: number;
+    oktaId: string;
     firstName: string;
     lastName: string;
     email: string;

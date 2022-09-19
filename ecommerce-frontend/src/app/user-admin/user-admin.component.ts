@@ -15,7 +15,7 @@ export class UserAdminComponent implements OnInit {
 
   users?: User[];
 
-  currentUser: User = {userId: 0, firstName: '', lastName: '', userName: '', 
+  currentUser: User = {userId: 0, oktaId: "", firstName: '', lastName: '', userName: '', 
   password: '', email: '', contact: '', ssn: '', roles: []};
   currentIndex = -1;
   address: Address = {
