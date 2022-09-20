@@ -60,10 +60,10 @@ const oktaConfig = Object.assign({
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     FormsModule,
     NgbModule,
-    OktaAuthModule
+    OktaAuthModule,
+    HttpClientModule
   ],
   providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]

@@ -9,6 +9,6 @@ export class OktaService {
   constructor(private http: HttpClient) { }
 
   getAllOrders(): Observable<any> {
-    return this.http.get<any>(`http://localhost:8081/api/userProfile`);
+    return this.http.get<any>(`https://e-backend.azurewebsites.net/api/userProfile`);
   }
 }
