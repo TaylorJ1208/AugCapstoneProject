@@ -94,7 +94,7 @@ public class EmailService {
 		mailSender.send(message);
 	}
 	
-	public void sendVendorEmail(Vendors vendor, int amount) throws MessagingException {
+	public void sendVendorEmail(String vendorEmail, Product product, int amount) throws MessagingException {
 
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
@@ -108,16 +108,26 @@ public class EmailService {
 
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
 		helper.setFrom("eCommerce@hcl.com");
-		helper.setTo(vendor.getEmail());
+		helper.setTo(product.getVendors().getEmail());
 		helper.setSubject("Restocking eCommerce!");
 		helper.setText("<html>"
 				+ "<body style='display: flex; flex-direction:column; align-items: center; justify-content: center; background-color: cornsilk;"
 				+ "font-family: Arial, Helvetica, sans-serif;'><div style='background-color: cornsilk; padding:1em; "
 				+ "width: fit-content; text-align: center; border-radius: 5em'>"
-				+ "<h1>Hello " + vendor.getName() + "</h1>"
-				+ "<h2 style='font-weight:lighter'>Stock on the product you supply is currently running low or out of stock. Please ship " + amount + " units<h2>" + "</div><img src='" + this.imageURL
+				+ "<h1>Hello " + product.getVendors().getName() + "</h1>"
+				+ "<h2 style='font-weight:lighter'>Stock on the product you supply is currently running low or out of stock. "
+				+ "Product details: \n"
+				+"\n Name: "+product.getName()
+				+"\n Price: "+product.getPrice() 
+				+ "\n Please ship " + amount + " units.<h2>" + "</div><img src='" + this.imageURL
 				+ "' alternate='Image'" + "style='width:40em; height:40em; border-radius:5em'>" + "</body>" + "</html>", true);
 
+		System.out.println("Sending email to " + product.getVendors().getName()+" at " +product.getVendors().getEmail()+" .\n Product details:"
+				+"\n Name: "+product.getName()
+				+"\n Price: "+product.getPrice() 
+				
+				+"\n Please ship " + amount +" units.");
+		
 		mailSender.send(message);
 	}
 }

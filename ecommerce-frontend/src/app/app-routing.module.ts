@@ -29,6 +29,9 @@ const routes: Routes = [
   { path: "user/admin/details", component: UserAdminComponent},
   { path: `user/admin/edit/:userId`, component: UserAdminEditComponent},
   { path: `user/editDetails/:userId`, component: UserEditDetailsComponent},
+  {path: `user/admin/update-vendors`, component: UserPageComponent},
+  {path:`user/admin/request-stock`, component: UserPageComponent},
+  {path:`user/admin/track-requests`, component: UserPageComponent},
   { path: "**", redirectTo: "login" }];
 
 @NgModule({

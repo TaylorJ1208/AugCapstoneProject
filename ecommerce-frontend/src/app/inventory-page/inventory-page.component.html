@@ -1,0 +1,236 @@
+
+<div *ngIf="showVendorMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+    <div class="main bg-light">
+    
+        <div class="container m-2">
+            <button class="btn btn-info btn-lg btn-block" (click)="addVendorMode = true; newAdd()">Add New Vendor</button>
+        
+        </div>
+    
+    
+        <div *ngIf="!addVendorMode" class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+    
+            <div class="card m-2" style="width: 18em;" *ngFor="let vendor of vendors">
+    
+                <div class="card-body text-center">
+                    <!--  <h4 class="card-title">Category ID: {{ category.categoryId }}</h4>-->
+                    <h2 style="text-transform:uppercase" class="card-subtitle">{{ vendor.name }}</h2><br>
+                    <p style="text-transform:uppercase" class="card-subtitle">{{ vendor.email }}</p><br>
+    
+                    <input *ngIf="editVendorModeId == vendor.vendorId && vendorUpdated == false" type="text"
+                        class="form-control text-center" id="vendorname" required name="vendorname"
+                        placeholder="Vendor Name" [(ngModel)]="currentVendor.name" />
+                    <input *ngIf="editVendorModeId == vendor.vendorId && vendorUpdated == false" type="text"
+                        class="form-control text-center" id="vendoremail" required name="vendoremail"
+                        placeholder="Vendor Email" [(ngModel)]="currentVendor.email" />
+                    <button *ngIf="editVendorModeId != vendor.vendorId " class="btn btn-light body-hover btn-block"
+                        (click)="getVendor(vendor.vendorId)">Edit vendor</button>
+                    <button *ngIf="editVendorModeId == vendor.vendorId && vendorUpdated == false"
+                        class="btn btn-info btn-block" (click)="updateVendor()">Save Vendor</button>
+    
+                    <button class="btn btn-danger btn-block" (click)="deletePopupVendorId=vendor.vendorId"
+                        [hidden]="false">Delete Vendor</button>
+    
+                </div>
+    
+                <!--Delete Pop-up window-->
+                <div class="overlay" *ngIf="deletePopupVendorId == vendor.vendorId">
+                    <div class="popup">
+                        <p>You have selected to delete the <span
+                                style="text-transform:uppercase; color: black; font-weight: bolder;">{{vendor.name}}</span> vendor!</p>
+                        <p><small class="text-danger">Deleting the vendor will delete all the products from this vendor.</small>
+                        </p>
+                        <a class="btn btn-danger btn-block close"
+                            (click)="deleteVendor(deletePopupVendorId);">Delete</a>
+                        <a class="btn btn-outline-danger btn-block close" (click)="deletePopupVendorId = 0">Cancel</a>
+                    </div>
+                </div>
+    
+    
+            </div>
+    
+        </div>
+    
+    
+    
+        <div *ngIf="addVendorMode" class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+    
+            <div class="card m-2" style="width: 18em;">
+    
+                <div class="card-body text-center">
+                    <h2 style="text-transform:uppercase" class="card-subtitle">New Vendor</h2><br>
+    
+                    <form class="form" role="form" autocomplete="off">
+    
+                        <div class="form-group">
+                            <!--<label for="categoryname" class="form-label">Category Name</label>-->
+                            <input type="text" class="form-control text-center" id="vendorname" required
+                                name="vendorname" placeholder="Vendor Name" [(ngModel)]="currentVendor.name"
+                                #vname="ngModel" />
+                            <div *ngIf="vname.invalid && (vname.dirty || vname.touched)">
+                                <div *ngIf="vname.errors?.['required']" class="alert alert-danger">
+                                    Vendor name is required.
+                                </div>
+                            </div>
+    
+                            <input type="text" class="form-control text-center" id="vendoremail" required
+                                name="vendoremail" placeholder="Vendor Email" [(ngModel)]="currentVendor.email"
+                                #vemail="ngModel" />
+                            <div *ngIf="vemail.invalid && (vemail.dirty || vemail.touched)">
+                                <div *ngIf="vemail.errors?.['required']" class="alert alert-danger">
+                                    Vendor email is required.
+                                </div>
+                            </div>
+                        </div>
+    
+                        <button [disabled]="vname.errors?.['required'] || vemail.errors?.['required']"
+                            (click)="addVendor(); closeAlert('VendorAddedAlert')"
+                            class="btn btn-info btn-lg btn-block">Submit</button>
+                        <button class="btn btn-default btn-lg btn-block" (click)="addVendorMode = false">Cancel</button>
+                    </form>
+                    <div *ngIf="vendorAdded" id="vendorAddedAlert"
+                        class="alert alert-success alert-dismissible fade show" role="vendorAddedAlert">
+                        
+                        Vendor Added!
+                        <button #btnCloseVendorAddedAlert type="button" class="close"
+                            data-dismiss="vendorAddedAlert" aria-label="Close" (click)="newAdd()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    
+    <!------REQUEST STOCK------->
+    
+    
+    <div *ngIf="requestStockMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+        <div class="main bg-light text-center">
+        
+            <div class="container m-2">
+                <h2>Request Stock</h2>
+            <!--    <button class="btn btn-info btn-lg btn-block" (click)="addVendorMode = true; newAdd()">Add New Vendor</button>
+            -->
+            </div>
+        
+        
+            <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+    
+                <table class="table table-striped table-bordered text-center">
+                    <thead class="align-top">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Stock Remaining</th>
+                        <th>Vendor</th>
+                        <th>Request Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products" class="table-light">
+                        <td>{{product.productId}}</td>
+                        <td>{{product.name}}</td>
+                        <td>${{product.price}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>{{product.vendors.name}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-block" style="background-color: #f93154;"
+                                (click)="requestPopupProductId = product.productId;">Request</button>
+                        </td>
+                        <div class="overlay" *ngIf="requestPopupProductId == product.productId">
+                            <div class="popup">
+                                <p>Please enter the quantity of product <span
+                                        style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.name}}</span> you would like to request from vendor 
+                                        <span
+                                        style="text-transform:uppercase; color: black; font-weight: bolder;">{{product.vendors.name}}</span>.</p>
+                            <input type="text" class="form-control text-center" id="rquantity" required
+                                        name="rquantity" placeholder="Quantity" [(ngModel)]="requestQuantity"
+                                        #rquantity="ngModel" />
+                                <a class="btn btn-danger btn-block close"
+                                    (click)="requestStock(product); closeAlert('StockRequestedAlert');">Request</a>
+                                <a class="btn btn-outline-danger btn-block close" (click)="requestPopupProductId = 0">Cancel</a>
+                            </div>
+                        </div>
+    
+                        <div *ngIf="stockRequested" id="stockRequestedAlert" class="overlay alert-dismissible fade show"
+                        role="stockRequestedAlert">
+                        <div class="popup">
+                        Requested {{requestQuantity}} units of {{product.name}} from vendor '{{product.vendors.name}}'.
+                        <button #btnCloseStockRequestedAlert type="button" class="close" data-dismiss="stockRequestedAlert"
+                            aria-label="Close" (click)="stockRequested = false;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                    </tr>
+                </tbody>
+                </table>
+                
+            </div>
+        </div>
+        </div>
+    
+        <!--Track Requests-->
+        <div *ngIf="showTrackRequestsMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
+            <div class="main bg-light text-center">
+            
+                <div class="container m-2">
+                    <h2>Sent Requests</h2>
+                <!--    <button class="btn btn-info btn-lg btn-block" (click)="addVendorMode = true; newAdd()">Add New Vendor</button>
+                -->
+                </div>
+            
+            
+                <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
+        
+                    <table class="table table-striped table-bordered text-center">
+                        <thead class="align-top">
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Product ID</th>
+                            <th>Product</th>
+                            <th>Stock Available</th>
+                            <th>Quantity Requested</th>
+                            <th>Vendor</th>
+                            <th>Date Sent</th>
+                            <th>Change Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let request of vendorRequests">
+                            <td>{{request.id}}</td>
+                            <td>{{request.product.productId}}</td>
+                            <td>{{request.product.name}}</td>
+                            <td>{{request.product.quantity}}</td>
+                            <td>{{request.quantityrequested}}</td>
+                            <td>{{request.vendor.name}}</td>
+                            <td>{{request.requestdate}}</td>
+                            <!--<td>{{request.status}}</td>-->
+                            <td>
+                                <select [(ngModel)]="request.status" #rstatus="ngModel"
+                                 required (change)="updateRequestStatus(request.id, request.status);">
+                                    <option style="text-transform:uppercase;" value="Sent">Sent</option>
+                                    <option style="text-transform:uppercase;" value="Received">Received</option>
+                                </select>
+        
+                                <div *ngIf="rstatus.invalid && (rstatus.dirty || rstatus.touched)">
+                                    <div *ngIf="rstatus.errors?.['required']" class="alert alert-danger">
+                                        Status is required.
+                                    </div>
+                                </div>
+    
+                            </td>
+                            <td><button class="btn btn-danger btn-block" style="background-color: #f93154;"
+                                (click)="requestDeletePopupId = request.id; deleteRequest(request.id);">Delete</button></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        

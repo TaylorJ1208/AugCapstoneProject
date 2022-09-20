@@ -11,6 +11,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
 import { StripeService } from '../services/stripe-service/stripe-service';
 import { UserService } from '../services/user-service/user.service';
+import { VendorService } from '../services/vendor-service/vendor.service';
 
 @Component({
   selector: 'app-checkout-page',
@@ -30,7 +31,7 @@ export class CheckoutPageComponent implements OnInit {
   inputCVV: string = "";
   inputOwner: string = "";
   currentAddress: string = "";
-  cartItems: any;
+  cartItems: any[]=[];
   test: any;
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -50,7 +51,7 @@ export class CheckoutPageComponent implements OnInit {
     description: ''
   };
 
-  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService) {
+  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService, private vendorService:VendorService) {
     this.oktaAuthService.$authenticationState.subscribe(
       (isAuth: any) => this.isAuthenticated = isAuth
     );
@@ -140,6 +141,7 @@ export class CheckoutPageComponent implements OnInit {
          this.addOrder();
     }
     console.log("TOKEN = " + this.token$.getValue());
+    this.addOrder();
   }
 
   const paymentStripe = () => {
@@ -231,7 +233,7 @@ export class CheckoutPageComponent implements OnInit {
         this.orderService.addAnOrder(orderData)
       .subscribe({
         next: (m: any) => {
-          console.log(m);
+          this.productStockDecrement();
           this.ngOnInit()
         },
         error: (e: any) => console.error(e)
@@ -269,6 +271,41 @@ export class CheckoutPageComponent implements OnInit {
     //     },
     //     error: (e: any) => console.error(e)
     //   });
+  }
+
+  productStockDecrement(){
+    this.cartItems.forEach(item=>{
+      var product:any;
+      this.productService.getProductById(item.productId)
+      .subscribe({next:(data)=>{
+        product = data;
+        product.quantity = product.quantity - item.quantity;
+        console.log(product);
+
+        this.productService.updateProduct(product)
+      .subscribe({next:(m)=>{
+        console.log(m);
+
+        this.sendLowStockMessage(product.productId);
+      }});
+      }});
+      
+    })
+  }
+
+  sendLowStockMessage(id:any){
+    var product:any=[];
+    this.productService.getProductById(id)
+    .subscribe({next:(data)=>{
+      if(data.quantity < 5){
+        console.log("product below got low in stock:");
+        console.log(data);
+        this.vendorService.sendRabbitMQMessage(data.productId)
+        .subscribe({next:(m)=>{
+          console.log("rabbit message sent.");
+        }})
+      }
+    }});
   }
 
   addressChanged(): string {
