@@ -38,7 +38,7 @@ export class HomePageComponent implements OnInit {
           lastName: "test",
           email: u.email,
           userName: "test",
-          password: "password",
+          password: "thisisit",
           contact: "contact",
           ssn: "ssn",
           roles: []
@@ -64,10 +64,7 @@ export class HomePageComponent implements OnInit {
     }
     return false;
    })
-   console.log
-  
    return false;
-
   }
 
   getProducts() {
