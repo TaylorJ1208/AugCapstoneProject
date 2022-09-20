@@ -16,6 +16,7 @@ import { User } from '../Models/user';
 export class HomePageComponent implements OnInit {
   products: Product[] = [];
   users: any = {};
+  password: string = "";
   imageUrl: string = "https://res.cloudinary.com/drukcz14j/image/upload/v1661201584/ecommerce/iPhone-13-PNG-Cutout_wydwdd.png";
   constructor(private cartService: CartService, private productService: ProductService, private oktaAuthService: OktaAuthService,
     private router: Router, private userService: UserService) {
@@ -30,17 +31,18 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
     this.oktaAuthService.getUser().then((u) => {
+      let fullName = u.name?.split(" ");
       if(!this.userExists(u.sub)) {
         let user: any = {
           oktaId: u.sub,
           userId: 0,
-          firstName: "test",
-          lastName: "test",
+          lastName: fullName?.pop(),
+          firstName: fullName?.pop(),
           email: u.email,
-          userName: "test",
-          password: "thisisit",
-          contact: "contact",
-          ssn: "ssn",
+          userName: u.email,
+          password: this.password,
+          contact: "919-339-3801",
+          ssn: "1234",
           roles: []
         }
         this.addUser(user);
@@ -53,7 +55,6 @@ export class HomePageComponent implements OnInit {
     this.userService.getAllUsers().subscribe();
   }
   addUser(user: User) {
-    console.log("adding user");
     this.userService.createUser(user).subscribe();
   }
   userExists(sub: string) {

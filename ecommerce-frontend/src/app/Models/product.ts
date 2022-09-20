@@ -1,3 +1,6 @@
+import { Category } from "./categories";
+import { Vendor } from "./vendor";
+
 export interface Product {
     productId: number;
     name: string;
@@ -6,7 +9,7 @@ export interface Product {
     weight: number;
     quantity: number;
     image: string;
-    categoryId: number;
     rating: number;
-    category: string;
+    category: Category;
+    vendors: Vendor;
 }

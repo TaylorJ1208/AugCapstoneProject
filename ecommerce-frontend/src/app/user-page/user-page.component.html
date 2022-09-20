@@ -12,21 +12,21 @@
                 <li class="w-100" style="margin-bottom: 1em;">
                     <a routerLinkActive="active" routerLink="/home" class="btn border-0 body-hover p-3 w-100">Home</a>
                 </li>
-                <li class="w-100" style="margin-bottom: 1em;">
+                <li class="w-100" style="margin-bottom: 1em;" *ngIf="isUser">
                     <a routerLinkActive="active" routerLink="/user/accountDetails" class="btn border-0 body-hover p-3 w-100">Account Details</a>
                 </li>
-                <li class="w-100" style="margin-bottom: 1em;">
+                <li class="w-100" style="margin-bottom: 1em;" *ngIf="!isUser">
                     <a routerLinkActive="active" routerLink="/user/admin/details" class="btn border-0 body-hover p-3 w-100">Admin Details</a>
                 </li>
                 <!-- Check in local storage if logged-in user has role of ADMIN -->
-                <li *ngIf="true" class="w-100" style="margin-bottom: 1em;">
+                <li *ngIf="!isUser" class="w-100" style="margin-bottom: 1em;">
                     <a routerLinkActive="active" routerLink="/user/admin/store-purchases" class="btn border-0 body-hover p-3 w-100">Store
                         Purchases</a>
                 </li>
                 <li class="w-100" style="margin-bottom: 1em;">
                     <a routerLinkActive="active" routerLink="/user/purchases" class="btn border-0 body-hover p-3 w-100">Purchases</a>
                 </li>
-                <li class="w-100 dropend" style="margin-bottom: 1em;">
+                <li class="w-100 dropend" style="margin-bottom: 1em;" *ngIf="!isUser">
                     <a id="updateCatalogDD" class="btn border-0 body-hover p-3 w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Update Catalog</a>
                     <ul class="dropdown-menu" aria-labelledby="updateCatalogDD">
                         <li><a routerLinkActive="active" routerLink="/catalog/update-categories" class="btn border-0 body-hover p-3 w-100 dropdown-item">Add/Edit/Delete Categories</a></li>

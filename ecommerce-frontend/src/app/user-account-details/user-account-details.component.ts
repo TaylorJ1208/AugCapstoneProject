@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { OktaAuthService } from '@okta/okta-angular';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 
@@ -23,8 +24,10 @@ export class UserAccountDetailsComponent {
     roles: []
   };
 
-  constructor(private userService: UserService, private router: Router) { 
-    this.userService.getUserById(23).subscribe(x => this.user = x);
+  constructor(private userService: UserService, private router: Router, private oktaAuthService: OktaAuthService) { 
+    this.oktaAuthService.getUser().then((user) => {
+      this.userService.getUserByOktaId(user.sub).subscribe(x => this.user = x);
+    });
   }
 
   deleteUser(userId: number) : void {

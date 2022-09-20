@@ -34,7 +34,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="userId")
 	private long userId;
-	@Column(name="oktaId", unique = true)
+	@Column(name="oktaId", unique = true, nullable = false)
 	private String oktaId;
 	@Column(nullable=false, length = 100)
 	private String firstName;
@@ -62,7 +62,7 @@ public class User {
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Address> addresses;
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<UserCart> userCart;
 	

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OktaAuthService } from '@okta/okta-angular';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 
@@ -40,16 +41,19 @@ export class UserEditDetailsComponent implements OnInit {
   showConfirm: boolean = false;
   visibleSSN: boolean = false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private oktaAuthService: OktaAuthService) { }
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.params["userId"];
-    this.userService.getUserById(userId).subscribe(x => this.user = x);
+    this.oktaAuthService.getUser().then((user) => {
+       this.userService.getUserByOktaId(user.sub).subscribe(x => this.user = x);
+    })
+   
   }
 
  
   updateUser() : boolean {
     const data = {
+      oktaId: this.user.oktaId,
       userId: this.user.userId,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -58,6 +62,7 @@ export class UserEditDetailsComponent implements OnInit {
       password: this.user.password,
       ssn: this.user.ssn,
       contact: this.user.contact,
+      roles: this.user.roles
     };
 
   if(confirm("Are you sure you would like to update this account?")) {

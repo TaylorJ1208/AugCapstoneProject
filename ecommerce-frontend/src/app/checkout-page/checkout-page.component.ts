@@ -137,6 +137,7 @@ export class CheckoutPageComponent implements OnInit {
     this.token$.next(token);
     if(this.isAuthenticated) {
          paymentStripe();
+         this.addOrder();
     }
     console.log("TOKEN = " + this.token$.getValue());
   }
@@ -164,7 +165,7 @@ export class CheckoutPageComponent implements OnInit {
   });
 }
 
-  addOrder(): void {
+  async addOrder(): Promise<void> {
     let index = 0;
     let help: Product[] = [];
     let productIds = this.cartItems.map((item: Product) => item.productId);
@@ -183,9 +184,16 @@ export class CheckoutPageComponent implements OnInit {
         weight: element.weight,
         quantity: this.cartItems.map((item: Product) => item).filter((item: { productId: any; }) => item.productId == element.productId).map(((item: { quantity: any; }) => item.quantity))[0],
         image: element.image,
-        categoryId: element.categoryId,
         rating: element.rating,
-        category: element.category
+        category: {
+          categoryId: element.category.categoryId,
+          category: element.category.category
+        },
+        vendors: {
+          vendorId: element.vendors.vendorId,
+          name: element.vendors.name,
+          email: element.vendors.email
+        }
       }
       this.finalCart.push(data);
     });
@@ -193,34 +201,34 @@ export class CheckoutPageComponent implements OnInit {
     console.log(this.finalCart);
     let dateString = new Date('2022-08-30T00:00:00');
     let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
-    this.oktaAuthService.getUser().then((u) => {
+    let orderData: any;
+    await this.oktaAuthService.getUser().then((u) => {
+      console.log(u.sub);
        this.userService.getUserByOktaId(u.sub).subscribe((data) => {
         this.user = data;
-       })
-    })
-   
-    const data = {
-      orderId: 0,
-      amount: this.total,
-      orderDate: dateString,
-      status: false,
-      billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
-      shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
-      user: {
-        oktaId: this.user?.oktaId,
-        userId: this.user?.userId,
-        firstName: this.user?.firstName,
-        lastName: this.user?.lastName,
-        email: this.user?.email,
-        userName: this.user?.email,
-        contact: this.user?.contact,
-        password: this.user?.password,
-        ssn:this.user?.ssn,
-        roles: role
-      },
-      products: this.finalCart
-    };
-    this.orderService.addAnOrder(data)
+        orderData = {
+          orderId: 12,
+          amount: this.total,
+          orderDate: dateString,
+          status: false,
+          billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
+          shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
+          user: {
+            oktaId: this.user?.oktaId,
+            userId: this.user?.userId,
+            firstName: this.user?.firstName,
+            lastName: this.user?.lastName,
+            email: this.user?.email,
+            userName: this.user?.email,
+            contact: this.user?.contact,
+            password: this.user?.password,
+            ssn:this.user?.ssn,
+            roles: this.user?.roles
+          },
+          products: this.finalCart
+        };
+        console.log(orderData);
+        this.orderService.addAnOrder(orderData)
       .subscribe({
         next: (m: any) => {
           console.log(m);
@@ -228,6 +236,39 @@ export class CheckoutPageComponent implements OnInit {
         },
         error: (e: any) => console.error(e)
       });
+       })
+    })
+   
+    // const data = {
+    //   orderId: 12,
+    //   amount: this.total,
+    //   orderDate: dateString,
+    //   status: false,
+    //   billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
+    //   shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
+    //   user: {
+    //     oktaId: this.user?.oktaId,
+    //     userId: this.user?.userId,
+    //     firstName: this.user?.firstName,
+    //     lastName: this.user?.lastName,
+    //     email: this.user?.email,
+    //     userName: this.user?.email,
+    //     contact: this.user?.contact,
+    //     password: this.user?.password,
+    //     ssn:this.user?.ssn,
+    //     roles: this.user?.roles
+    //   },
+    //   products: this.finalCart
+    // };
+    // console.log(orderData);
+    // this.orderService.addAnOrder(orderData)
+    //   .subscribe({
+    //     next: (m: any) => {
+    //       console.log(m);
+    //       this.ngOnInit()
+    //     },
+    //     error: (e: any) => console.error(e)
+    //   });
   }
 
   addressChanged(): string {
