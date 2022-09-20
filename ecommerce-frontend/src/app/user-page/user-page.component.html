@@ -33,6 +33,14 @@
                         <li><a routerLinkActive="active" routerLink="/catalog/update-products" class="btn border-0 body-hover p-3 w-100 dropdown-item">Add/Edit/Delete Products</a></li>
                     </ul>
                 </li>
+                <li class="w-100 dropend" style="margin-bottom: 1em;">
+                    <a id="invMgmtDD" class="btn border-0 body-hover p-3 w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage Inventory</a>
+                    <ul class="dropdown-menu" aria-labelledby="invMgmtDD">
+                        <li><a routerLinkActive="active" routerLink="/user/admin/update-vendors" class="btn border-0 body-hover p-3 w-100 dropdown-item">Add/Edit/Delete Vendors</a></li>
+                        <li><a routerLinkActive="active" routerLink="/user/admin/request-stock" class="btn border-0 body-hover p-3 w-100 dropdown-item">Request Stock</a></li>
+                        <li><a routerLinkActive="active" routerLink="/user/admin/track-requests" class="btn border-0 body-hover p-3 w-100 dropdown-item">Track Requests</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -49,5 +57,16 @@
 
   <div *ngIf="url == '/catalog/update-categories'" style="margin-left: 1em;">
     <app-update-catalog></app-update-catalog>
+  </div>
+
+  <div *ngIf="url == '/user/admin/update-vendors'" style="margin-left: 1em;">
+    <app-inventory-page></app-inventory-page>
+  </div>
+
+  <div *ngIf="url == '/user/admin/request-stock'" style="margin-left: 1em;">
+    <app-inventory-page></app-inventory-page>
+  </div>
+  <div *ngIf="url == '/user/admin/track-requests'" style="margin-left: 1em;">
+    <app-inventory-page></app-inventory-page>
   </div>
 </div>

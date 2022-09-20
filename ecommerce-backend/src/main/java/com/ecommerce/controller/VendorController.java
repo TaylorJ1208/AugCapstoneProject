@@ -5,6 +5,7 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.email.EmailService;
+import com.ecommerce.model.Product;
 import com.ecommerce.model.Vendors;
 import com.ecommerce.service.VendorsService;
 
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/vendors")
 public class VendorController {
@@ -45,7 +48,7 @@ public class VendorController {
 	}
 	
 	@PutMapping("/update")
-	public void updatecategory(@RequestBody  Vendors vendor) {
+	public void updateVendor(@RequestBody  Vendors vendor) {
 		vendorService.updateVendor(vendor);
 	}
 	
@@ -54,8 +57,8 @@ public class VendorController {
 		vendorService.deleteVendor(id);
 	}
 	
-	@PostMapping("/restock/{amount}")
-	public void requestVendorRestock(@RequestBody Vendors vendor, @PathVariable int amount) throws MessagingException {
-		emailService.sendVendorEmail(vendor, amount);
+	@PostMapping("/restock/{vendorEmail}/{amount}")
+	public void requestVendorRestock(@PathVariable String vendorEmail, @RequestBody Product product, @PathVariable int amount) throws MessagingException {
+		emailService.sendVendorEmail(vendorEmail, product, amount);
 	}
 }
