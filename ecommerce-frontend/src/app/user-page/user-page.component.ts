@@ -20,7 +20,7 @@ export class UserPageComponent implements OnInit {
     this.url = this.router.url;
     this.oktaAuthService.getUser().then((user) => {
       this.checkIfUser(user.sub);
-    })
+    });
   }
 
   checkIfUser(sub: any) {
@@ -28,7 +28,7 @@ export class UserPageComponent implements OnInit {
       console.log(user);
       this.user = user;
     this.isUser = this.user?.roles[0].role == "ROLE_USER" ? true : false;
-  })
+  });
 }
 
   
