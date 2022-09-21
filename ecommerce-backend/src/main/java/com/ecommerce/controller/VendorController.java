@@ -21,7 +21,7 @@ import com.ecommerce.model.Vendors;
 import com.ecommerce.service.VendorsService;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://e-frontend.azurewebsites.net")
 @RestController
 @RequestMapping("/vendors")
 public class VendorController {
