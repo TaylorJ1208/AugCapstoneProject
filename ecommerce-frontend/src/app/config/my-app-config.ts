@@ -2,8 +2,8 @@ export default {
     oidc: {
         clientId: '0oa6hnwwonsOm1f6n5d7',
         issuer: 'https://dev-3553715.okta.com/oauth2/default',
-        redirectUri: 'https://e-backend.azurewebsites.net/home',
-        postLogoutRedirectUri: 'https://e-backend.azurewebsites.net/login',
+        redirectUri: 'https://e-frontend.azurewebsites.net/home',
+        postLogoutRedirectUri: 'https://e-frontend.azurewebsites.net/login',
         scopes: ['openid', 'profile', 'email']
     }
 }
