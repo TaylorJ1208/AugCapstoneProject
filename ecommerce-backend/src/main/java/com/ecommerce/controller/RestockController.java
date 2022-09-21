@@ -12,7 +12,7 @@ import com.ecommerce.config.RabbitConfig;
 import com.ecommerce.model.Product;
 import com.ecommerce.service.ProductService;
 
-@CrossOrigin(origins = "https://e-frontend.azurewebsites.net")
+@CrossOrigin(origins = { "https://e-frontend.azurewebsites.net", "http://localhost:4200" })
 @RestController
 public class RestockController {
 	

@@ -11,23 +11,23 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>("https://e-backend.azurewebsites.net/category/");
+    return this.http.get<Category[]>("https://e-frontend.azurewebsites.net/category/");
   }
   
   getCategoryById(id: any): Observable<any> {
-    return this.http.get<any>(`https://e-backend.azurewebsites.net/category/${id}`);
+    return this.http.get<any>(`https://e-frontend.azurewebsites.net/category/${id}`);
   }
 
   deleteCategory(id: any): Observable<any> {
-    return this.http.delete(`https://e-backend.azurewebsites.net/category/delete/${id}`);
+    return this.http.delete(`https://e-frontend.azurewebsites.net/category/delete/${id}`);
   }
 
   updateCategory(data:any):Observable<any>{
-    return this.http.put(`https://e-backend.azurewebsites.net/category/update`,data);
+    return this.http.put(`https://e-frontend.azurewebsites.net/category/update`,data);
   }
 
   addCategory(data:any):Observable<any>{
-    return this.http.post(`https://e-backend.azurewebsites.net/category/admin/add`, data);
+    return this.http.post(`https://e-frontend.azurewebsites.net/category/admin/add`, data);
   }
 
 }

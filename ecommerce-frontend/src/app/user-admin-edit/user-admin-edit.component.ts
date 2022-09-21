@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
 import { AddressService } from '../services/address-service/address.service';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-user-admin-edit',
@@ -24,32 +25,21 @@ export class UserAdminEditComponent implements OnInit {
      roles: []
    };
 
-  /* address: Address = {
-    addressId: 0,
-    city: '',
-    state: '',
-    street: '',
-    zipcode: '',
-    country: '',
-    apartmentNumber: '',
-    userId: 0
-  } */
-
-
-
   confirmPw:string = '';
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
-    private addressService: AddressService) { 
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { 
       
   }
   
   ngOnInit(): void {
     const userId = this.route.snapshot.params["userId"];
-    this.userService.getUserById(userId).subscribe(x => this.user = x);
+    // this.oktaAuthService.getUser().then((user) => {
+      this.userService.getUserById(userId).subscribe((x) => this.user = x);
+    // })
   }
 
   updateUser() : void {
-    const data = {
+    const data: User = {
+      oktaId: this.user.oktaId,
       userId: this.user.userId,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -58,6 +48,7 @@ export class UserAdminEditComponent implements OnInit {
       password: this.user.password,
       ssn: this.user.ssn,
       contact: this.user.contact,
+      roles: this.user.roles
     };
 
   if(confirm("Are you sure you would like to update this account?")) {

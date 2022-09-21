@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.model.Product;
 import com.ecommerce.service.ProductService;
  
-@CrossOrigin(origins = "https://e-frontend.azurewebsites.net")
+@CrossOrigin(origins = {"https://e-frontend.azurewebsites.net", "http://localhost:4200" })
 @RestController
 @RequestMapping("/catalog")
 public class ProductController {

@@ -41,18 +41,18 @@ export class UserEditDetailsComponent implements OnInit {
   showConfirm: boolean = false;
   visibleSSN: boolean = false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private oktaAuthService: OktaAuthService) { }
+  constructor(private userService: UserService, private router: Router, private oktaAuthService: OktaAuthService) { }
 
   ngOnInit(): void {
     this.oktaAuthService.getUser().then((user) => {
-       this.userService.getUserByOktaId(user.sub).subscribe(x => this.user = x);
+      this.userService.getUserByOktaId(user.sub).subscribe((x) => this.user = x);
     })
    
   }
 
  
   updateUser() : boolean {
-    const data = {
+    const data: User = {
       oktaId: this.user.oktaId,
       userId: this.user.userId,
       firstName: this.user.firstName,

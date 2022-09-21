@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OktaAuthService } from '@okta/okta-angular';
 import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/orders';
 import { OrdersService } from '../services/orders-service/orders.service';
@@ -10,33 +11,23 @@ import { OrdersService } from '../services/orders-service/orders.service';
   })
 
   export class UserPurchasesComponent implements OnInit {
-  orders$ = new BehaviorSubject<Orders[]>([]);
   orders: Orders[] = [];
-  cast = this.orders$.asObservable();
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService) { }
   display="none";
 
   ngOnInit(): void {
-    this.getOrderSearch(1);
-    this.cast.subscribe((orders) => {
-      this.orders = orders;
-    });
-  }
-
-  retrieveOrders(orders: Orders[]) {
-    this.orders$.next(orders);
+    this.oktaAuthService.getUser().then((user) => {
+      this.getOrderSearch(user.sub);
+    })
     
   }
 
-  // get current authenticated user and only return the 
-  // orders that belong to them
-
-  getOrderSearch(id:number) {
+  getOrderSearch(oktaId:string) {
     this.ordersService.getAllOrders()
-      .subscribe ((data: any) => {
-        this.cast = data;
-        this.retrieveOrders(data);
-        console.log("USER ORDERS: ", this.cast);
+      .subscribe ((data: Orders[]) => {
+        console.log(data.filter((order) => order.user.oktaId == oktaId));
+        this.orders = data.filter((order) => order.user.oktaId == oktaId)
+        console.log(this.orders);
       })
   } 
 

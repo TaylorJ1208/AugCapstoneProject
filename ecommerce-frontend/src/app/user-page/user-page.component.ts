@@ -20,18 +20,16 @@ export class UserPageComponent implements OnInit {
     this.url = this.router.url;
     this.oktaAuthService.getUser().then((user) => {
       this.checkIfUser(user.sub);
-    });
+    })
   }
 
   checkIfUser(sub: any) {
     this.userService.getUserByOktaId(sub).subscribe((user) => {
       console.log(user);
       this.user = user;
-    })
-    if(this.user?.roles[0].role == "ROLE_USER") {
-      this.isUser = true;
-    }
-  }
+    this.isUser = this.user?.roles[0].role == "ROLE_USER" ? true : false;
+  })
+}
 
   
 

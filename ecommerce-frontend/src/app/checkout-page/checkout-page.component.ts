@@ -204,9 +204,8 @@ export class CheckoutPageComponent implements OnInit {
     let dateString = new Date('2022-08-30T00:00:00');
     let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
     let orderData: any;
-    await this.oktaAuthService.getUser().then((u) => {
-      console.log(u.sub);
-       this.userService.getUserByOktaId(u.sub).subscribe((data) => {
+    this.oktaAuthService.getUser().then((user) => {
+       this.userService.getUserByOktaId(user.sub).subscribe((data) => {
         this.user = data;
         orderData = {
           orderId: 12,
@@ -240,37 +239,6 @@ export class CheckoutPageComponent implements OnInit {
       });
        })
     })
-   
-    // const data = {
-    //   orderId: 12,
-    //   amount: this.total,
-    //   orderDate: dateString,
-    //   status: false,
-    //   billingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
-    //   shippingAddress: this.inputAddress + " " + this.inputAptNo + ", " + this.inputCity + ", " + this.inputState + " " + this.inputZipcode,
-    //   user: {
-    //     oktaId: this.user?.oktaId,
-    //     userId: this.user?.userId,
-    //     firstName: this.user?.firstName,
-    //     lastName: this.user?.lastName,
-    //     email: this.user?.email,
-    //     userName: this.user?.email,
-    //     contact: this.user?.contact,
-    //     password: this.user?.password,
-    //     ssn:this.user?.ssn,
-    //     roles: this.user?.roles
-    //   },
-    //   products: this.finalCart
-    // };
-    // console.log(orderData);
-    // this.orderService.addAnOrder(orderData)
-    //   .subscribe({
-    //     next: (m: any) => {
-    //       console.log(m);
-    //       this.ngOnInit()
-    //     },
-    //     error: (e: any) => console.error(e)
-    //   });
   }
 
   productStockDecrement(){

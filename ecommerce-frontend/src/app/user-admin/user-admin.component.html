@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users, let i = index">
+        <tr *ngFor="let user of users; let i = index">
           <th scope="row">{{user.userId}}</th>
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>

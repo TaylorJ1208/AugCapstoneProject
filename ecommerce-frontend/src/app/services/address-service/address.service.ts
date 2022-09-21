@@ -11,6 +11,6 @@ export class AddressService {
 
 constructor(private http: HttpClient) { }
   getAddressById(addressId: number): Observable<Address> {
-    return this.http.get<Address>("https://e-backend.azurewebsites.net/address/" + addressId);
+    return this.http.get<Address>("https://e-frontend.azurewebsites.net/address/" + addressId);
 }
 }

@@ -29,7 +29,7 @@ export class UserAdminComponent implements OnInit {
     userId: 0
   }
   
-  constructor(private userService: UserService, private router: Router, private addressService: AddressService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveUsers();
