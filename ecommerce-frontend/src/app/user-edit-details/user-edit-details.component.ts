@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { OktaAuthService } from '@okta/okta-angular';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-edit-details',
@@ -24,28 +25,21 @@ export class UserEditDetailsComponent implements OnInit {
     roles: []
   };
 
- /* address: Address = {
-    addressId: 0,
-    city: '',
-    state: '',
-    street: '',
-    zipcode: '',
-    country: '',
-    apartmentNumber: '',
-    userId: 0
-  } */
-
-
   confirmPw:string = '';
   showPw: boolean = false;
   showConfirm: boolean = false;
   visibleSSN: boolean = false;
 
-  constructor(private userService: UserService, private router: Router, private oktaAuthService: OktaAuthService) { }
+  constructor(private userService: UserService, private router: Router, private oktaAuthService: OktaAuthService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.oktaAuthService.getUser().then((user) => {
-      this.userService.getUserByOktaId(user.sub).subscribe((x) => this.user = x);
+      this.userService.getUserByOktaId(user.sub).subscribe((x) => {
+        this.user = x
+        this.spinner.hide();
+      });
     })
    
   }

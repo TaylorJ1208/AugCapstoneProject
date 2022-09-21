@@ -6,6 +6,7 @@ import { ProductService } from '../services/product-service/product.service';
 import { CategoryService } from '../services/category-service/category.service';
 import { VendorService } from '../services/vendor-service/vendor.service';
 import { Vendor } from '../Models/vendor';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-update-catalog',
@@ -40,10 +41,12 @@ export class UpdateCatalogComponent implements OnInit {
     private productService:ProductService,
     private categoryService:CategoryService,
     private router: Router,
-    private vendorService:VendorService
+    private vendorService:VendorService,
+    private spinner: NgxSpinnerService
     ) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.getProducts();
     this.getCategories();
     this.getVendors();
@@ -66,6 +69,7 @@ export class UpdateCatalogComponent implements OnInit {
       .subscribe({ next: (data: Product[]) => {
         console.log(data);
         this.products = data;
+        this.spinner.hide();
       },
       error: (e) => console.error(e)});
     }
@@ -107,12 +111,14 @@ export class UpdateCatalogComponent implements OnInit {
         this.productAdded = true;
         console.log("Product.added: " +this.productAdded);
         this.ngOnInit();
+        this.spinner.hide();
       },
     error:e=>console.error(e)
   });
     }
 
     getProduct(id: number): void {
+      this.spinner.show();
       this.editProductMode = true;
       this.productService.getProductById(id)
         .subscribe({
@@ -122,6 +128,7 @@ export class UpdateCatalogComponent implements OnInit {
             console.log(data);
             console.log("category id is:"+this.currentProduct.category.categoryId);
             console.log("rating is "+this.currentProduct.rating);
+            this.spinner.hide();
           },
           error: (e) => console.error(e)
         });
@@ -154,6 +161,7 @@ console.log(data);
       this.productUpdated = true;
       console.log(this.productUpdated);
       this.ngOnInit();
+      this.spinner.hide();
     },
   error:e=>console.error(e)
 });

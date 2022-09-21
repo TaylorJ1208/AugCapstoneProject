@@ -6,6 +6,7 @@ import { VendorService } from '../services/vendor-service/vendor.service';
 import { VenderRequestService } from '../services/vendorRequest-service/vender-request.service';
 import { Router } from '@angular/router';
 import { VendorRequest } from '../Models/vendorRequest';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-inventory-page',
@@ -18,7 +19,8 @@ export class InventoryPageComponent implements OnInit {
     private vendorService:VendorService, 
     private productService:ProductService,
     private vendorRequestService:VenderRequestService, 
-    private router:Router) { }
+    private router:Router,
+    private spinner: NgxSpinnerService) { }
 
   showVendorMode=false;
   addVendorMode = false;
@@ -42,6 +44,7 @@ export class InventoryPageComponent implements OnInit {
   currentRequest:any;
 
   ngOnInit(): void {
+    this.spinner.show();
     this.showMode();
     this.getVendors();
     this.getProducts();
@@ -68,9 +71,9 @@ export class InventoryPageComponent implements OnInit {
 }
 
   getProducts(){
-
       this.productService.getAllProducts()
         .subscribe({ next: (data: Product[]) => {
+          this.spinner.hide();
           console.log(data);
           this.products = data;
         },
@@ -94,6 +97,7 @@ export class InventoryPageComponent implements OnInit {
     .subscribe({next:(data: Vendor)=>{
       console.log(data);
       this.currentVendor = data;
+      this.spinner.hide();
     },
     error: (e) => console.error(e)
   });
@@ -110,6 +114,7 @@ export class InventoryPageComponent implements OnInit {
       console.log("Vendor '"+data.name +"' Added");
       this.vendorAdded = true;
       this.ngOnInit();
+      this.spinner.hide();
     }})
   }
 
@@ -127,6 +132,7 @@ export class InventoryPageComponent implements OnInit {
       console.log(m);
       this.editVendorModeId = 0;
       this.ngOnInit();
+      this.spinner.hide();
     },
   error:e=>console.log(e)})
   }
@@ -135,6 +141,7 @@ export class InventoryPageComponent implements OnInit {
     .subscribe({next:(m)=>{
       console.log("Vendor Deleted");
       this.ngOnInit();
+      this.spinner.hide();
     },
   error:e=>console.log(e)})
   }
@@ -188,6 +195,7 @@ export class InventoryPageComponent implements OnInit {
       this.stockRequested = true;
       this.requestPopupProductId = 0;
       this.ngOnInit();
+      this.spinner.hide();
     }});
 
     const reqData = {
@@ -202,6 +210,7 @@ export class InventoryPageComponent implements OnInit {
     this.vendorRequestService.addRequest(reqData)
     .subscribe({next:(m)=>{
       console.log(m);
+      this.spinner.hide();
     }});
     console.log(reqData);
     
@@ -238,6 +247,7 @@ export class InventoryPageComponent implements OnInit {
     .subscribe({next:()=>{
       console.log("stock updated");
       this.ngOnInit();
+      this.spinner.hide();
     }})
   }
   }
@@ -255,6 +265,7 @@ export class InventoryPageComponent implements OnInit {
     .subscribe({next:()=>{
       console.log("request deleted");
       this.ngOnInit();
+      this.spinner.hide();
     }})
   }
 

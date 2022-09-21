@@ -1,4 +1,4 @@
-import { Injector, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,8 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { CartStatusComponent } from './cart-status/cart-status.component';
 import { UpdateCatalogComponent } from './update-catalog/update-catalog.component';
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
@@ -63,9 +65,12 @@ const oktaConfig = Object.assign({
     FormsModule,
     NgbModule,
     OktaAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

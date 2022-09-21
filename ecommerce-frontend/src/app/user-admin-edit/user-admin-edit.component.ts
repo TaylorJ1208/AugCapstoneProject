@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../Models/user';
 import { UserService } from '../services/user-service/user.service';
-import { AddressService } from '../services/address-service/address.service';
-import { OktaAuthService } from '@okta/okta-angular';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-admin-edit',
@@ -26,15 +25,19 @@ export class UserAdminEditComponent implements OnInit {
    };
 
   confirmPw:string = '';
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { 
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router,
+    private spinner: NgxSpinnerService) { 
       
   }
   
   ngOnInit(): void {
+    this.spinner.show();
     const userId = this.route.snapshot.params["userId"];
-    // this.oktaAuthService.getUser().then((user) => {
-      this.userService.getUserById(userId).subscribe((x) => this.user = x);
-    // })
+      this.userService.getUserById(userId).subscribe((x) =>  {
+        this.user = x
+        this.spinner.hide();
+      });
+
   }
 
   updateUser() : void {

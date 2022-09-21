@@ -7,7 +7,7 @@ import { OktaAuthService } from '@okta/okta-angular';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user-service/user.service';
 import { User } from '../Models/user';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -19,7 +19,8 @@ export class HomePageComponent implements OnInit {
   password: string = "";
   imageUrl: string = "https://res.cloudinary.com/drukcz14j/image/upload/v1661201584/ecommerce/iPhone-13-PNG-Cutout_wydwdd.png";
   constructor(private cartService: CartService, private productService: ProductService, private oktaAuthService: OktaAuthService,
-    private router: Router, private userService: UserService) {
+    private router: Router, private userService: UserService,
+    private spinner: NgxSpinnerService) {
      if(this.oktaAuthService.isLoginRedirect()) {
       this.oktaAuthService.handleLoginRedirect().then(() => {
         this.router.navigate(['home']);
@@ -29,6 +30,7 @@ export class HomePageComponent implements OnInit {
       
 
   ngOnInit(): void {
+    this.spinner.show();
     this.getProducts();
     this.oktaAuthService.getUser().then((u) => {
       let fullName = u.name?.split(" ");
@@ -49,8 +51,8 @@ export class HomePageComponent implements OnInit {
         this.getUsers();
       }
     })
-    
   }
+
   getUsers() {
     this.userService.getAllUsers().subscribe();
   }
@@ -72,6 +74,7 @@ export class HomePageComponent implements OnInit {
     this.productService.getAllProducts()
       .subscribe({ next: (data: Product[]) => {
         this.products = data;
+        this.spinner.hide();
       },
       error: (e) => console.error(e)});
     }

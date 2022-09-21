@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/Models/product';
 import { ProductService } from '../../product-service/product.service';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,7 @@ export class NavService {
   products$ = new BehaviorSubject<Product[]>([]);
   cast = this.products$.asObservable();
   searchString: string = "";
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private spinner: NgxSpinnerService) { }
 
   retrieveSearch(products: Product[]) {
     this.products$.next(products);
@@ -30,10 +30,12 @@ export class NavService {
   }
 
   getProductByCategory(name: string) {
+    this.spinner.show();
     this.productService.getAllProducts()
       .subscribe((data: any) => {
         this.cast = data;
         this.retrieveCategorySearch(data, name);
+        this.spinner.hide();
       })
   }
 

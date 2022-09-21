@@ -5,6 +5,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
 import { UserService } from '../services/user-service/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from '../Models/product';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-store-purchases',
@@ -17,10 +18,11 @@ export class StorePurchasesComponent implements OnInit {
   statuses: any = [true, false];
   cast = this.orders$.asObservable();
   constructor(private ordersService: OrdersService, private userService: UserService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private spinner: NgxSpinnerService) { 
+      this.getAllOrders();
+    }
 
   ngOnInit(): void {
-    this.getAllOrders();
     this.cast.subscribe((orders) => {
       this.orders = orders;
     });
@@ -31,12 +33,13 @@ export class StorePurchasesComponent implements OnInit {
   }
 
   getAllOrders() {
+    this.spinner.show();
     this.ordersService.getAllOrders()
       .subscribe((data: any) => {
         this.cast = data;
         console.log("STORE ORDERS: ", data);
         this.retrieveOrders(data);
-
+        this.spinner.hide();
       })
   }
 
@@ -53,8 +56,6 @@ export class StorePurchasesComponent implements OnInit {
     this.ordersService.updateOrder(order)
       .subscribe((data: any) => {
         console.log("UPDATED ORDER", order);
-        this.retrieveOrders(data);
-        this.getAllOrders();
       })
   }
 
@@ -65,7 +66,6 @@ export class StorePurchasesComponent implements OnInit {
   deleteOrder(order: Orders) {
     this.ordersService.deleteOrder(order.orderId)
     .subscribe((data: any) => {
-      this.retrieveOrders(data);
       this.getAllOrders();
     })
   }

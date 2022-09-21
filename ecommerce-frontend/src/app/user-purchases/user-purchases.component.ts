@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
-import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/orders';
 import { OrdersService } from '../services/orders-service/orders.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-user-purchases',
@@ -12,23 +12,27 @@ import { OrdersService } from '../services/orders-service/orders.service';
 
   export class UserPurchasesComponent implements OnInit {
   orders: Orders[] = [];
-  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService) { }
+  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService,
+    private spinner: NgxSpinnerService) { }
   display="none";
 
   ngOnInit(): void {
     this.oktaAuthService.getUser().then((user) => {
+      this.spinner.show();
       this.getOrderSearch(user.sub);
     })
     
   }
 
   getOrderSearch(oktaId:string) {
+   
     this.ordersService.getAllOrders()
       .subscribe ((data: Orders[]) => {
         console.log(data.filter((order) => order.user.oktaId == oktaId));
         this.orders = data.filter((order) => order.user.oktaId == oktaId)
         console.log(this.orders);
       })
+      // this.spinner.hide();
   } 
 
   openModal(){

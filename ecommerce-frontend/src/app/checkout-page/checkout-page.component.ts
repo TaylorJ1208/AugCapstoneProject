@@ -5,13 +5,13 @@ import { CartItem } from '../Models/cart-item';
 import { Charges } from '../Models/charges';
 import { Product } from '../Models/product';
 import { Role } from '../Models/role';
-import { User } from '../Models/user';
 import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
 import { StripeService } from '../services/stripe-service/stripe-service';
 import { UserService } from '../services/user-service/user.service';
 import { VendorService } from '../services/vendor-service/vendor.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-checkout-page',
@@ -51,7 +51,8 @@ export class CheckoutPageComponent implements OnInit {
     description: ''
   };
 
-  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService, private vendorService:VendorService) {
+  constructor(private orderService: OrdersService, private userService: UserService, private productService: ProductService, private cartService: CartService, private oktaAuthService: OktaAuthService, private stripeService: StripeService,
+    private spinner: NgxSpinnerService) {
     this.oktaAuthService.$authenticationState.subscribe(
       (isAuth: any) => this.isAuthenticated = isAuth
     );
@@ -65,13 +66,6 @@ export class CheckoutPageComponent implements OnInit {
   loading = false;
 
   async ngOnInit() {
-    this.isAuthenticated = await this.oktaAuthService.isAuthenticated();
-    console.log("is user authenticated: "+this.isAuthenticated);
-    if(this.isAuthenticated){
-      const userClaims = await this.oktaAuthService.getUser();
-      this.username = userClaims.locale || "";
-      console.log("loggedUserIs: "+this.username);
-    }
     this.listCartDetails();
     this.getProducts();
   }
@@ -83,6 +77,7 @@ export class CheckoutPageComponent implements OnInit {
           this.test = data;
           this.retrieveProducts(data);
           console.log(this.test);
+          this.spinner.hide();
         },
         error: (e: any) => console.error(e)
       });
@@ -94,7 +89,7 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   listCartDetails() {
-
+    this.spinner.show();
     //get a handle to the cart items
     this.cartItems = this.cartService.cartItems;
 
@@ -111,7 +106,6 @@ export class CheckoutPageComponent implements OnInit {
     );
     // compute cart total price and quantity
     this.cartService.computeCartTotals();
-
   }
 
   incrementQuantity(theCartItem: CartItem) {

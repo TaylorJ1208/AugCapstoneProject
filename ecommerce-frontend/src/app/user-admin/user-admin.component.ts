@@ -3,7 +3,7 @@ import { User } from '../Models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Router } from '@angular/router';
 import { Address } from '../Models/address';
-import { AddressService } from '../services/address-service/address.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-admin',
@@ -29,9 +29,11 @@ export class UserAdminComponent implements OnInit {
     userId: 0
   }
   
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.retrieveUsers();
   }
 
@@ -41,6 +43,7 @@ export class UserAdminComponent implements OnInit {
         next: (data) => {
           this.users = data;
           console.log(data);
+          this.spinner.hide();
         },
         error: (e) => console.error(e)
       });
