@@ -17,8 +17,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
   display="none";
 
   ngOnInit(): void {
+    this.spinner.show();
     this.oktaAuthService.getUser().then((user) => {
-      this.spinner.show();
       this.getOrderSearch(user.sub);
     })
     
@@ -31,8 +31,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
         console.log(data.filter((order) => order.user.oktaId == oktaId));
         this.orders = data.filter((order) => order.user.oktaId == oktaId)
         console.log(this.orders);
+        this.spinner.hide();
       })
-      // this.spinner.hide();
   } 
 
   openModal(){
