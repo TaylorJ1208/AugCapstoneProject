@@ -16,24 +16,24 @@ export class ProductService {
   }
 
   getProductByName(name: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`http://e-backend.azurewebsites.net/catalog/customer/product/${name}`);
+    return this.http.get<Product[]>(`https://e-backend.azurewebsites.net/catalog/customer/product/${name}`);
   }
 
   
   getProductById(id: any): Observable<any> {
-    return this.http.get<any>(`http://e-backend.azurewebsites.net/catalog/customer/${id}`);
+    return this.http.get<any>(`https://e-backend.azurewebsites.net/catalog/customer/${id}`);
   }
 
   deleteProduct(id: any): Observable<any> {
-    return this.http.delete(`http://e-backend.azurewebsites.net/catalog/admin/delete/${id}`);
+    return this.http.delete(`https://e-backend.azurewebsites.net/catalog/admin/delete/${id}`);
   }
 
   updateProduct(data:any):Observable<any>{
-    return this.http.put(`http://e-backend.azurewebsites.net/catalog/admin/update`,data);
+    return this.http.put(`https://e-backend.azurewebsites.net/catalog/admin/update`,data);
   }
 
   addProduct(data:any):Observable<any>{
-    return this.http.post(`http://e-backend.azurewebsites.net/catalog/admin/add`,data);
+    return this.http.post(`https://e-backend.azurewebsites.net/catalog/admin/add`,data);
   }
 
 }
