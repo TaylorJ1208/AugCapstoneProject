@@ -300,10 +300,10 @@ export class CheckoutPageComponent implements OnInit {
       if(data.quantity < 5){
         console.log("product below got low in stock:");
         console.log(data);
-        this.vendorService.sendRabbitMQMessage(data.productId)
-        .subscribe({next:(m)=>{
-          console.log("rabbit message sent.");
-        }})
+        // this.vendorService.sendRabbitMQMessage(data.productId)
+        // .subscribe({next:(m)=>{
+        //   console.log("rabbit message sent.");
+        // }})
       }
     }});
   }
