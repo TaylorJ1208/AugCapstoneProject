@@ -18,10 +18,10 @@ export class UserPageComponent {
   constructor(private router: Router, private oktaAuthService: OktaAuthService, private userService: UserService) {
     this.oktaAuthService.getUser().then((user) => {
       this.sub = user.sub;
-    });
-    this.userService.getUserByOktaId(this.sub).subscribe((user) => {
-      this.user = user;
-      this.isUser = this.user?.roles[0].role == "ROLE_USER" ? true : false;
+      this.userService.getUserByOktaId(this.sub).subscribe((user) => {
+        this.user = user;
+        this.isUser = this.user?.roles[0].role == "ROLE_USER" ? true : false;
+      });
     });
   }
 }

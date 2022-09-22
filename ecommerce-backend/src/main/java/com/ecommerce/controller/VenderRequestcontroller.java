@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.model.VendorRequest;
-import com.ecommerce.model.Vendors;
 import com.ecommerce.service.VenderRequestService;
 
 @CrossOrigin(origins = { "https://e-frontend.azurewebsites.net", "http://localhost:4200" })
@@ -27,6 +26,9 @@ public class VenderRequestcontroller {
 	
 	@GetMapping("/{id}")
 	public VendorRequest getVendorRequest(@PathVariable int id) {
+		if(!service.getVenderRequestById(id).isPresent()) {
+			return null;
+		}
 		return service.getVenderRequestById(id).get();
 	}
 	
