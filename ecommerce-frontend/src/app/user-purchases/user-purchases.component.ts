@@ -28,9 +28,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
    
     this.ordersService.getAllOrders()
       .subscribe ((data: Orders[]) => {
-        console.log(data.filter((order) => order.user.oktaId == oktaId));
         this.orders = data.filter((order) => order.user.oktaId == oktaId)
         console.log(this.orders);
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 3500);
         this.spinner.hide();
       })
   } 
