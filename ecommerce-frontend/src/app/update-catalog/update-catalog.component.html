@@ -182,7 +182,6 @@
                     </div>
 
                     <div class="form-group">
-                        <!--<label for="imageuri" class="form-label">Image URL</label>-->
                         <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
                             placeholder="Image URL" [(ngModel)]="currentProduct.image" #upimage="ngModel"></textarea>
                         <div *ngIf="upimage.invalid && (upimage.dirty || upimage.touched)">
@@ -243,7 +242,7 @@
             <div class="card-body">
                 <h3 class="text-center">Add Product</h3>
                 <hr>
-                <form class="form" role="form" autocomplete="off">
+                <form class="form" role="form" autocomplete="off" aria-label="category">
 
                     <div class="form-group">
                         <label for="categoryid" class="form-label">Choose Category</label>
@@ -371,16 +370,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--   <form id="imageuploadform" method="post" enctype="multipart/form-data">
-                    <input type="file" name="files[]" multiple>
-                    <input onclick="uploadImage()" type="submit" value="Upload Files" name="submit">
-                    <img id="productimage" class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
-                alt="Card image cap">
-                  </form>-->
-
-
-
-
                     <div class="form-group">
                         <div>
                             <img #pimg hidden="true" id="productimage" class="card-img-top"
@@ -410,21 +399,6 @@
                                 class="btn btn-success btn-lg btn-block">Submit</button>
                         </div>
                     </div>
-
-                    <!--Required Pop-up window in Add Product-->
-                    <!--  <div>
-         <div class="overlay" *ngIf="(pname.invalid || pdesc.invalid || pcategory.invalid || pprice.invalid || pweight.invalid ||pstock.invalid || pimage.invalid)
-         && addProductValidationPopup == true">
-            <div *ngIf="pname.errors?.['required'] || pdesc.errors?.['required'] || pcategory.errors?.['required']
-                        || pprice.errors?.['required'] || pprice.errors?.['min'] || pweight.errors?.['required'] 
-                        || pweight.errors?.['min'] || pstock.errors?.['required'] || pimage.errors?.['required']" class = "popup">
-                <p>Please fill out all the <span style="text-transform:uppercase; color:red">fields.</span></p>
-                <a class="btn btn-outline-danger btn-block close"  (click)="addProductValidationPopup=false">Cancel</a>
-            </div>
-        </div>
-        </div>-->
-
-
                 </form>
                 <div *ngIf="productAdded" id="productAddedAlert" class="overlay alert-dismissible fade show"
                     role="productAddedAlert">
@@ -460,7 +434,6 @@
             <div class="card m-2" style="width: 18em;" *ngFor="let category of categories">
 
                 <div class="card-body text-center">
-                    <!--  <h4 class="card-title">Category ID: {{ category.categoryId }}</h4>-->
                     <h2 style="text-transform:uppercase" class="card-subtitle">{{ category.category }}</h2><br>
 
                     <input *ngIf="editCategoryModeId == category.categoryId && categoryUpdated == false" type="text"
@@ -510,10 +483,9 @@
                 <div class="card-body text-center">
                     <h2 style="text-transform:uppercase" class="card-subtitle">New Category</h2><br>
 
-                    <form class="form" role="form" autocomplete="off">
+                    <form class="form" role="form" autocomplete="off" aria-labe="categoryName">
 
                         <div class="form-group">
-                            <!--<label for="categoryname" class="form-label">Category Name</label>-->
                             <input type="text" class="form-control text-center" id="categoryname" required
                                 name="categoryname" placeholder="Category Name" [(ngModel)]="currentCategory.category"
                                 #cname="ngModel" />

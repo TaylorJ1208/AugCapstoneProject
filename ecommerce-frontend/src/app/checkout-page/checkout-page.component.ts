@@ -10,7 +10,6 @@ import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
 import { StripeService } from '../services/stripe-service/stripe-service';
 import { UserService } from '../services/user-service/user.service';
-import { VendorService } from '../services/vendor-service/vendor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -135,7 +134,6 @@ export class CheckoutPageComponent implements OnInit {
          this.addOrder();
     }
     console.log("TOKEN = " + this.token$.getValue());
-    this.addOrder();
   }
 
   const paymentStripe = () => {
@@ -196,7 +194,6 @@ export class CheckoutPageComponent implements OnInit {
 
     console.log(this.finalCart);
     let dateString = new Date('2022-08-30T00:00:00');
-    let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
     let orderData: any;
     this.oktaAuthService.getUser().then((user) => {
        this.userService.getUserByOktaId(user.sub).subscribe((data) => {
@@ -237,7 +234,7 @@ export class CheckoutPageComponent implements OnInit {
 
   productStockDecrement(){
     this.cartItems.forEach(item=>{
-      var product:any;
+      let product:any;
       this.productService.getProductById(item.productId)
       .subscribe({next:(data)=>{
         product = data;
@@ -256,16 +253,11 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   sendLowStockMessage(id:any){
-    var product:any=[];
     this.productService.getProductById(id)
     .subscribe({next:(data)=>{
       if(data.quantity < 5){
         console.log("product below got low in stock:");
         console.log(data);
-        // this.vendorService.sendRabbitMQMessage(data.productId)
-        // .subscribe({next:(m)=>{
-        //   console.log("rabbit message sent.");
-        // }})
       }
     }});
   }

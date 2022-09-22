@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Vendor } from 'src/app/Models/vendor';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -30,10 +29,6 @@ export class VendorService {
   addVendor(data:any):Observable<any>{
     return this.http.post(`https://e-backend.azurewebsites.net/vendors/add`,data);
   }
-
- /*  requestStock(productId:any, amount:any, data:any):Observable<any>{
-    return this.http.post(`https://e-backend.azurewebsites.net/vendors/restock/${productId}/${amount}`, data);
-  } */
 
   sendRabbitMQMessage(id:number):Observable<any>{
     console.log("sending rabbitMQ message for product id "+id);
