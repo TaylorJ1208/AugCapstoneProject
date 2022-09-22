@@ -134,6 +134,7 @@ export class CheckoutPageComponent implements OnInit {
          this.addOrder();
     }
     console.log("TOKEN = " + this.token$.getValue());
+    this.addOrder();
   }
 
   const paymentStripe = () => {
@@ -194,6 +195,7 @@ export class CheckoutPageComponent implements OnInit {
 
     console.log(this.finalCart);
     let dateString = new Date('2022-08-30T00:00:00');
+    let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
     let orderData: any;
     this.oktaAuthService.getUser().then((user) => {
        this.userService.getUserByOktaId(user.sub).subscribe((data) => {
@@ -258,6 +260,10 @@ export class CheckoutPageComponent implements OnInit {
       if(data.quantity < 5){
         console.log("product below got low in stock:");
         console.log(data);
+        // this.vendorService.sendRabbitMQMessage(data.productId)
+        // .subscribe({next:(m)=>{
+        //   console.log("rabbit message sent.");
+        // }})
       }
     }});
   }
