@@ -14,13 +14,12 @@ import com.ecommerce.service.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 @RestController
 @RequestMapping("/stripe")
 public class ChargeController {
 
-	Dotenv dotenv = Dotenv.load();
+	String STRIPE_SK= "sk_test_51LflSODncq9KJa81wkyR9lv5ThzXjDzFgDBXqKpMpNnioBJreCd4VbnTrZQHjRBCIA5u953LQl8kg2pbwFnUvnR6001FXYongm";
+	String STRIPE_PK= "pk_test_51LflSODncq9KJa816vSKNjdic3V39Y1HZ0ZvX4TmkpoqUdMGFmb9xBklhywlxvwcFPqyiKn0xOlxou0NJkaORrnw00SACxUFmk";
 	
     @Autowired
     private StripeService paymentsService;
