@@ -3,21 +3,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.model.ChargeRequest;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import io.github.cdimascio.dotenv.Dotenv;
 
 @Service
 public class StripeService {
-	private String secretKey = "sk_test_51LflSODncq9KJa81wkyR9lv5ThzXjDzFgDBXqKpMpNnioBJreCd4VbnTrZQHjRBCIA5u953LQl8kg2pbwFnUvnR6001FXYongm";
+	
+
+	Dotenv dotenv = Dotenv.load();
 
     @PostConstruct
     public void init() {
-        Stripe.apiKey = secretKey;
+        Stripe.apiKey = dotenv.get("STRIPE_SK");
     }
 
 	public Charge charge(ChargeRequest cr) throws StripeException {

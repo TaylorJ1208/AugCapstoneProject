@@ -1,5 +1,7 @@
 package com.ecommerce.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +25,9 @@ public class VenderRequestService {
 		return this.repo.findById(id);
 	}
 
-	public void addVenderRequest(VendorRequest vendorRequest) {
-		this.repo.save(vendorRequest);
+	public int addVenderRequest(VendorRequest vendorRequest) {
+		vendorRequest.setRequestdate(LocalDateTime.now(ZoneId.of("America/Toronto")));
+		return this.repo.save(vendorRequest).getId();
 	}
 	
 	public void deleteVendorRequest(int id) {

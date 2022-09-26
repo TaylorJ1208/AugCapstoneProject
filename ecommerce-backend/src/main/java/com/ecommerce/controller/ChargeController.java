@@ -1,7 +1,6 @@
 package com.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +14,16 @@ import com.ecommerce.service.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @RestController
 @RequestMapping("/stripe")
 public class ChargeController {
 
+	Dotenv dotenv = Dotenv.load();
+	
     @Autowired
     private StripeService paymentsService;
-    
-	@Value("pk_test_51LflSODncq9KJa816vSKNjdic3V39Y1HZ0ZvX4TmkpoqUdMGFmb9xBklhywlxvwcFPqyiKn0xOlxou0NJkaORrnw00SACxUFmk")
-    private String stripePublicKey;
 
     @PostMapping("/charge")
     public void charge(@RequestBody ChargeRequest cr, Model model)

@@ -1,6 +1,6 @@
 package com.ecommerce.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +31,7 @@ public class VendorRequest {
 	private Product product;
 	
 	private int quantityrequested;
-	private LocalDate requestdate;
+	private LocalDateTime requestdate;
 	
 	@OneToOne
 	private Vendors vendor;

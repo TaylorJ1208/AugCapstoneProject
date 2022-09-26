@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.User;
-import com.ecommerce.model.Vendors;
 
 @Service
 public class EmailService {
@@ -128,6 +127,33 @@ public class EmailService {
 				
 				+"\n Please ship " + amount +" units.");
 		
+		mailSender.send(message);
+	}
+
+	public void sendLowStockEmail(String msg) throws MessagingException {
+
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+		mailSender.setHost(this.emailConfig.getHost());
+		mailSender.setPort(this.emailConfig.getPort());
+		mailSender.setUsername(this.emailConfig.getUsername());
+		mailSender.setPassword(this.emailConfig.getPassword());
+
+		MimeMessage message = mailSender.createMimeMessage();
+
+
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		helper.setFrom("eCommerce@hcl.com");
+		helper.setTo("eCommerce@hcl.com");
+		helper.setSubject("Low Stock - eCommerce!");
+		helper.setText("<html>"
+				+ "<body style='display: flex; flex-direction:column; align-items: center; justify-content: center; background-color: cornsilk;"
+				+ "font-family: Arial, Helvetica, sans-serif;'><div style='background-color: cornsilk; padding:1em; "
+				+ "width: fit-content; text-align: center; border-radius: 5em'>"
+				+ "<h1>Hello,</h1>"
+				+ "<h2 style='font-weight:lighter'>" +msg+"<h2>" + "</div><img src='" + this.imageURL
+				+ "' alternate='Image'" + "style='width:40em; height:40em; border-radius:5em'>" + "</body>" + "</html>", true);
+
 		mailSender.send(message);
 	}
 }

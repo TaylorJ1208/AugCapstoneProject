@@ -203,7 +203,7 @@
                             <td>{{request.product.quantity}}</td>
                             <td>{{request.quantityrequested}}</td>
                             <td>{{request.vendor.name}}</td>
-                            <td>{{request.requestdate}}</td>
+                            <td>{{request.requestdate | date:'MM/dd/yyyy'}}<br>{{request.requestdate | date:'hh:mm a'}}</td>
                             <td>
                                 <select [(ngModel)]="request.status" #rstatus="ngModel"
                                  required (change)="updateRequestStatus(request.id, request.status);">

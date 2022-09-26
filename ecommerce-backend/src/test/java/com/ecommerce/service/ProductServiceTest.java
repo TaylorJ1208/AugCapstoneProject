@@ -64,7 +64,7 @@ class ProductServiceTest {
 	@Test
 	void testGetProductById() throws Exception {
 		when(repo.findById(p.getProductId())).thenReturn(Optional.of(p));
-		assertThat(service.getProductById(p.getProductId())).isEqualTo(p);
+		assertEquals(service.getProductById(p.getProductId()), p);
 	}
 	
 	@Test

@@ -38,7 +38,7 @@ public class VenderRequestcontroller {
 	}
 	
 	@PostMapping("/add")
-	public void addVendor(@RequestBody VendorRequest vendorRequest) {
+	public void addVendorRequest(@RequestBody VendorRequest vendorRequest) {
 		service.addVenderRequest(vendorRequest);
 	}
 	
