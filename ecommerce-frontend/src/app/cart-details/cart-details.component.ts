@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from '../Models/cart-item';
+import { Product } from '../Models/product';
 import { CartService } from '../services/cart-service/cart.service';
+import { ProductService } from '../services/product-service/product.service';
 
 @Component({
 	selector: 'app-cart-details',
@@ -11,18 +13,25 @@ export class CartDetailsComponent implements OnInit {
 	cartItems: CartItem[] = [];
 	totalPrice: number = 0;
 	totalQuantity: number = 0;
-	constructor(private cartService: CartService) { }
+	currentProduct: any;
+	constructor(private cartService: CartService, private productService: ProductService) { }
 
 	ngOnInit(): void {
 		this.listCartDetails();
+		this.productService.getProductById(this.cartItems[0].productId)
+			.subscribe((product: Product) => {
+				this.currentProduct = product;
+			});
 	}
+
 	listCartDetails() {
+		
 		//get a handle to the cart items
 		this.cartItems = this.cartService.cartItems;
 
 		// subscribe to the cart totalPrice
 		this.cartService.totalPrice.subscribe(
-			(data:any) => this.totalPrice = data
+			(data: any) => this.totalPrice = data
 
 		);
 
@@ -35,9 +44,14 @@ export class CartDetailsComponent implements OnInit {
 		this.cartService.computeCartTotals();
 
 	}
-	
+
 	incrementQuantity(theCartItem: CartItem) {
-		this.cartService.addToCart(theCartItem);
+		
+		this.productService.getProductById(theCartItem.productId)
+			.subscribe((product: Product) => {
+				this.currentProduct = product;
+			});
+	this.cartService.addToCart(theCartItem);
 	}
 	decrementQuantity(theCartItem: CartItem) {
 		this.cartService.decrementQuantity(theCartItem);
