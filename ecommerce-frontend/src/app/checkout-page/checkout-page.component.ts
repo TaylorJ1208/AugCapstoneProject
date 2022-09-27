@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../Models/cart-item';
 import { Charges } from '../Models/charges';
 import { Product } from '../Models/product';
-import { Role } from '../Models/role';
 import { CartService } from '../services/cart-service/cart.service';
 import { OrdersService } from '../services/orders-service/orders.service';
 import { ProductService } from '../services/product-service/product.service';
@@ -195,7 +194,6 @@ export class CheckoutPageComponent implements OnInit {
 
     console.log(this.finalCart);
     let dateString = new Date('2022-08-30T00:00:00');
-    let role: Role[] = [{ roleId: 1, role: "ROLE_ADMIN" }]
     let orderData: any;
     this.oktaAuthService.getUser().then((user) => {
        this.userService.getUserByOktaId(user.sub).subscribe((data) => {
