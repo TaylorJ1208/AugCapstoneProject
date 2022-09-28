@@ -23,6 +23,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductCategory;
+import com.ecommerce.model.Review;
 import com.ecommerce.model.UserCart;
 import com.ecommerce.model.Vendors;
 import com.ecommerce.repo.ProductRepo;
@@ -47,12 +48,13 @@ class ProductServiceTest {
 	List<Orders> o = new ArrayList<>();
 	ProductCategory pc = new ProductCategory();
 	List<UserCart> u = new ArrayList<>();
+	List<Review> reviews = new ArrayList<>();
 
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		service = new ProductService(repo);
-		p = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
+		p = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors, reviews);
 	}
 
 	@Test
@@ -100,9 +102,9 @@ class ProductServiceTest {
 	
 	@Test
 	void testProductEquals() {
-		Product p1 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
-		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
-		Product p3 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
+		Product p1 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors, reviews);
+		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors, reviews);
+		Product p3 = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors, reviews);
 		assertEquals(true, p2.equals(p2));
 		assertEquals(false, p1.equals(p2));
 		assertEquals(false, p2.equals(null));
@@ -114,7 +116,7 @@ class ProductServiceTest {
 	
 	@Test
 	void testProductHashCode() {
-		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors);
+		Product p2 = new Product(id,"wrong product name","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,u, vendors, reviews);
 		assertEquals(p.hashCode(), p.hashCode());
 		assertNotEquals(p.hashCode(), p2.hashCode());
 	}

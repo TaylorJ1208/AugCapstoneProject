@@ -65,5 +65,7 @@ public class Product {
 	@ManyToOne()
 	@JoinColumn(nullable=false, name="vendorId")
 	private Vendors vendors;
-	
+	@OneToMany(mappedBy="product")
+	@JsonIgnore
+	private List<Review> reviews;
 }

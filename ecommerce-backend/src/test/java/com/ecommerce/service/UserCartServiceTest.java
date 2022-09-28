@@ -26,6 +26,7 @@ import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductCategory;
+import com.ecommerce.model.Review;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.model.UserCart;
@@ -58,8 +59,10 @@ class UserCartServiceTest {
 	List<Orders> o = new ArrayList<>();
 	ProductCategory pc = new ProductCategory();
 	List<UserCart> userCart = new ArrayList<>();
+	List<Review> reviews = new ArrayList<>();
+
 	UserCartId userCartId = new UserCartId(userId,productId);
-	Product product = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,userCart, vendors);
+	Product product = new Product(id,"Lenovo Laptop","Legion 5 latop",price,weigth, quantity,"sample URL",rating,o,pc,userCart, vendors, reviews);
 	
 	
 	Set<Role> r = new HashSet<>();

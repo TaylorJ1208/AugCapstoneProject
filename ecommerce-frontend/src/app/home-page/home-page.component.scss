@@ -1,1 +1,19 @@
 // Global styles for home-page.component.html
+
+li {
+    list-style: none;
+}
+
+em {
+    font-style: italic;
+    color: gold;
+}
+
+.special-a {
+    text-decoration: underline;
+}
+
+.special-a:hover {
+    font-style: italic;
+    cursor: pointer;
+}

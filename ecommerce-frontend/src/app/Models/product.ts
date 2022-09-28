@@ -1,4 +1,5 @@
 import { Category } from "./categories";
+import { Review } from "./Review";
 import { Vendor } from "./vendor";
 
 export interface Product {
@@ -12,4 +13,5 @@ export interface Product {
     rating: number;
     category: Category;
     vendors: Vendor;
+    reviews: Review[];
 }

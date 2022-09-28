@@ -187,7 +187,8 @@ export class CheckoutPageComponent implements OnInit {
           vendorId: element.vendors.vendorId,
           name: element.vendors.name,
           email: element.vendors.email
-        }
+        },
+        reviews: element.reviews
       }
       this.finalCart.push(data);
     });

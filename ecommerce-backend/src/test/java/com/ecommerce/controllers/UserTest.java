@@ -28,6 +28,7 @@ import com.ecommerce.model.Address;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductCategory;
+import com.ecommerce.model.Review;
 import com.ecommerce.model.Role;
 import com.ecommerce.model.User;
 import com.ecommerce.model.UserCart;
@@ -85,6 +86,7 @@ class UserTest {
 	List<Address> a = new ArrayList<>();
 	List<UserCart> userCart = new ArrayList<>();
 	List<Product> products = new ArrayList<>();
+	List<Review> reviews = new ArrayList<>();
 	
 	@MockBean
 	ProductCategory pc;
@@ -105,7 +107,7 @@ class UserTest {
 		user = new User(id,"3", "firstName","lastName","email","username","password","contact","ssn",o,r,a,userCart);
 		pc = new ProductCategory(id, "category", products);
 		product = new Product(id,"Lenovo Laptop","Legion 5 latop",
-				new BigDecimal(15),new BigDecimal(15), 3,"sample URL",3,o,pc,userCart, vendors);
+				new BigDecimal(15),new BigDecimal(15), 3,"sample URL",3,o,pc,userCart, vendors, reviews);
 		userCartId = new UserCartId(user.getUserId(), product.getProductId());
 	}
 	
