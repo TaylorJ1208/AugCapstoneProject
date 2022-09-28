@@ -44,41 +44,28 @@
                                 [src]="product.image" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
-                                <li class="w-100" *ngIf="product.rating == 1">
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
+                                <ul>
+                                    <li class="w-100" *ngIf="product.rating == 1">
+                                    <em *ngFor="let _ of [].constructor(1)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(4)" class="fa-regular fa-star"></em>
                                 </li>
                                 <li class="w-100" *ngIf="product.rating == 2">
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(2)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(3)" class="fa-regular fa-star"></em>
                                 </li>
                                 <li class="w-100" *ngIf="product.rating == 3">
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(3)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(2)" class="fa-regular fa-star"></em>
                                 </li>
                                 <li class="w-100" *ngIf="product.rating == 4">
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-regular fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(4)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(1)" class="fa-regular fa-star"></em>
                                 </li>
                                 <li class="w-100" *ngIf="product.rating == 5">
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
-                                    <em class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(5)" class="fa-solid fa-star"></em>
                                 </li>
+                                </ul>
+                                
                                 <br>
                                 <p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
                             </div>
@@ -106,41 +93,28 @@
                                             style="width: 4em;">
                                         <h5>{{ review.name }}</h5>
                                     </div>
-                                    <li class="w-100" *ngIf="review.rating == 1">
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
+                                    <ul>
+                                        <li class="w-100" *ngIf="product.rating == 1">
+                                        <em *ngFor="let _ of [].constructor(1)" class="fa-solid fa-star"></em>
+                                        <em *ngFor="let _ of [].constructor(4)" class="fa-regular fa-star"></em>
                                     </li>
-                                    <li class="w-100" *ngIf="review.rating == 2">
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
+                                    <li class="w-100" *ngIf="product.rating == 2">
+                                        <em *ngFor="let _ of [].constructor(2)" class="fa-solid fa-star"></em>
+                                        <em *ngFor="let _ of [].constructor(3)" class="fa-regular fa-star"></em>
                                     </li>
-                                    <li class="w-100" *ngIf="review.rating == 3">
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
+                                    <li class="w-100" *ngIf="product.rating == 3">
+                                        <em *ngFor="let _ of [].constructor(3)" class="fa-solid fa-star"></em>
+                                        <em *ngFor="let _ of [].constructor(2)" class="fa-regular fa-star"></em>
                                     </li>
-                                    <li class="w-100" *ngIf="review.rating == 4">
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-regular fa-star"></em>
+                                    <li class="w-100" *ngIf="product.rating == 4">
+                                        <em *ngFor="let _ of [].constructor(4)" class="fa-solid fa-star"></em>
+                                        <em *ngFor="let _ of [].constructor(1)" class="fa-regular fa-star"></em>
                                     </li>
-                                    <li class="w-100" *ngIf="review.rating == 5">
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
-                                        <em class="fa-solid fa-star"></em>
+                                    <li class="w-100" *ngIf="product.rating == 5">
+                                        <em *ngFor="let _ of [].constructor(5)" class="fa-solid fa-star"></em>
                                     </li>
+                                    </ul>
+                                    
                                     <p class="card-text"
                                         style="font-style: italic; font-weight: bolder; border-top: 2px solid black">{{
                                         review.title }}</p>
@@ -163,11 +137,9 @@
                                                 Reviewer name is required.
                                             </div>
                                         </div>
-                                        <!-- <p class="d-flex flex-nowrap align-items-center"> -->
                                         <input type="number" [(ngModel)]="review.rating" min="1" max="5"
                                             style="width: 5em; height: 2em;" required #rating="ngModel">
                                         &nbsp;/ 5 <em class="fa-solid fa-star"></em>&nbsp;
-                                        <!-- </p> -->
                                         <em *ngIf="review.rating > 5 || review.rating < 1" style="color: red;">* rating
                                             must be between
                                             1 & 5</em>
@@ -206,41 +178,28 @@
 
                 <div class="d-flex flex-nowrap">
                     <div>
-                        <li class="w-100" *ngIf="product.rating == 1">
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
+                        <ul>
+                            <li class="w-100" *ngIf="product.rating == 1">
+                            <em *ngFor="let _ of [].constructor(1)" class="fa-solid fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(4)" class="fa-regular fa-star"></em>
                         </li>
                         <li class="w-100" *ngIf="product.rating == 2">
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(2)" class="fa-solid fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(3)" class="fa-regular fa-star"></em>
                         </li>
                         <li class="w-100" *ngIf="product.rating == 3">
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(3)" class="fa-solid fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(2)" class="fa-regular fa-star"></em>
                         </li>
                         <li class="w-100" *ngIf="product.rating == 4">
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-regular fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(4)" class="fa-solid fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(1)" class="fa-regular fa-star"></em>
                         </li>
                         <li class="w-100" *ngIf="product.rating == 5">
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
-                            <em class="fa-solid fa-star"></em>
+                            <em *ngFor="let _ of [].constructor(5)" class="fa-solid fa-star"></em>
                         </li>
+                        </ul>
+                        
                     </div>
                     <a class="text-info special-a" (click)="viewProductReviews(reviews)" style="padding-left: 0.5em">{{
                         getReviewCount(product.productId)
