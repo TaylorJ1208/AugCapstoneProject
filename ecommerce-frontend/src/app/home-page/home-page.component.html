@@ -95,23 +95,23 @@
                                             <h5>{{ review.name }}</h5>
                                         </div>
                                         <ul>
-                                            <li class="w-100" *ngIf="product.rating == 1">
+                                            <li class="w-100" *ngIf="review.rating == 1">
                                                 <em *ngFor="let _ of [].constructor(1)" class="fa-solid fa-star"></em>
                                                 <em *ngFor="let _ of [].constructor(4)" class="fa-regular fa-star"></em>
                                             </li>
-                                            <li class="w-100" *ngIf="product.rating == 2">
+                                            <li class="w-100" *ngIf="review.rating == 2">
                                                 <em *ngFor="let _ of [].constructor(2)" class="fa-solid fa-star"></em>
                                                 <em *ngFor="let _ of [].constructor(3)" class="fa-regular fa-star"></em>
                                             </li>
-                                            <li class="w-100" *ngIf="product.rating == 3">
+                                            <li class="w-100" *ngIf="review.rating == 3">
                                                 <em *ngFor="let _ of [].constructor(3)" class="fa-solid fa-star"></em>
                                                 <em *ngFor="let _ of [].constructor(2)" class="fa-regular fa-star"></em>
                                             </li>
-                                            <li class="w-100" *ngIf="product.rating == 4">
+                                            <li class="w-100" *ngIf="review.rating == 4">
                                                 <em *ngFor="let _ of [].constructor(4)" class="fa-solid fa-star"></em>
                                                 <em *ngFor="let _ of [].constructor(1)" class="fa-regular fa-star"></em>
                                             </li>
-                                            <li class="w-100" *ngIf="product.rating == 5">
+                                            <li class="w-100" *ngIf="review.rating == 5">
                                                 <em *ngFor="let _ of [].constructor(5)" class="fa-solid fa-star"></em>
                                             </li>
                                         </ul>
