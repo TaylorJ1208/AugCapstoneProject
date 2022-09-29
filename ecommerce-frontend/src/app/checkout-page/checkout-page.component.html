@@ -134,35 +134,45 @@
                 </div>
             </div>
         </div>
-        <div class="card text-white bg-white mb-3 ms-3 mt-3" style="height: fit-content; min-height: 424px;">
-            <div class="card-header text-dark text-center" style="background-color: cornsilk">Cart</div>
-            <div class="card-body" style="width: 350px;">
-                <div class="d-flex flex-row" *ngFor="let product of cartItems; let i = index">
-                    <div class="col-md-1 text-dark text-center mt-3">
-                        <p>{{i+1}}</p>
+        <div class="d-flex flex-column" style="flex-wrap: nowrap;">
+            <div class="card text-white bg-white mb-0 ms-3 mt-3" style="height: fit-content; min-height: 424px; flex-wrap: nowrap;">
+                <div class="card-header text-dark text-center" style="background-color: cornsilk">Cart</div>
+                <div class="card-body" style="width: 350px;">
+                    <div class="d-flex flex-row" *ngFor="let product of cartItems; let i = index">
+                        <div class="col-md-1 text-dark text-center mt-3">
+                            <p>{{i+1}}</p>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <img class="image-responsive" style="width: 80px;"
+                                [src]="product.image" alt="Card image cap">
+                        </div>
+                        <div class="col-md-6 text-dark text-center mt-3">
+                            <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
+                        </div>
                     </div>
-                    <div class="col-md-6 text-center">
-                        <img class="image-responsive" style="width: 80px;"
-                            [src]="product.image" alt="Card image cap">
-                    </div>
-                    <div class="col-md-6 text-dark text-center mt-3">
-                        <p>{{ product.quantity * product.price | currency: 'USD' }}</p>
+                    <ng-container *ngIf="cartItems.length == 0; else notEmpty">
+                        <div class="text-center">
+                            <p class="card-text text-dark p-1 text-center">Your cart is empty.</p>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div>
+                <div class="card text-white bg-white ms-3" style="min-height: 20px; margin-bottom: 10px; transform: translateY(-6px); position: relative;">
+                    <div class="card-body p-0" style="background-color: cornsilk;">
+                        <hr style="background-color: black;" class="m-0">
+                        <div class="col-md-6 text-center d-inline">
+                            <p class="card-text text-dark p-1 text-center d-inline" style="margin-right: 122px; margin-left: 20px; bottom: 200px;">Total Price: </p>
+                        </div>
+                        <div class="col-md-6 text-dark text-center mt-3 d-inline">       
+                            <p class="card-text text-dark p-1 text-center d-inline"> {{ (totalPrice) |
+                            currency: 'USD' }}</p>
+                        </div>
                     </div>
                 </div>
-                <ng-container *ngIf="cartItems.length == 0; else notEmpty">
-                    <div class="text-center">
-                        <p class="card-text text-dark p-1 text-center">Your cart is empty.</p>
-                    </div>
-                </ng-container>
-                <ng-template #notEmpty>
-                    <div class="text-center">
-                        <hr style="background-color: black;">
-                        <p class="card-text text-dark p-1 text-center"
-                            style="position: absolute; bottom: 0; margin-left: 155px;">Total Price: {{ (totalPrice) |
-                            currency: 'USD' }}</p>
-                    </div>
-                </ng-template>
             </div>
         </div>
     </div>
+    <ng-template #notEmpty>
+    </ng-template>
 </div>
