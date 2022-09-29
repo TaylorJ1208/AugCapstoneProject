@@ -69,6 +69,8 @@ export class HomePageComponent implements OnInit {
     this.getProducts();
     this.oktaAuthService.getUser().then((u) => {
       let fullName = u.name?.split(" ");
+      console.log(u.sub);
+      console.log(!this.userExists(u.sub));
       if (!this.userExists(u.sub)) {
         let user: any = {
           oktaId: u.sub,
