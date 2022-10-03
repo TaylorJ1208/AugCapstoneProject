@@ -26,6 +26,7 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { CartStatusComponent } from './cart-status/cart-status.component';
 import { UpdateCatalogComponent } from './update-catalog/update-catalog.component';
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
@@ -63,7 +64,8 @@ const oktaConfig = Object.assign({
     FormsModule,
     NgbModule,
     OktaAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
   ],
   providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]

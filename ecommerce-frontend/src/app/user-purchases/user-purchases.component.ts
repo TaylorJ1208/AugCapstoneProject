@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OktaAuthService } from '@okta/okta-angular';
 import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/orders';
@@ -11,9 +12,10 @@ import { OrdersService } from '../services/orders-service/orders.service';
   })
 
   export class UserPurchasesComponent implements OnInit {
-  orders: Orders[] = [];
-  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService) { }
-  display="none";
+    orders: Orders[] = [];
+    
+  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService, private modalService: NgbModal) { }
+  searchWord: any ="";
 
   ngOnInit(): void {
     this.oktaAuthService.getUser().then((user) => {
@@ -31,11 +33,14 @@ import { OrdersService } from '../services/orders-service/orders.service';
       })
   } 
 
-  openModal(){
-    this.display="block";
+  searchOrders():void{
+    this.orders.filter((order)=>{
+      order.products.filter((product)=> product.name == this.searchWord);
+    })
   }
-  onCloseHandled(){
-    this.display="none";
+
+  open(content:any){
+    this.modalService.open(content, {size: 'lg'});
   }
     
   }
