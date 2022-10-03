@@ -64,6 +64,7 @@ export class CheckoutPageComponent implements OnInit {
   loading = false;
 
   async ngOnInit() {
+    this.spinner.show();
     this.listCartDetails();
     this.getProducts();
   }
@@ -87,7 +88,6 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   listCartDetails() {
-    this.spinner.show();
     //get a handle to the cart items
     this.cartItems = this.cartService.cartItems;
 
@@ -195,7 +195,6 @@ export class CheckoutPageComponent implements OnInit {
 
     console.log(this.finalCart);
     let dateString = new Date();
-    console.log(dateString);
     let orderData: any;
     this.oktaAuthService.getUser().then((user) => {
        this.userService.getUserByOktaId(user.sub).subscribe((data) => {
