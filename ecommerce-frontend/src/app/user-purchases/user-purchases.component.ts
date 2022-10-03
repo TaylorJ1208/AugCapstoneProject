@@ -33,13 +33,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
         console.log(this.orders);
       })
   } 
-
-  searchOrders():void{
-    this.orders.filter((order)=>{
-      order.products.filter((product)=> product.name == this.searchWord);
-    })
-  }
-
+  
   open(content:any){
     this.modalService.open(content, {size: 'lg'});
   }
