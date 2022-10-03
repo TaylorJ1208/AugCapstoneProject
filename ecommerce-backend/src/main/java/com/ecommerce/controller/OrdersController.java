@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.email.EmailService;
 import com.ecommerce.model.Orders;
 import com.ecommerce.service.OrderService;
-import com.ecommerce.sms.SMSService;
 
 @RestController
 @RequestMapping("/orders")
@@ -28,9 +27,6 @@ public class OrdersController {
 	
 	@Autowired
 	private EmailService emailService;
-
-	@Autowired
-	private SMSService sms;
 	
 	@GetMapping("/admin/{id}")
 	public Orders getorder(@PathVariable Long id) {
@@ -46,7 +42,6 @@ public class OrdersController {
 	public void addorder(@RequestBody Orders order) throws MessagingException {
 		orderService.addOrder(order);
 		emailService.sendReceipt(order);
-		sms.sendMessage(order);
 	}
 	
 	@PostMapping("/{orderId}/product/{productId}")

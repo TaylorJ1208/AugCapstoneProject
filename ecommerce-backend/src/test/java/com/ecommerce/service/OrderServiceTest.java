@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.Product;
@@ -25,6 +26,7 @@ import com.ecommerce.model.User;
 import com.ecommerce.model.UserCartId;
 import com.ecommerce.repo.OrdersRepo;
 import com.ecommerce.repo.UserCartRepo;
+import com.ecommerce.sms.SMSService;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
@@ -36,6 +38,9 @@ class OrderServiceTest {
 	
 	@Mock
 	private OrderService service;
+	
+	@Mock
+	private SMSService smsService;
 	
 	@Mock
 	private UserCartService uService;

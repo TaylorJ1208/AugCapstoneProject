@@ -14,6 +14,7 @@ import com.ecommerce.model.UserCart;
 import com.ecommerce.repo.OrdersRepo;
 import com.ecommerce.repo.ProductRepo;
 import com.ecommerce.repo.UserCartRepo;
+import com.ecommerce.sms.SMSService;
 
 @Service
 public class OrderService {
@@ -26,6 +27,9 @@ public class OrderService {
 
 	@Autowired
 	private UserCartRepo repo;
+	
+	@Autowired
+	private SMSService sms;
 	
 	@Autowired
 	private UserCartService service;
@@ -61,6 +65,7 @@ public class OrderService {
 			total = total.add(p.getPrice());
 		}
 		order.setAmount(total);
+		sms.sendMessage(order);
 		return ordersRepo.save(order);
 		
 	}
