@@ -16,6 +16,7 @@ import { OrdersService } from '../services/orders-service/orders.service';
     
   constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService, private modalService: NgbModal) { }
   searchWord: any ="";
+  todayDate = new Date().toDateString();
 
   ngOnInit(): void {
     this.oktaAuthService.getUser().then((user) => {
