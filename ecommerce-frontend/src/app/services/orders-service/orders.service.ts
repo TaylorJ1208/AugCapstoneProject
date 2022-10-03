@@ -23,7 +23,6 @@ export class OrdersService {
   }
 
   addAnOrder(order: Orders) {
-    return this.http.post<Orders>(`https://e-backend.azurewebsites.net/orders/add`, order);
+    return this.http.post<Orders>(`http://localhost:8080/orders/add`, order);
   }
-  
 }

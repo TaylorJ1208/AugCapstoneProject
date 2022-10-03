@@ -20,7 +20,7 @@ import com.ecommerce.service.ProductService;
 @RestController
 @RequestMapping("/catalog")
 public class ProductController {
- 
+    
     @Autowired
     private ProductService productService;
 

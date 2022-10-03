@@ -10,10 +10,9 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      'https://e-backend.azurewebsites.net/catalog/customer'
-    );
+    return this.http.get<Product[]>("http://localhost:8080/catalog/customer");
   }
+
 
   getProductByName(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(`https://e-backend.azurewebsites.net/catalog/customer/product/${name}`);
