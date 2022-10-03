@@ -40,9 +40,6 @@ class OrderServiceTest {
 	private OrderService service;
 	
 	@Mock
-	private SMSService smsService;
-	
-	@Mock
 	private UserCartService uService;
 	
 	@Mock
@@ -103,14 +100,6 @@ class OrderServiceTest {
 		service.deleteOrder(id);
 		verify(repo).deleteById(id);	
 		
-	}
-	
-	@Test
-	void testAddOrder() {
-		when(repo.save(order)).thenReturn(order);
-		
-		service.addOrder(order);
-		verify(repo).save(order);
 	}
 	
 	@Test
