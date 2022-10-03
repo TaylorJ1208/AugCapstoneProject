@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OktaAuthService } from '@okta/okta-angular';
-import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../Models/orders';
 import { OrdersService } from '../services/orders-service/orders.service';
 

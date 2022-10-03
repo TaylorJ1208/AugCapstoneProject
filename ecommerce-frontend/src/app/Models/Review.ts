@@ -2,8 +2,8 @@ import { Product } from "./product";
 
 export interface Review {
     reviewId: number;
-    name: String;
-    review: String;
+    name: string;
+    review: string;
     rating: number;
     product: Product;
     title: string;

@@ -14,7 +14,7 @@ export class UserPageComponent {
   username: any;
   url = this.router.url
   isUser?: boolean;
-  user?: User ;
+  user?: User;
   userName?: string = "";
   sub: string = "";
   constructor(private router: Router, private oktaAuthService: OktaAuthService, private userService: UserService,
@@ -25,20 +25,15 @@ export class UserPageComponent {
       this.userName = user.name;
       this.validateUser(this.sub);
     });
+
+  }
   
+  validateUser(sub: string) {
+    this.userService.getUserByOktaId(sub).subscribe((user) => {
+      this.user = user;
+      this.isUser = this.user?.roles[0].role == "ROLE_USER" ? true : false;
+      this.spinner.hide();
+    });
   }
-
-  ngOninit(): void {
-
-  }
-
-
-    validateUser(sub: string) {
-      this.userService.getUserByOktaId(sub).subscribe((user) => {
-        this.user = user;
-        this.isUser = this.user?.roles[0].role == "ROLE_USER" ? true : false;
-        this.spinner.hide();
-      });
-    }
 }
 
