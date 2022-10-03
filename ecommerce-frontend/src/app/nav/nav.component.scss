@@ -1,3 +1,21 @@
 i:hover {
     color: black;
 }
+
+.navbar-brand {
+    background-color: white;
+}
+
+.navbar-brand:hover {
+    background-color: #5bc0de;
+    transition: 0.3s;
+    color: white;
+    span {
+        color: black;
+        transition: 0.3s;
+    }
+}
+
+span {
+    color: #5bc0de;
+}

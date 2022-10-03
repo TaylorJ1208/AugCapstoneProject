@@ -24,7 +24,7 @@
 
 								<div class="row no gutters">
 									<div class="col">
-										<button [disabled]="currentProduct.quantity == tempCartItem.quantity" (click)="incrementQuantity(tempCartItem)"
+										<button [disabled]="currentProduct.quantity <= tempCartItem.quantity" (click)="incrementQuantity(tempCartItem)"
 											class="button hollow circle">
 											<em class="fa fa-plus"></em>
 										</button>

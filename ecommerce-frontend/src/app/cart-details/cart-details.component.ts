@@ -18,14 +18,19 @@ export class CartDetailsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.listCartDetails();
-		this.productService.getProductById(this.cartItems[0].productId)
-			.subscribe((product: Product) => {
-				this.currentProduct = product;
-			});
+		if (this.cartItems.length != 0) {
+			for(let i = 0; i < this.cartItems.length; i++) {
+				this.productService.getProductById(this.cartItems[i].productId)
+				.subscribe((product: Product) => {
+					this.currentProduct = product;
+				});
+			}
+			
+		}
 	}
 
 	listCartDetails() {
-		
+
 		//get a handle to the cart items
 		this.cartItems = this.cartService.cartItems;
 
@@ -46,12 +51,12 @@ export class CartDetailsComponent implements OnInit {
 	}
 
 	incrementQuantity(theCartItem: CartItem) {
-		
+
 		this.productService.getProductById(theCartItem.productId)
 			.subscribe((product: Product) => {
 				this.currentProduct = product;
 			});
-	this.cartService.addToCart(theCartItem);
+		this.cartService.addToCart(theCartItem);
 	}
 	decrementQuantity(theCartItem: CartItem) {
 		this.cartService.decrementQuantity(theCartItem);
