@@ -15,15 +15,21 @@ export class UserPageComponent {
   url = this.router.url
   isUser?: boolean;
   user?: User ;
+  userName?: string = "";
   sub: string = "";
   constructor(private router: Router, private oktaAuthService: OktaAuthService, private userService: UserService,
     private spinner: NgxSpinnerService) {
     this.spinner.show();
     this.oktaAuthService.getUser().then((user) => {
       this.sub = user.sub;
+      this.userName = user.name;
       this.validateUser(this.sub);
     });
   
+  }
+
+  ngOninit(): void {
+
   }
 
 

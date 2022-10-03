@@ -1,52 +1,101 @@
-<div class="navbar m-1 bg-white  container-fluid border h-100">
-    <div class="container-fluid my-5 d-flex justify-content-center">
-        <div>
-            <div class="card-header bg-white">
-                <div class="media flex-sm-row flex-column-reverse justify-content-between">
-                    <div class="col my-auto">
-                        <h4 class="mb-0">My Orders</h4>
+<div class="navbar m-1 bg-white container-fluid h-100">
+    <!--Header-->
+    <div class="container-fluid">
+        <div class="card-header bg-white">
+            <div class="media flex-sm-row flex-column-reverse justify-content-between">
+                <div class="row justify-content-between mb-3">
+                    <div class="col-auto"><h4 class="my-auto mb-0">My Orders</h4></div>
+
+                    <div class="col-auto">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input type="search" id="form1"class="form-control" [(ngModel)]="searchWord" autocomplete="off"/>
+                                <label for="form1" class="form-label">Search Orders</label>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="card-body" *ngFor="let order of orders">
-                <div class="row justify-content-between mb-3">
-                    <div class="col-auto">
-                        <h6 class="color-1 mb-0 change-color">Date Placed: {{order.orderDate}} | Order
-                            #{{order.orderId}}</h6>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="color-1 mb-0 change-color">Total Price: ${{order.amount}} ({{order.products.length}}
-                            items)</h6>
-                    </div>
+    <div class="card-body" style="border: 1.5px solid lightslategray; border-radius: 10px;" *ngFor="let order of orders | filter:searchWord">
+        <div class="row justify-content-between mb-3">
+            <div class="col-auto"><h6 class="color-1 mb-0 change-color">Order Placed: <br> {{order.orderDate|date:'M/d/Y'}}</h6></div>
+            <div class="col-auto"><h6 class="color-1 mb-0 change-color">Total Price: <br> ${{order.amount}}</h6></div>
+            <div class="col-auto"><h6 class="color-1 mb-0 change-color">Ship To: <br> {{order.user.firstName}} {{order.user.lastName}}</h6></div>
+            <div class="col-auto"><h6 class="color-1 mb-0 change-color">Order #{{order.orderId}}<br>
+                <button class="btn-link"(click)="open(content)">View order details</button>
+            </h6></div>
+            <hr>
+
+            <!--details modal-->
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Order Details</h4>
+                    <button class="btn-close" type="button" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                 </div>
-                <div class="row">
-                    <div class="col" style="border: 1.5px solid lightslategray; border-radius: 10px; ">
-                        <div class="sq align-self-center">
-                            <h5>{{ order.status ? "Shipped" : "In Transit" }}</h5>
+                <div class="modal-body">
+                    <p>Ordered on {{order.orderDate}} | Order #{{order.orderId}}</p><hr>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col">
+                            <div class="row"><h6><strong>Shipping Address</strong></h6></div>
+                            <div class="row"><h6>{{order.user.firstName}} {{order.user.lastName}}</h6></div>
+                            <div class="row"><h6>{{order.shippingAddress}}</h6></div>
                         </div>
-                        <div class="product-card" *ngFor="let product of order.products">
-                            <div class="media-body my-auto text-right">
-                                <div class="row my-auto flex-column flex-md-row">
-                                    <div class="col align-self-center"><img class="img-thumbnail w-50 h-50"
-                                            [src]="product.image" [alt]="product.name"></div>
-                                    <div class="col my-auto">
-                                        <h6 class="mb-0">{{product.name}}</h6>
-                                    </div>
-                                    <div class="col my-auto">
-                                        <h6 class="mb-0">${{product.price}}</h6>
-                                    </div>
+                        <div class="col">
+                            <div class="row"><h6><strong>Payment Method</strong><br></h6></div>
+                            <div class="row"><h6>***** 4242</h6></div>
+                        </div>
+                       <div class="col">
+                        <h6><strong>Order Summary</strong></h6>
+                        <div class="row"><h6>Items(s) Subtotal:</h6></div>
+                        <div class="row"><h6>Shipping & Handling:</h6></div>
+                        <div class="row"><h6><strong>Grand Total:</strong></h6></div>
+                       </div>
+                       
+                       <div class="col">
+                        <div class="row"><h6>/</h6></div>
+                        <div class="row"><h6>${{order.amount}}</h6></div>
+                        <div class="row"><h6>$0.00</h6></div>
+                        <div class="row"><h6><strong>${{order.amount}}</strong></h6></div>
+                       </div> 
+                    </div>
+                    
+                    <hr>
+                    <h6><strong>Order Status</strong></h6>
+                    <p>Tracking Status on: (get today's date), Today</p>
+                    
+                </div>
+            </ng-template>
+
+            <div class="row">
+                <div class="col">
+                    <div class="sq align-self-center"><h5><strong>{{order.status ? "Shipped" : "In Transit" }}</strong></h5></div>
+                    <div class="product-card" *ngFor="let product of order.products">
+                        <div class="media-body my-auto text-right">
+                            <div class="row my-auto flex-column flex-md-row">
+                                <div class="col align-self-center"><img class="img-thumbnail w-50 h-50"
+                                    [src]="product.image" [alt]="product.name"></div>
+                                <div class="col my-auto">
+                                    <div class="row my-auto"><h6 class="mb-0">{{product.name}}</h6></div>
+                                    <div class="row my-auto"><h6 class="mb-0">${{product.price}}</h6></div>
+                                </div>
+                                <div class="col my-auto flex-column">
+                                    <button class="btn btn-outline-dark btn-block"(click)="open(content)">Write a review</button>
+                                    <button class="btn btn-outline-warning btn-block"(click)="open(content)">Buy it again</button>
                                 </div>
                             </div>
-
-                            <hr>
                         </div>
-                        <div class="col my-auto vstack">
-                            <div style=" padding: 10px;">Shipping Address: <br>{{order.shippingAddress}}</div>
-                        </div>
+                        <hr>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

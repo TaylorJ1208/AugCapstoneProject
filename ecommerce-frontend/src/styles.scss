@@ -43,5 +43,10 @@ html {
     .table {
         overflow-y: scroll;
     }
+
+    .btn-rounded:hover {
+        color: #5bc0de;
+        transition: 0.1s;
+    }
 }
 

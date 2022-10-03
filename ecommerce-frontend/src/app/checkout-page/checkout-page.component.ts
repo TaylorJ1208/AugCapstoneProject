@@ -194,7 +194,8 @@ export class CheckoutPageComponent implements OnInit {
     });
 
     console.log(this.finalCart);
-    let dateString = new Date('2022-08-30T00:00:00');
+    let dateString = new Date();
+    console.log(dateString);
     let orderData: any;
     this.oktaAuthService.getUser().then((user) => {
        this.userService.getUserByOktaId(user.sub).subscribe((data) => {

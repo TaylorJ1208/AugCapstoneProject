@@ -28,6 +28,7 @@ import { UpdateCatalogComponent } from './update-catalog/update-catalog.componen
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector)=>{
@@ -67,7 +68,8 @@ const oktaConfig = Object.assign({
     OktaAuthModule,
     HttpClientModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2SearchPipeModule
   ],
   providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent],
