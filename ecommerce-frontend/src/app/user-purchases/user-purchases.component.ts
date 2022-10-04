@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OktaAuthService } from '@okta/okta-angular';
 import { Orders } from '../Models/orders';
+import { Product } from '../Models/product';
+import { CartService } from '../services/cart-service/cart.service';
+import { CartItem } from '../Models/cart-item';
 import { OrdersService } from '../services/orders-service/orders.service';
 
 @Component({
@@ -13,7 +16,8 @@ import { OrdersService } from '../services/orders-service/orders.service';
   export class UserPurchasesComponent implements OnInit {
     orders: Orders[] = [];
     
-  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService, private modalService: NgbModal) { }
+  constructor(private ordersService: OrdersService, private oktaAuthService: OktaAuthService, 
+               private modalService: NgbModal, private cartService: CartService) { }
   searchWord: any ="";
   todayDate = new Date().toDateString();
 
@@ -35,6 +39,10 @@ import { OrdersService } from '../services/orders-service/orders.service';
   
   open(content:any){
     this.modalService.open(content, {size: 'lg'});
+  }
+    addToCart(theProduct: Product) {
+    const theCartItem = new CartItem(theProduct);
+    this.cartService.addToCart(theCartItem);
   }
     
   }
