@@ -115,10 +115,10 @@ public class EmailService {
 				+ "width: fit-content; text-align: center; border-radius: 5em'>"
 				+ "<h1>Hello " + product.getVendors().getName() + "</h1>"
 				+ "<h2 style='font-weight:lighter'>Stock on the product you supply is currently running low or out of stock. "
-				+ "Product details: \n"
-				+"\n Name: "+product.getName()
-				+"\n Price: "+product.getPrice() 
-				+ "\n Please ship " + amount + " units.<h2>" + "</div><img src='" + this.imageURL
+				+ "<br>Product details: <br>"
+				+"<br> Name: "+product.getName()
+				+"<br> Price: "+product.getPrice() 
+				+ "<br> Please ship " + amount + " units.<h2>" + "</div><img src='" + this.imageURL
 				+ "' alternate='Image'" + "style='width:40em; height:40em; border-radius:5em'>" + "</body>" + "</html>", true);
 
 		System.out.println("Sending email to " + product.getVendors().getName()+" at " +product.getVendors().getEmail()+" .\n Product details:"

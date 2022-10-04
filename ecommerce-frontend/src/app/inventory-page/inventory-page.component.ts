@@ -37,7 +37,7 @@ export class InventoryPageComponent implements OnInit {
   requestPopupProductId = 0;
   requestDeletePopupId=0;
   requestQuantity=1;
-  stockRequested=false;
+  stockRequested:any;
 
   currentProduct:any;
   currentVendor:any;
@@ -157,24 +157,22 @@ export class InventoryPageComponent implements OnInit {
 
   @ViewChild('btnCloseVendorAddedAlert') btnCloseVendorAddedAlert!:ElementRef;
   @ViewChild('btnCloseStockRequestedAlert') btnCloseStockRequestedAlert!:ElementRef;
-  closeAlert(i:string){
-    if(i == "VendorAddedAlert"){
-      if(this.vendorAdded){
+  closeAlert(i:any){
+    
       setTimeout(()=>{
+        if(i == "VendorAddedAlert"){
+          if(!this.vendorAdded){
         this.btnCloseVendorAddedAlert.nativeElement.click();
+          }
+        }
+        else if(i == "StockRequestedAlert"){
+          if(!this.stockRequested){
+        this.btnCloseStockRequestedAlert.nativeElement.click();
+          }
+        }
       },2000)
-    }
     }
 
-    if(i == "StockRequestedAlert"){
-      if(this.stockRequested){
-      setTimeout(()=>{
-        this.btnCloseStockRequestedAlert.nativeElement.click();
-      },2000)
-    }
-  }
-    
-  }
 
 
   sendRabbitMQMessage(product:any){
@@ -192,7 +190,7 @@ export class InventoryPageComponent implements OnInit {
     .subscribe({next:(m)=>
     {
       console.log("Stock Requested.");
-      this.stockRequested = true;
+      this.stockRequested = product;
       this.requestPopupProductId = 0;
       this.ngOnInit();
       this.spinner.hide();

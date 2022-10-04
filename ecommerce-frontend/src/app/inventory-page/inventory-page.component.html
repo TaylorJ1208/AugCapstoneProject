@@ -106,7 +106,7 @@
     
     
     <div *ngIf="requestStockMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
-        <div class="main bg-light text-center">
+        <div class="main bg-light text-center" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 10%);">
         
             <div class="container m-2">
                 <h2>Request Stock</h2>
@@ -127,14 +127,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products" class="table-light">
+                    <tr *ngFor="let product of products" style="--mdb-table-striped-bg: #bdbdbd33">
                         <td>{{product.productId}}</td>
                         <td>{{product.name}}</td>
                         <td>${{product.price}}</td>
                         <td>{{product.quantity}}</td>
                         <td>{{product.vendors.name}}</td>
                         <td>
-                            <button class="btn btn-danger btn-block" style="background-color: #f93154;"
+                            <button class="btn btn-primary btn-block" style="background-color: #39c0ed;"
                                 (click)="requestPopupProductId = product.productId;">Request</button>
                         </td>
                         <div class="overlay" *ngIf="requestPopupProductId == product.productId">
@@ -146,18 +146,18 @@
                             <input type="text" class="form-control text-center" id="rquantity" required
                                         name="rquantity" placeholder="Quantity" [(ngModel)]="requestQuantity"
                                         #rquantity="ngModel" />
-                                <a class="btn btn-danger btn-block close"
+                                <a class="btn btn-info btn-block close"
                                     (click)="requestStock(product); closeAlert('StockRequestedAlert');">Request</a>
-                                <a class="btn btn-outline-danger btn-block close" (click)="requestPopupProductId = 0">Cancel</a>
+                                <a class="btn btn-outline-info btn-block close" (click)="requestPopupProductId = 0">Cancel</a>
                             </div>
                         </div>
     
                         <div *ngIf="stockRequested" id="stockRequestedAlert" class="overlay alert-dismissible fade show"
                         role="stockRequestedAlert">
                         <div class="popup">
-                        Requested {{requestQuantity}} units of {{product.name}} from vendor '{{product.vendors.name}}'.
+                        Requested {{requestQuantity}} units of {{stockRequested.name}} from vendor '{{stockRequested.vendors.name}}'.
                         <button #btnCloseStockRequestedAlert type="button" class="close" data-dismiss="stockRequestedAlert"
-                            aria-label="Close" (click)="stockRequested = false;">
+                            aria-label="Close" (click)="stockRequested = null;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
@@ -172,7 +172,7 @@
     
         <!--Track Requests-->
         <div *ngIf="showTrackRequestsMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
-            <div class="main bg-light text-center">
+            <div class="main bg-light text-center" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 10%);">
             
                 <div class="container m-2">
                     <h2>Sent Requests</h2>
@@ -196,7 +196,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let request of vendorRequests">
+                        <tr *ngFor="let request of vendorRequests" style="--mdb-table-striped-bg: #bdbdbd33">
                             <td>{{request.id}}</td>
                             <td>{{request.product.productId}}</td>
                             <td>{{request.product.name}}</td>
@@ -218,7 +218,7 @@
                                 </div>
     
                             </td>
-                            <td><button class="btn btn-danger btn-block" style="background-color: #f93154;"
+                            <td><button class="btn btn-danger btn-block" style="background-color: #39c0ed;"
                                 (click)="requestDeletePopupId = request.id; deleteRequest(request.id);">Delete</button></td>
                         </tr>
                     </tbody>

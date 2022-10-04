@@ -45,7 +45,7 @@ public class RestockController {
 	public void restockMessage(@PathVariable Long id) throws InterruptedException {
 		Product product = productService.getProductById(id);
 		String send = "The product " + product.getName().toUpperCase() + " (Product Id : " + product.getProductId()
-		+ ") has only " + product.getQuantity() + " units left in stock. Requesting "+(10)+" more units from "
+		+ ") has only " + product.getQuantity() + " units left in stock. Requesting "+(5)+" more units from "
 		+ product.getVendors().getName().toUpperCase()+".";
 		String[] arr = {send, id.toString()};
 		
@@ -67,8 +67,8 @@ public class RestockController {
 	 public void requestVendorRestock(Long id) {
 		 Product product = this.productService.getProductById(id);
 		 try {
-			 this.emailService.sendVendorEmail(product.getVendors().getEmail(), product, 10 - (int)product.getQuantity());
-			 VendorRequest vendorRequest = new VendorRequest(0, product, 10, LocalDateTime.now(ZoneId.of("America/Toronto")) ,product.getVendors(),"Sent");
+			 this.emailService.sendVendorEmail(product.getVendors().getEmail(), product, 5);
+			 VendorRequest vendorRequest = new VendorRequest(0, product, 5, LocalDateTime.now(ZoneId.of("America/Toronto")) ,product.getVendors(),"Sent");
 			 int reqId = this.venderRequestService.addVenderRequest(vendorRequest);
 			 this.receiveVendorRequest(reqId, product);	 
 		 }
@@ -85,6 +85,4 @@ public class RestockController {
 		 product.setQuantity(product.getQuantity()+vendorRequest.getQuantityrequested());
 		 productService.updateProduct(product);	 
 	 }
-
 }
-
