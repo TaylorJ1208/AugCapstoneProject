@@ -72,27 +72,58 @@
             </div>
         </div>
         <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
-            <div class="card m-2" style="width: 18em;" *ngFor="let product of products">
+            <div class="card m-2 d-flex" style="width: 18em;" *ngFor="let product of products;">
                 <h5 *ngIf="product.quantity <= 10 && product.quantity > 0" class="bg-info text-dark">Only
                     <span class="text-white">{{ product.quantity }}</span> left!
                 </h5>
-                <img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
-                    [src]="product.image" alt="Card image cap">
+                <img class="card-img-top h-75" style="border-radius: 15px; width: auto; height: auto;" [src]="product.image" alt="Card image cap">
+    
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <h5 class="card-subtitle">${{ product.price }}</h5><br>
+                    <div class="d-flex flex-nowrap">
+                        <div>
+                            <ul>
+                                <li class="w-100" *ngIf="product.rating == 1">
+                                    <em *ngFor="let _ of [].constructor(1)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(4)" class="fa-regular fa-star"></em>
+                                </li>
+                                <li class="w-100" *ngIf="product.rating == 2">
+                                    <em *ngFor="let _ of [].constructor(2)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(3)" class="fa-regular fa-star"></em>
+                                </li>
+                                <li class="w-100" *ngIf="product.rating == 3">
+                                    <em *ngFor="let _ of [].constructor(3)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(2)" class="fa-regular fa-star"></em>
+                                </li>
+                                <li class="w-100" *ngIf="product.rating == 4">
+                                    <em *ngFor="let _ of [].constructor(4)" class="fa-solid fa-star"></em>
+                                    <em *ngFor="let _ of [].constructor(1)" class="fa-regular fa-star"></em>
+                                </li>
+                                <li class="w-100" *ngIf="product.rating == 5">
+                                    <em *ngFor="let _ of [].constructor(5)" class="fa-solid fa-star"></em>
+                                </li>
+                            </ul>
+    
+                        </div>
+                        <a class="text-info special-a" style="padding-left: 0.5em">{{
+                            getReviewCount(product.productId)
+                            }}</a>
+                    </div>
+                    <br>
                     <p class="card-text" style="text-overflow: ellipses;">{{ product.description }}</p>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center"
                     style="margin-bottom: 5em; margin-top: 0; padding-top: 0;">
-                    <button class="btn btn-primary m-2" style="float: right;" [hidden]="!(product.quantity <= 0)"
-                        disabled>Out of
+                    <button class="btn btn-info m-2" style="float: right;" [hidden]="!(product.quantity <= 0)" disabled>Out
+                        of
                         Stock</button>
-                    <button class="btn btn-primary m-2" (click)="addToCart(product)" style="float: right;"
+                    <button (click)="addToCart(product)" class="btn btn-info m-2" style="float: right;"
                         [hidden]="!(product.quantity > 0)">Add
                         To
                         Cart</button>
+                    <h5 class="card-subtitle pt-2">${{ product.price }}</h5><br>
                 </div>
+    
             </div>
         </div>
     </div>
