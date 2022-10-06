@@ -18,6 +18,7 @@ export class UpdateCatalogComponent implements OnInit {
   categories: Category[] = [];
   vendors:Vendor[]=[];
 
+  searchProduct=""
   showProductMode = false;
   editProductMode = false;
   addProductMode = false;

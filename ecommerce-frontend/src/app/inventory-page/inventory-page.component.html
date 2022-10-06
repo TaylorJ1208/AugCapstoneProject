@@ -6,11 +6,23 @@
             <button class="btn btn-info btn-lg btn-block" (click)="addVendorMode = true; newAdd()">Add New Vendor</button>
         
         </div>
+        <div class="container m-2" style="min-width: 700px;">
+            
+            <div class="input-group rounded justify-content-center ">
+                <div class="form-outline rounded" style="width: 90%;">
+                    <input style="background-color: #ededed; border-width:1em;" type="search" id="form1"class="form-control" [(ngModel)]="searchProduct" autocomplete="off"/>
+                    <label for="form1" class="form-label">Search Vendor</label>
+                </div>
+                <button class="btn btn-info">
+                    <em class="fas fa-search"></em>
+                </button>
+            </div>
+        </div>
     
     
         <div *ngIf="!addVendorMode" class="container-fluid p-2 d-flex flex-wrap justify-content-center">
     
-            <div class="card m-2" style="width: 18em;" *ngFor="let vendor of vendors">
+            <div class="card m-2" style="width: 18em;" *ngFor="let vendor of vendors | filter:searchProduct">
     
                 <div class="card-body text-center">
                     <h2 style="text-transform:uppercase" class="card-subtitle">{{ vendor.name }}</h2><br>
@@ -108,10 +120,24 @@
     <div *ngIf="requestStockMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
         <div class="main bg-light text-center" style="box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 10%);">
         
-            <div class="container m-2">
+            <div class="container m-2 justify-content-center">
+                
+                <div class="col-auto">
                 <h2>Request Stock</h2>
+                </div>
+            <div class="col-auto">
+                <div class="input-group rounded justify-content-center ">
+                    <div class="form-outline rounded" style="width: 90%;">
+                        <input style="background-color: #ededed; border-width:1em;" type="search" id="form1"class="form-control" [(ngModel)]="searchProduct" autocomplete="off"/>
+                        <label for="form1" class="form-label">Search Product</label>
+                    </div>
+                    <button class="btn btn-info">
+                        <em class="fas fa-search"></em>
+                    </button>
+                </div>
             </div>
-        
+
+            </div>
         
             <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
     
@@ -127,7 +153,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products" style="--mdb-table-striped-bg: #bdbdbd33">
+                    <tr *ngFor="let product of products | filter:searchProduct" style="--mdb-table-striped-bg: #bdbdbd33">
                         <td>{{product.productId}}</td>
                         <td>{{product.name}}</td>
                         <td>${{product.price}}</td>
@@ -176,7 +202,17 @@
             
                 <div class="container m-2">
                     <h2>Sent Requests</h2>
+                    <div class="input-group rounded justify-content-center ">
+                        <div class="form-outline rounded" style="width: 90%;">
+                            <input style="background-color: #ededed; border-width:1em;" type="search" id="form1"class="form-control" [(ngModel)]="searchProduct" autocomplete="off"/>
+                            <label for="form1" class="form-label">Search By Product</label>
+                        </div>
+                        <button class="btn btn-info">
+                            <em class="fas fa-search"></em>
+                        </button>
+                    </div>
                 </div>
+
             
             
                 <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
@@ -196,7 +232,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let request of vendorRequests" style="--mdb-table-striped-bg: #bdbdbd33">
+                        <tr *ngFor="let request of vendorRequests | filter:searchProduct" style="--mdb-table-striped-bg: #bdbdbd33">
                             <td>{{request.id}}</td>
                             <td>{{request.product.productId}}</td>
                             <td>{{request.product.name}}</td>

@@ -1,16 +1,28 @@
 <div *ngIf="showProductMode" class="navbar m-1 bg-white justify-content-center align-items-center container-fluid border h-100">
     <div *ngIf="!editProductMode && !addProductMode" class="main bg-white">
 
-        <div class="container m-2">
+        <div class="container m-3">
 
 
             <button class="btn btn-info btn-lg btn-block" (click)="showAddProductMode(); newAdd()">Add New Product</button>
 
         </div>
+        
+        <div class="container m-3">
+            <div class="input-group rounded justify-content-center ">
+                <div class="form-outline rounded" style="width: 90%;">
+                    <input style="background-color: #ededed; border-width:1px;" type="search" id="form1"class="form-control" [(ngModel)]="searchProduct" autocomplete="off"/>
+                    <label for="form1" class="form-label">Search Product</label>
+                </div>
+                <button class="btn btn-info">
+                    <em class="fas fa-search"></em>
+                </button>
+            </div>
+        </div>
 
         <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
 
-            <div class="card m-2" style="width: 15em;" *ngFor="let product of products">
+            <div class="card m-2" style="width: 15em;" *ngFor="let product of products | filter:searchProduct">
                 <img class="card-img-top h-50" style="border-radius: 15px; width: auto; height: auto;"
                     [src]="product.image" alt="Card image cap">
                 <div class="card-body">
@@ -428,9 +440,22 @@
 
         </div>
 
+        <div class="container m-2" style="min-width: 700px;">
+            
+            <div class="input-group rounded justify-content-center ">
+                <div class="form-outline rounded" style="width: 90%;">
+                    <input style="background-color: #ededed; border-width:1em;" type="search" id="form1"class="form-control" [(ngModel)]="searchProduct" autocomplete="off"/>
+                    <label for="form1" class="form-label">Search Category</label>
+                </div>
+                <button class="btn btn-info">
+                    <em class="fas fa-search"></em>
+                </button>
+            </div>
+        </div>
+
         <div class="container-fluid p-2 d-flex flex-wrap justify-content-center">
 
-            <div class="card m-2" style="width: 18em;" *ngFor="let category of categories">
+            <div class="card m-2" style="width: 18em;" *ngFor="let category of categories | filter:searchProduct">
 
                 <div class="card-body text-center">
                     <h2 style="text-transform:uppercase" class="card-subtitle">{{ category.category }}</h2><br>
@@ -482,7 +507,7 @@
                 <div class="card-body text-center">
                     <h2 style="text-transform:uppercase" class="card-subtitle">New Category</h2><br>
 
-                    <form class="form" role="form" autocomplete="off" aria-label="categoryName">
+                    <form class="form" role="form" autocomplete="off" aria-labe="categoryName">
 
                         <div class="form-group">
                             <input type="text" class="form-control text-center" id="categoryname" required

@@ -38,6 +38,7 @@ export class InventoryPageComponent implements OnInit {
   requestDeletePopupId=0;
   requestQuantity=1;
   stockRequested:any;
+  searchProduct="";
 
   currentProduct:any;
   currentVendor:any;
